@@ -14,11 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
         <activity android:name=".calendar.CalendarWeekActivity" />
         <activity android:name=".calendar.CalendarDayActivity" />
         <activity android:name=".db.DBTestActivity" />
-=======
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -32,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
->>>>>>> all clients view created (no database field yet, no button functionality)
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,15 +37,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity android:name=".calendar.CalendarMonthActivity" />
-=======
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
->>>>>>> all clients view created (no database field yet, no button functionality)
-    </application>
+</application>
 
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
