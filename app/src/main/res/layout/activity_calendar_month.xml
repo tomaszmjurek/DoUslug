@@ -13,19 +13,23 @@
         android:layout_marginTop="40dp"
         android:orientation="vertical">
 
-        <View
+        <Button
             android:id="@+id/back_button"
-            android:layout_width="18dp"
-            android:layout_height="38dp"
-            android:layout_alignParentLeft="true"
+            android:background="@drawable/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="28dp" />
+            android:layout_marginTop="28dp"/>
 
         <CalendarView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"/>
 
         <Button
             android:id="@+id/add_visit_button"
@@ -35,7 +39,17 @@
             android:layout_marginTop="40dp"
             android:textColor="@color/buttonTextColor"
             android:text="@string/dodaj_wizyte"
-            android:background="@drawable/wide_button"/>
+            android:background="@drawable/orange_button_background"/>
+
+        <Button
+            android:id="@+id/show_visits_button"
+            android:layout_width="320dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/wyswietl_wizyty"
+            android:background="@drawable/white_button_background"/>
 
     </LinearLayout>
 
