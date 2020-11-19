@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".calendar.CalendarMonthActivity">
+    tools:context=".calendar.CalendarDayActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,11 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:textSize="20dp"
-            android:text="Wyświetl:"
-            android:textColor="@android:color/black"
-            android:visibility="invisible"/>
+            android:text="Wtorek, 12 października 2020"
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/calendar_type_button"
@@ -86,17 +85,11 @@
 
         </RelativeLayout>
 
-        <CalendarView
-            android:id="@+id/calendar_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
 
         <TextView
-            android:id="@+id/empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="400dp"/>
 
         <Button
             android:id="@+id/add_visit_button"
@@ -107,16 +100,6 @@
             android:textColor="@color/buttonTextColor"
             android:text="@string/dodaj_wizyte"
             android:background="@drawable/orange_button_background"/>
-
-        <Button
-            android:id="@+id/show_visits_button"
-            android:layout_width="320dp"
-            android:layout_height="43dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/wyswietl_wizyty"
-            android:background="@drawable/white_button_background"/>
 
 
     </LinearLayout>
