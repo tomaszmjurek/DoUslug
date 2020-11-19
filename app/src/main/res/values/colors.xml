@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <color name="colorPrimary">#E9662F</color>
     <color name="colorPrimaryDark">#CF4C14</color>
     <color name="colorAccent">#E9662F</color>
     <color name="buttonTextColor">#FFFFFF</color>
+=======
+    <color name="colorPrimary">#F24E1E</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+>>>>>>> main_activity
 </resources>
