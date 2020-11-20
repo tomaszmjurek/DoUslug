@@ -24,4 +24,4 @@ Branche develop i master mają włączoną ochronę przed pushowaniem tzn. dzia�
     1. Piszemy do tego ktosia (może dodatkowy kanał na disco?)
     1. Ten ktoś zatwierdza nam albo pisze co warto poprawić
     Jak poprawiamy to lokalnie, potem push i w pull requeście się odświeżą zmiany
-    1. Na koniec scalamy.
+    1. Na koniec scalamy
