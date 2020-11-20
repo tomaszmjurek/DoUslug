@@ -92,18 +92,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
 
-        <TextView
-            android:id="@+id/empty_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/add_visit_button"
             android:layout_width="320dp"
             android:layout_height="43dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
             android:textColor="@color/buttonTextColor"
             android:text="@string/dodaj_wizyte"
             android:background="@drawable/orange_button_background"/>
@@ -112,12 +116,10 @@
             android:id="@+id/show_visits_button"
             android:layout_width="320dp"
             android:layout_height="43dp"
-            android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:textColor="@color/colorPrimary"
             android:text="@string/wyswietl_wizyty"
             android:background="@drawable/white_button_background"/>
-
 
     </LinearLayout>
 
