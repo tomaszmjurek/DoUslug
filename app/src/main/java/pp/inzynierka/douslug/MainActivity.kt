@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
 
         val adapter = VisitListView(this, titles, dates, notes)
-        val list = findViewById<View>(R.id.upcomingVisitsList) as ListView
-        list.adapter = adapter
+        upcomingVisitsList.adapter = adapter
     }
 }
