@@ -4,20 +4,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_calendar_day.*
-import kotlinx.android.synthetic.main.activity_calendar_month.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 
-class CalendarDayActivity : AppCompatActivity() {
+class CalendarWeekActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_calendar_day)
+        setContentView(R.layout.activity_calendar_week)
 
         calendar_type_button.setOnClickListener { showCalendarChange() }
-        day_button.setOnClickListener { showCalendarChange() }
-        week_button.setOnClickListener { openCalendarWeekActivity() }
+        day_button.setOnClickListener { openCalendarDayActivity() }
+        week_button.setOnClickListener { showCalendarChange() }
         month_button.setOnClickListener { openCalendarMonthActivity() }
         back_button.setOnClickListener { onBackPressed() }
     }
@@ -32,13 +30,13 @@ class CalendarDayActivity : AppCompatActivity() {
         }
     }
 
-    private fun openCalendarMonthActivity() {
-        val intent = Intent(this@CalendarDayActivity, CalendarMonthActivity::class.java)
+    private fun openCalendarDayActivity() {
+        val intent = Intent(this@CalendarWeekActivity, CalendarDayActivity::class.java)
         startActivity(intent)
     }
 
-    private fun openCalendarWeekActivity() {
-        val intent = Intent(this@CalendarDayActivity, CalendarWeekActivity::class.java)
+    private fun openCalendarMonthActivity() {
+        val intent = Intent(this@CalendarWeekActivity, CalendarMonthActivity::class.java)
         startActivity(intent)
     }
 }

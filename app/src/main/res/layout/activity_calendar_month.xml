@@ -6,39 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".calendar.CalendarMonthActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
-        <Button
-            android:id="@+id/back_button"
-            android:background="@drawable/back_button"
-            android:layout_alignParentLeft="true"
-            android:layout_width="42dp"
-            android:layout_height="42dp"/>
-
-        <TextView
-            android:id="@+id/calendar_type_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:textSize="20dp"
-            android:text="Wyświetl:"
-            android:textColor="@android:color/black"
-            android:visibility="invisible"/>
-
-        <Button
-            android:id="@+id/calendar_type_button"
-            android:background="@drawable/calendar_type_button"
-            android:layout_width="42dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="42dp"/>
-    </RelativeLayout>
-
+    <include layout="@layout/calendar_top_layout"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,44 +15,7 @@
         android:layout_marginTop="40dp"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/calendar_type_layout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/day_button"
-                android:layout_width="100dp"
-                android:layout_height="43dp"
-                android:layout_alignParentLeft="true"
-                android:textColor="@color/buttonTextColor"
-                android:text="dzień"
-                android:background="@drawable/orange_button_background"/>
-
-            <Button
-                android:id="@+id/week_button"
-                android:layout_centerHorizontal="true"
-                android:layout_width="100dp"
-                android:layout_height="43dp"
-                android:textColor="@color/buttonTextColor"
-                android:text="TYDZIEń"
-                android:background="@drawable/orange_button_background"/>
-
-            <Button
-                android:id="@+id/month_button"
-                android:layout_alignParentRight="true"
-                android:layout_width="100dp"
-                android:layout_height="43dp"
-                android:textColor="@color/buttonTextColor"
-                android:text="MIESIĄC"
-                android:background="@drawable/orange_button_background"/>
-
-        </RelativeLayout>
+        <include layout="@layout/change_calendar_type"/>
 
         <CalendarView
             android:id="@+id/calendar_view"
@@ -103,7 +34,7 @@
         android:orientation="vertical"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
-
+        
         <Button
             android:id="@+id/add_visit_button"
             android:layout_width="320dp"

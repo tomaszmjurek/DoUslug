@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_calendar_month.*
+import kotlinx.android.synthetic.main.calendar_top_layout.*
+import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 
 
@@ -17,7 +19,8 @@ class CalendarMonthActivity : AppCompatActivity() {
         calendar_type_button.setOnClickListener { showCalendarChange() }
         back_button.setOnClickListener { onBackPressed() }
         day_button.setOnClickListener { openCalendarDayActivity() }
-//        week_button.setOnClickListener { openWeekDayActivity() }
+        week_button.setOnClickListener { openCalendarWeekActivity() }
+        month_button.setOnClickListener { showCalendarChange() }
 
         calendar_view.setOnDateChangeListener { view, year, month, dayOfMonth ->
             Toast.makeText(
@@ -43,5 +46,9 @@ class CalendarMonthActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun openCalendarWeekActivity() {
+        val intent = Intent(this@CalendarMonthActivity, CalendarWeekActivity::class.java)
+        startActivity(intent)
+    }
 
 }
