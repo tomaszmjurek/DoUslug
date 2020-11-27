@@ -1,5 +1,6 @@
 package pp.inzynierka.douslug
 
+import android.content.Intent
 import android.view.Window
 
 import android.os.Bundle
@@ -31,5 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = VisitListView(this, titles, dates, notes)
         upcomingVisitsList.adapter = adapter
+
+        imageButton.setOnClickListener{ openCalendarView() }
     }
+
+    private fun openCalendarView() {
+        val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
+        startActivity(intent)
+}
 }
