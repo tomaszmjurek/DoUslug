@@ -2,7 +2,6 @@ package pp.inzynierka.douslug
 
 import android.content.Intent
 import android.view.Window
-
 import android.os.Bundle
 import android.view.View
 import android.widget.ListView
@@ -39,5 +38,5 @@ class MainActivity : AppCompatActivity() {
     private fun openCalendarView() {
         val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
         startActivity(intent)
-}
+    }
 }
