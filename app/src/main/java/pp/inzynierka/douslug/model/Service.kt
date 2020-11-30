@@ -3,10 +3,10 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey
 import org.bson.types.ObjectId;
 
-open class service(
+open class Service(
     @PrimaryKey var _id: ObjectId = ObjectId(),
     var duration_min: Long = 0,
     var name: String = "",
     var price: Double = 0.0,
-    var user_id: user? = null
+    var user_id: User? = null
 ): RealmObject() {}

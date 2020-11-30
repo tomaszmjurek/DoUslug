@@ -3,7 +3,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey
 import org.bson.types.ObjectId;
 
-open class user(
+open class User(
     @PrimaryKey var _id: ObjectId = ObjectId(),
     var default_calendar: Long = 0,
     var email: String = "",

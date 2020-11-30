@@ -8,7 +8,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
-
+import pp.inzynierka.douslug.db.DBTestActivity
+import pp.inzynierka.douslug.db.DatabaseManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openCalendarView() {
-        val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
+//        val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
+//        var intent = Intent(this@MainActivity, DatabaseManager::class.java)
+//        startActivity(intent)
+        intent = Intent(this@MainActivity, DBTestActivity::class.java)
         startActivity(intent)
     }
 }
