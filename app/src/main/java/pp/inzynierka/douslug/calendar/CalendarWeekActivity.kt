@@ -1,14 +1,18 @@
 package pp.inzynierka.douslug.calendar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_calendar_week.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 
+
 class CalendarWeekActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_week)
@@ -18,6 +22,11 @@ class CalendarWeekActivity : AppCompatActivity() {
         week_button.setOnClickListener { showCalendarChange() }
         month_button.setOnClickListener { openCalendarMonthActivity() }
         back_button.setOnClickListener { onBackPressed() }
+
+        var listItems = listOf<String>("element1", "element2", "element3")
+
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems)
+        mondayListView.adapter = adapter
     }
 
     private fun showCalendarChange() {

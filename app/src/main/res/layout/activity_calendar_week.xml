@@ -17,6 +17,21 @@
 
         <include layout="@layout/change_calendar_type"/>
 
+        <include layout="@layout/calendar_week_element"/>
+
+        <ListView
+            android:id="@+id/mondayListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include layout="@layout/calendar_week_element"/>
+
+        <ListView
+            android:id="@+id/tuesdayListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
