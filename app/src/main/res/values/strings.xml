@@ -6,4 +6,8 @@
     <string name="all_visits">Wszystkie Wizyty</string>
     <string name="calendar">Kalendarz</string>
     <string name="clients">Klienci</string>
+    <string name="home_screen">Ekran główny</string>
+    <string name="services">Usługi</string>
+    <string name="finances">Finanse</string>
+    <string name="settings">Ustawienia</string>
 </resources>

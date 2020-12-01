@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/drawer_menu_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="32dp"
+            android:background="#00FFFFFF"
+            android:foregroundGravity="right"
+            android:padding="16dp"
+            android:scaleType="fitEnd"
+            app:srcCompat="@drawable/drawer_menu_button_x" />
+
+        <Button
+            android:id="@+id/drawer_menu_home_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/drawer_menu_button_background"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="24dp"
+            android:text="@string/home_screen"
+            android:textAllCaps="false"
+            android:textColor="@color/buttonTextColor"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/drawer_menu_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/drawer_menu_button_background"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="24dp"
+            android:text="@string/calendar"
+            android:textAllCaps="false"
+            android:textColor="@color/buttonTextColor"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/drawer_menu_clients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/drawer_menu_button_background"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="24dp"
+            android:text="@string/clients"
+            android:textAllCaps="false"
+            android:textColor="@color/buttonTextColor"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/drawer_menu_services"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/drawer_menu_button_background"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="24dp"
+            android:text="@string/services"
+            android:textAllCaps="false"
+            android:textColor="@color/buttonTextColor"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/drawer_menu_finances"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/drawer_menu_button_background"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="24dp"
+            android:text="@string/finances"
+            android:textAllCaps="false"
+            android:textColor="@color/buttonTextColor"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/drawer_menu_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/drawer_menu_button_background"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="24dp"
+            android:text="@string/settings"
+            android:textAllCaps="false"
+            android:textColor="@color/buttonTextColor"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+</ScrollView>

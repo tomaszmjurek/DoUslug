@@ -5,6 +5,7 @@ import android.view.Window
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.right_drawer_menu.*
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
 import pp.inzynierka.douslug.db.DBTestActivity
 
@@ -26,11 +27,18 @@ class MainActivity : AppCompatActivity() {
         this@MainActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main)
 
+        imageView.setOnClickListener {
+            toggleRightDrawer()
+        }
 
         val adapter = VisitListView(this, titles, dates, notes)
         upcomingVisitsList.adapter = adapter
 
         imageButton.setOnClickListener{ openCalendarView() }
+
+        drawer_menu_close.setOnClickListener{ drawerLayout.closeDrawer(rightDrawerMenu) }
+        drawer_menu_calendar.setOnClickListener { openCalendarView() }
+
     }
 
     private fun openCalendarView() {
@@ -38,5 +46,13 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this@MainActivity, DBTestActivity::class.java)
 
         startActivity(intent)
+    }
+
+    private fun toggleRightDrawer() {
+        if (drawerLayout.isDrawerOpen(rightDrawerMenu)) {
+            drawerLayout.closeDrawer(rightDrawerMenu)
+        } else {
+            drawerLayout.openDrawer(rightDrawerMenu)
+        }
     }
 }
