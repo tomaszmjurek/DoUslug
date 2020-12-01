@@ -20,12 +20,15 @@ android {
 
     buildTypes {
         def appId = "douslug-gemff"  // Replace with proper Application ID
+        def mongodbRealmUrl = "https://realm.mongodb.com"
         debug {
+            buildConfigField "String", "MONGODB_REALM_URL", "\"${mongodbRealmUrl}\""
             buildConfigField "String", "MONGODB_REALM_APP_ID", "\"${appId}\""
         }
         release {
+            buildConfigField "String", "MONGODB_REALM_URL", "\"${mongodbRealmUrl}\""
             buildConfigField "String", "MONGODB_REALM_APP_ID", "\"${appId}\""
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

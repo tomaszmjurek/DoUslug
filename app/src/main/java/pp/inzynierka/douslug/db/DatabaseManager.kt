@@ -31,9 +31,9 @@ class DatabaseManager : Application() {
         Realm.init(this)
         realmApp = App(
             AppConfiguration.Builder(BuildConfig.MONGODB_REALM_APP_ID)
-//                .baseUrl(BuildConfig.MONGODB_REALM_APP_ID)
-//                .appName(BuildConfig.VERSION_NAME)
-//                .appVersion(BuildConfig.VERSION_CODE.toString())
+                .baseUrl(BuildConfig.MONGODB_REALM_URL)
+                .appName(BuildConfig.VERSION_NAME)
+                .appVersion(BuildConfig.VERSION_CODE.toString())
                 .build()
         )
 

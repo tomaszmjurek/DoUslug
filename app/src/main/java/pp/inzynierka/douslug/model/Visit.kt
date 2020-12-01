@@ -9,5 +9,5 @@ open class Visit(
     var client_id: Client? = null,
     var date: Date = Date(),
     var service_id: Service? = null,
-    var user_id: User? = null
+    var user_id: String = ""
 ): RealmObject() {}

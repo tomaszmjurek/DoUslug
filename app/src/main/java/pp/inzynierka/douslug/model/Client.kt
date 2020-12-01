@@ -10,5 +10,5 @@ open class Client(
     var first_name: String = "",
     var last_name: String = "",
     var phone_num: String = "",
-    var user_id: User? = null
+    var user_id: String = ""
 ): RealmObject() {}

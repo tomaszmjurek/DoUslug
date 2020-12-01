@@ -8,5 +8,5 @@ open class Service(
     var duration_min: Long = 0,
     var name: String = "",
     var price: Double = 0.0,
-    var user_id: User? = null
+    var user_id: String = ""
 ): RealmObject() {}
