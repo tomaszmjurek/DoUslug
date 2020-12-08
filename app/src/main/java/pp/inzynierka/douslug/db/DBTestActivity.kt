@@ -23,14 +23,13 @@ class DBTestActivity : AppCompatActivity() {
     private var TAG: String = "DB_TEST_ACTIVITY"
 
     private lateinit var result : RealmResults<Client>
-//    private
 
 
     override fun onStart() {
         super.onStart()
 
-        val credentials: Credentials = Credentials.anonymous()
-//            Credentials.apiKey("cOJH91AmPbUKlH8Z7UhwRze7YcdCBYJbTmFgZXqwtwChUlrJ0W5fZWAMRPXpza0r")
+        val credentials: Credentials = //Credentials.anonymous()
+            Credentials.apiKey("cOJH91AmPbUKlH8Z7UhwRze7YcdCBYJbTmFgZXqwtwChUlrJ0W5fZWAMRPXpza0r")
 
         realmApp.loginAsync(credentials) {
             if (it.isSuccess) {
@@ -55,7 +54,9 @@ class DBTestActivity : AppCompatActivity() {
                         // since this realm should live as long as this activity assign it to member variable
                         this@DBTestActivity.realm = realm
 
-                        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
+//                        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
+                        result = realm.where<Client>().findAllAsync()
+
 //                        val backgroundRealm = Realm.getDefaultInstance()
 ////                        var text :
 //                        backgroundRealm.executeTransactionAsync {
@@ -66,26 +67,13 @@ class DBTestActivity : AppCompatActivity() {
                 })
             }
 
-//                mongoClient = user.getMongoClient("mongodb+srv://full_db_user:svErN0MgTvrgCuWE8AZr@douslug-cluster.mmign.mongodb.net/DoUslugDB?retryWrites=true&w=majority")
-//                if (mongoClient != null) {
-//                    val mongoDatabase : MongoDatabase = mongoClient!!.getDatabase("DoUslugDB")//!!.getCollection("collection name")
-//                Log.v(TAG, "Successfully connected to the MongoDB instance.")
-//                textView.text = "Successfully connected to the MongoDB instance."
-//            } else {
-//                Log.e(TAG, "Error connecting to the MongoDB instance.")
-//            }
-//            } else {
-//                textView.text = "Error logging into the Realm app. Make sure that API KEY is correct."
-//                Log.e(TAG, "Error logging into the Realm app. Make sure that API KEY is correct.")
-
-
         }
 
-//        result.addChangeListener(callback)
+        button.setOnClickListener { updateClientView() }
     }
 
     private fun updateClientView() {
-
+        textView.text = result.toString()
     }
 
 
