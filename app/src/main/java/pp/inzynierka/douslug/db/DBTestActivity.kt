@@ -4,11 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import io.realm.OrderedRealmCollectionChangeListener
 import io.realm.Realm
+import io.realm.RealmResults
+import io.realm.kotlin.where
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
 import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.activity_d_b_test.*
 import pp.inzynierka.douslug.R
+import pp.inzynierka.douslug.model.Client
 
 class DBTestActivity : AppCompatActivity() {
     private lateinit var realm: Realm
@@ -17,15 +22,19 @@ class DBTestActivity : AppCompatActivity() {
     private lateinit var partition: String
     private var TAG: String = "DB_TEST_ACTIVITY"
 
+    private lateinit var result : RealmResults<Client>
+//    private
+
+
     override fun onStart() {
         super.onStart()
 
-        val credentials: Credentials =
-            Credentials.apiKey("cOJH91AmPbUKlH8Z7UhwRze7YcdCBYJbTmFgZXqwtwChUlrJ0W5fZWAMRPXpza0r")
+        val credentials: Credentials = Credentials.anonymous()
+//            Credentials.apiKey("cOJH91AmPbUKlH8Z7UhwRze7YcdCBYJbTmFgZXqwtwChUlrJ0W5fZWAMRPXpza0r")
 
         realmApp.loginAsync(credentials) {
             if (it.isSuccess) {
-                val user = realmApp.currentUser()
+                user = realmApp.currentUser()
                 Log.v(TAG, "realm user = $user")
 //                val partitionValue: String = "10001"
 //                partition = "10001"
@@ -45,10 +54,17 @@ class DBTestActivity : AppCompatActivity() {
                     override fun onSuccess(realm: Realm) {
                         // since this realm should live as long as this activity assign it to member variable
                         this@DBTestActivity.realm = realm
-                        readClients(realm)
+
+                        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
+//                        val backgroundRealm = Realm.getDefaultInstance()
+////                        var text :
+//                        backgroundRealm.executeTransactionAsync {
+//                            var text = readClients(it)
+//                        }
+//                        backgroundRealm.close()
                     }
                 })
-                }
+            }
 
 //                mongoClient = user.getMongoClient("mongodb+srv://full_db_user:svErN0MgTvrgCuWE8AZr@douslug-cluster.mmign.mongodb.net/DoUslugDB?retryWrites=true&w=majority")
 //                if (mongoClient != null) {
@@ -61,8 +77,18 @@ class DBTestActivity : AppCompatActivity() {
 //            } else {
 //                textView.text = "Error logging into the Realm app. Make sure that API KEY is correct."
 //                Log.e(TAG, "Error logging into the Realm app. Make sure that API KEY is correct.")
-            }
+
+
         }
+
+//        result.addChangeListener(callback)
+    }
+
+    private fun updateClientView() {
+
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,7 +121,12 @@ class DBTestActivity : AppCompatActivity() {
 //            }
 //        })
 
-    fun readClients(realm : Realm) {
+    fun readClients(realm : Realm) : RealmResults<Client> {
+//        val query = realm.where<Client.class>().findAll()
+//        val realmBack = Realm.getDefaultInstance()
+        var clients : RealmResults<Client> = realm.where<Client>().findAll()
+
+        return clients
 
 //        var query : RealmQuery<Client> = realm.where(Client).findAll()
 //
@@ -105,8 +136,6 @@ class DBTestActivity : AppCompatActivity() {
 //        for (i in clients.indices) {
 //            text.append(i)
 //        }
-
-//        textView.text = text
     }
 
     override fun onDestroy() {
