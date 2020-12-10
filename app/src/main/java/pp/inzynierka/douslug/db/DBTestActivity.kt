@@ -2,7 +2,9 @@ package pp.inzynierka.douslug.db
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.widget.Adapter
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.OrderedRealmCollectionChangeListener
 import io.realm.Realm
@@ -23,7 +25,7 @@ class DBTestActivity : AppCompatActivity() {
     private var TAG: String = "DB_TEST_ACTIVITY"
 
     private lateinit var result : RealmResults<Client>
-
+    private lateinit var clientList : ArrayList<Client>
 
     override fun onStart() {
         super.onStart()
@@ -54,15 +56,15 @@ class DBTestActivity : AppCompatActivity() {
                         // since this realm should live as long as this activity assign it to member variable
                         this@DBTestActivity.realm = realm
 
-//                        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
-                        result = realm.where<Client>().findAllAsync()
+//
 
-//                        val backgroundRealm = Realm.getDefaultInstance()
-////                        var text :
-//                        backgroundRealm.executeTransactionAsync {
-//                            var text = readClients(it)
-//                        }
-//                        backgroundRealm.close()
+                        var client = Client("10001", "Mostowa 1", "", "Kamil", "Bednarek", "293123123")
+
+                        val backgroundRealm = Realm.getDefaultInstance()
+                        backgroundRealm.executeTransactionAsync {it ->
+                            it.insert(client)
+                        }
+                        backgroundRealm.close()
                     }
                 })
             }
@@ -73,7 +75,15 @@ class DBTestActivity : AppCompatActivity() {
     }
 
     private fun updateClientView() {
-        textView.text = result.toString()
+//        textView.text = result.toString()
+//        result = realm.where<Client>().findAllAsync()
+        clientList = ArrayList(realm.where<Client>().findAllAsync())
+
+        if (clientList != null) {
+            textView.text = clientList.getOrNull(0).toString()
+        } else {
+            Log.v(TAG, "Retrieved list is null $clientList")
+        }
     }
 
 
