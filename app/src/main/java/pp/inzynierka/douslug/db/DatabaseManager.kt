@@ -52,8 +52,7 @@ class DatabaseManager : Application() {
 
         realmApp.loginAsync(credentials) {
             if (it.isSuccess) {
-                val user = realmApp.currentUser()!!
-//                mongoClient = user.getMongoClient("mongodb+srv://full_db_user:svErN0MgTvrgCuWE8AZr@douslug-cluster.mmign.mongodb.net/DoUslugDB?retryWrites=true&w=majority")
+//                val user = realmApp.currentUser()!!
                 if (mongoClient != null) {
                     val mongoDatabase : MongoDatabase = mongoClient!!.getDatabase("DoUslugDB")//!!.getCollection("collection name")
                     Log.v(TAG, "Successfully connected to the MongoDB instance." )

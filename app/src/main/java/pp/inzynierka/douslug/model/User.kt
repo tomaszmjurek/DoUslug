@@ -1,10 +1,11 @@
 package pp.inzynierka.douslug.model
-import io.realm.RealmObject;
+import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
-import org.bson.types.ObjectId;
+import org.bson.types.ObjectId
 
+//todo byc moze zmienic na Profile, moze sie mylic z Realm.User
 open class User(user_id: String = "",
-                default_calendar: Long = 0,
+                default_calendar: Long = 0, //todo enum na 1, 7 lub 30
                 email: String = "",
                 official_name: String = "",
                 password: String = "",
