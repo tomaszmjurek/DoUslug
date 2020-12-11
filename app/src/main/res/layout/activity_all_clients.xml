@@ -17,7 +17,6 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
@@ -33,16 +32,27 @@
 
             <TextView
                 android:id="@+id/Title"
-                android:layout_width="264dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:fontFamily="@font/comfortaa_bold"
                 android:text="Wszyscy klienci:"
                 android:textColor="#000000"
-                android:textSize="32sp" />
+                android:textSize="28sp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/hamburger"
+                android:layout_width="46dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/hamburger"
+                android:gravity="end" />
+
         </LinearLayout>
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
@@ -88,9 +98,8 @@
             app:layout_constraintTop_toBottomOf="@id/mainButtons"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <View
-                android:id="@+id/divider2"
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider"
@@ -100,17 +109,12 @@
                 android:id="@+id/clients_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@+id/divider2">
-
-
+                app:layout_constraintTop_toTopOf="@+id/divider">
             </ListView>
-
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -129,7 +133,7 @@
             android:textColor="@android:color/background_light"
             android:layout_gravity="right"
             />
-    </LinearLayout>
 
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

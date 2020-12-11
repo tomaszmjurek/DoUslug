@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class VisitListView // TODO Auto-generated constructor stub
+class AllClientsView // TODO Auto-generated constructor stub
     (
     private val context: Activity,
     private val visitDate: Array<String>,

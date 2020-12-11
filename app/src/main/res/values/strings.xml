@@ -4,5 +4,4 @@
     <string name="all_visits">Wszystkie Wizyty</string>
     <string name="calendar">Kalendarz</string>
     <string name="clients">Klienci</string>
-    <string name="title_activity_all_clients">AllClientsActivity</string>
 </resources>
