@@ -3,7 +3,7 @@
     package="pp.inzynierka.douslug">
 
     <application
-        android:name="pp.inzynierka.douslug.db.DatabaseManager"
+        android:name="pp.inzynierka.douslug.db.DBConnector"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

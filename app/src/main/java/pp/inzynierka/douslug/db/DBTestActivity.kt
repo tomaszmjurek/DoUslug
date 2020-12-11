@@ -61,7 +61,8 @@ class DBTestActivity : AppCompatActivity() {
 
         }
 
-        button.setOnClickListener { updateClientView() }
+        button.setOnClickListener { insertService() }
+        showButton.setOnClickListener { showServices() }
     }
 
     private fun updateClientView() {
@@ -71,6 +72,13 @@ class DBTestActivity : AppCompatActivity() {
             textView.text = clientList.getOrNull(0).toString()
         } else {
             Log.v(TAG, "Retrieved list is null $clientList")
+        }
+    }
+
+    private fun showServices() {
+        var services : RealmResults<Service> = realm.where<Service>().findAllAsync()
+        if (services != null) {
+            textView.text = services.toString()
         }
     }
 
@@ -96,7 +104,6 @@ class DBTestActivity : AppCompatActivity() {
     }
 
     private fun insertService() {
-        //todo getUserId
         var service = Service(partition, "Mycie okna duzego", 60, 15.00)
 
         val backgroundRealm = Realm.getDefaultInstance()
@@ -110,7 +117,7 @@ class DBTestActivity : AppCompatActivity() {
         val clientId = "10001"
         //todo getServiceId
         //todo getClientID
-        val date = Date("2020-12-14T12:30:00.000+00:00")
+        val date = Date("2020-12-13T12:30:00.000+00:00")
 
 //        var visit = Visit(partition, "0001", date, "")
 

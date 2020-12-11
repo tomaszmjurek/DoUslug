@@ -1,9 +1,7 @@
 package pp.inzynierka.douslug.db
 
 import android.app.Application
-import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
 import io.realm.log.LogLevel
 import io.realm.log.RealmLog
@@ -19,7 +17,7 @@ import pp.inzynierka.douslug.BuildConfig
 
 lateinit var realmApp : App
 
-class DatabaseManager : Application() {
+class DBConnector : Application() {
     lateinit var uiThreadRealm: Realm
     private var mongoClient: MongoClient? = null
     private lateinit var mongoCollection: MongoCollection<Document>
