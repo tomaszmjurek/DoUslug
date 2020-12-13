@@ -11,6 +11,7 @@ import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
+import io.realm.log.RealmLog
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
 import io.realm.mongodb.sync.SyncConfiguration
@@ -27,7 +28,7 @@ import kotlin.collections.ArrayList
 class DBTestActivity : AppCompatActivity() {
     private lateinit var realm: Realm
     private var user: User? = null
-    private lateinit var partition: String
+    private var partition: String = "10001"
     private var TAG: String = "DB_TEST_ACTIVITY"
 
     private lateinit var result : RealmResults<Client>
@@ -36,36 +37,50 @@ class DBTestActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val credentials: Credentials = Credentials.anonymous()
-//            Credentials.apiKey("cOJH91AmPbUKlH8Z7UhwRze7YcdCBYJbTmFgZXqwtwChUlrJ0W5fZWAMRPXpza0r")
+//        val credentials: Credentials = Credentials.anonymous()
+        val credentials = Credentials.apiKey("cOJH91AmPbUKlH8Z7UhwRze7YcdCBYJbTmFgZXqwtwChUlrJ0W5fZWAMRPXpza0r")
+        Log.v(TAG, "Setting credentials $credentials")
 
         realmApp.loginAsync(credentials) {
             if (it.isSuccess) {
-                user = realmApp.currentUser()
-                Log.v(TAG, "realm user = $user")
-//                partition = "10001"
-                val sharedPreference = getSharedPreferences("prefs name", Context.MODE_PRIVATE)
-                partition = sharedPreference.getString("partition", "10001")!!
-                val config = SyncConfiguration.Builder(user!!, partition)
-                    .waitForInitialRemoteData()
-                    .build()
+                try {
+                    user = realmApp.currentUser()
+                    Log.v(TAG, "realm user = $user")
+                } catch (e: IllegalStateException) {
+                    RealmLog.warn(e)
+                }
 
-                // This configuration is set as default for the entire app
-                Realm.setDefaultConfiguration(config)
+                if (user != null) {
+//                    partition = "10001"
+//                    val sharedPreference = getSharedPreferences("prefs name", Context.MODE_PRIVATE)
+//                    partition = sharedPreference.getString("partition", "10001")!!
+                    Log.v(TAG, "Partition read $partition")
+                    val config = SyncConfiguration.Builder(user!!, partition)
+                        .waitForInitialRemoteData()
+                        .build()
 
-                // Sync all realm changes via a new instance
-                Realm.getInstanceAsync(config, object : Realm.Callback() {
-                    override fun onSuccess(realm: Realm) {
-                        // since this realm should live as long as this activity assign it to member variable
-                        this@DBTestActivity.realm = realm
-                    }
-                })
+                    // This configuration is set as default for the entire app
+                    Realm.setDefaultConfiguration(config)
+
+                    // Sync all realm changes via a new instance
+                    Realm.getInstanceAsync(config, object : Realm.Callback() {
+                        override fun onSuccess(realm: Realm) {
+                            // since this realm should live as long as this activity assign it to member variable
+                            this@DBTestActivity.realm = realm
+                            Log.v(TAG, "onSuccess connected")
+                        }
+                    })
+                } else {
+                    Log.v(TAG, "User not correct")
+                }
+            } else {
+                RealmLog.error(it.error.toString())
+                Log.v(TAG, "Async login unsuccessful")
             }
-
         }
 
         buttonService.setOnClickListener { insertService() }
-        showServicesButton.setOnClickListener { showServices() }
+//        showServicesButton.setOnClickListener { showServices() }
         buttonClient.setOnClickListener { insertClient() }
         showClientsButton.setOnClickListener { showClients() }
         buttonVisit.setOnClickListener { insertVisit() }
@@ -74,14 +89,16 @@ class DBTestActivity : AppCompatActivity() {
 
 
     private fun showServices() {
-//        val realm = Realm.getDefaultInstance()
+        val realm = Realm.getDefaultInstance()
         var services : RealmResults<Service> = realm.where<Service>().findAllAsync()
         if (services != null) {
             textView.text = services.toString()
         } else {
-            Log.v(TAG, "Retrieved services list is null $clientList")
+            Log.v(TAG, "Retrieved services list is null $services")
         }
+        realm.close()
 
+//        services.deleteAllFromRealm()
     }
 
 //    private fun deleteVisits() {
@@ -90,14 +107,16 @@ class DBTestActivity : AppCompatActivity() {
 //    }
 
     private fun showClients() {
+        val realm = Realm.getDefaultInstance()
         var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
 //        val clients = ArrayList<Client>(realm.where<Client>().findAllAsync())
 
         if (clients != null) {
 //            textView.text = clients.getOrNull(0).toString()
             textView.text = clients.toString()
+            Log.v(TAG, "Retrieved client list is $clients")
         } else {
-            Log.v(TAG, "Retrieved client list is null $clientList")
+            Log.v(TAG, "Retrieved client list is null $clients")
         }
     }
 
@@ -113,25 +132,25 @@ class DBTestActivity : AppCompatActivity() {
     }
 
     private fun insertClient() {
-        var client = Client("Mostowa 1", "", "Kamil", "Bednarek", "293123123", partition)
+        var client = Client("Mostowa 1", "", "Kamil", "Stoch", "293123123", partition)
 
-        realm.executeTransactionAsync { realm ->
-            realm.insert(client)
-        }
-//        val backgroundRealm = Realm.getDefaultInstance()
-//        backgroundRealm.executeTransactionAsync {realm ->
+//        realm.executeTransactionAsync { realm ->
 //            realm.insert(client)
 //        }
-//        backgroundRealm.close()
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync {realm ->
+            realm.insert(client)
+        }
+        backgroundRealm.close()
     }
 
     private fun insertService() {
-        var service = Service(60, "Mycie okna małego", 15.00, partition)
+        var service = Service(20, "Mycie okna małego", 15.00, partition)
 
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync {realm ->
-//            realm.insertOrUpdate(service)
-            realm.createObject<Service>(service)
+            realm.insert(service)
+//            realm.createObject<Service>(service)
         }
         backgroundRealm.close()
     }
@@ -157,10 +176,19 @@ class DBTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_d_b_test)
+
+//        realm = Realm.getDefaultInstance()
+        showServicesButton.setOnClickListener { showServices() }
+
     }
 
 
-
+    override fun onStop() {
+        super.onStop()
+        user.run {
+            realm.close()
+        }
+    }
 
 
     override fun onDestroy() {
@@ -169,4 +197,5 @@ class DBTestActivity : AppCompatActivity() {
     }
 
 
+}
 }

@@ -40,6 +40,8 @@ class DBConnector : Application() {
             RealmLog.setLevel(LogLevel.ALL)
         }
 
+
+
         // an authenticated user is required to access a MongoDB instance
         // THIS CODE SHOULD BE EXECUTED AFTER SUCCESSFUL USER LOGIN chyba
 //        afterLogin()
