@@ -198,4 +198,3 @@ class DBTestActivity : AppCompatActivity() {
 
 
 }
-}
