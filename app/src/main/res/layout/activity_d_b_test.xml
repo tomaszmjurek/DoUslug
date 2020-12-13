@@ -21,13 +21,37 @@
             android:text="insert service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button"/>
+            android:id="@+id/buttonService"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/showButton"
+            android:id="@+id/showServicesButton"
             android:text="show services"/>
+        <Button
+            android:text="insert client"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonClient"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/showClientsButton"
+            android:text="show clients"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonVisit"
+            android:text="insert visit"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deleteButton"
+            android:text="delete"/>
+
     </LinearLayout>
 
 
