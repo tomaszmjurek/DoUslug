@@ -23,4 +23,5 @@
         <activity android:name=".calendar.CalendarMonthActivity" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

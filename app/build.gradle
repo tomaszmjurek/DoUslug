@@ -19,7 +19,7 @@ android {
     }
 
     buildTypes {
-        def appId = "douslug-gemff"  // Replace with proper Application ID
+        def appId = "douslug-jpukf"  // Replace with proper Application ID
         def mongodbRealmUrl = "https://realm.mongodb.com"
         debug {
             buildConfigField "String", "MONGODB_REALM_URL", "\"${mongodbRealmUrl}\""

@@ -9,20 +9,15 @@ import io.realm.mongodb.App
 import io.realm.mongodb.AppConfiguration
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
-import io.realm.mongodb.mongo.MongoClient
-import io.realm.mongodb.mongo.MongoCollection
-import io.realm.mongodb.mongo.MongoDatabase
-import org.bson.Document
+import io.realm.mongodb.sync.SyncConfiguration
 import pp.inzynierka.douslug.BuildConfig
 
 lateinit var realmApp : App
+lateinit var partition : String
 
 class DBConnector : Application() {
-    lateinit var uiThreadRealm: Realm
-    private var mongoClient: MongoClient? = null
-    private lateinit var mongoCollection: MongoCollection<Document>
     private lateinit var user: User
-    private var TAG: String = "EXAMPLE DB CONTROLLER"
+    private val TAG: String = "DB CONNECTOR"
 
     override fun onCreate() {
         super.onCreate()
@@ -30,8 +25,8 @@ class DBConnector : Application() {
         realmApp = App(
             AppConfiguration.Builder(BuildConfig.MONGODB_REALM_APP_ID)
                 .baseUrl(BuildConfig.MONGODB_REALM_URL)
-                .appName(BuildConfig.VERSION_NAME)
-                .appVersion(BuildConfig.VERSION_CODE.toString())
+//                .appName(BuildConfig.VERSION_NAME)
+//                .appVersion(BuildConfig.VERSION_CODE.toString())
                 .build()
         )
 
@@ -40,30 +35,37 @@ class DBConnector : Application() {
             RealmLog.setLevel(LogLevel.ALL)
         }
 
-
-
-        // an authenticated user is required to access a MongoDB instance
-        // THIS CODE SHOULD BE EXECUTED AFTER SUCCESSFUL USER LOGIN chyba
-//        afterLogin()
-    }
-
-    fun afterLogin() {
-        val credentials :  Credentials = Credentials.apiKey("cOJH91AmPbUKlH8Z7UhwRze7YcdCBYJbTmFgZXqwtwChUlrJ0W5fZWAMRPXpza0r")
-
+        val credentials = Credentials.anonymous()
+//        val credentials = Credentials.apiKey("HRc2eEszZ8KPwaGJxmXpqtKdhGVtsljbJ2UmQLjycxuSX0Mbi9n0HNrjE9RjrLXt")
         realmApp.loginAsync(credentials) {
             if (it.isSuccess) {
-//                val user = realmApp.currentUser()!!
-                if (mongoClient != null) {
-                    val mongoDatabase : MongoDatabase = mongoClient!!.getDatabase("DoUslugDB")//!!.getCollection("collection name")
-                    Log.v(TAG, "Successfully connected to the MongoDB instance." )
-                } else {
-                    Log.e(TAG, "Error connecting to the MongoDB instance.")
+                Log.v(TAG, "Logged in to Atlas successfully")
+                try {
+                    user = realmApp.currentUser()!!
+                    Log.v(TAG, "Realm user = $user")
+                } catch (e: IllegalStateException) {
+                    RealmLog.warn(e)
                 }
-            }
-            else {
-                Log.e(TAG, "Error logging into the Realm app. Make sure that API KEY is correct.")
+
+                if (user != null) {
+                    partition = "dev"
+//                    val sharedPreference = getSharedPreferences("prefs name", Context.MODE_PRIVATE)
+//                    partition = sharedPreference.getString("partition", "10001")!!
+                    Log.v(TAG, "Partition set to $partition")
+                    val config = SyncConfiguration.Builder(user!!, partition)
+                        .waitForInitialRemoteData()
+                        .build()
+
+                    // This configuration is set as default for the entire app
+                    Realm.setDefaultConfiguration(config)
+                }
+            } else {
+                Log.v(TAG, it.error.toString())
             }
         }
+
+
+
     }
 
 //    override fun onDestroy() {
