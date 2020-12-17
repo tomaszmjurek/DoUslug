@@ -14,9 +14,11 @@ import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
 
+
+private val appUserId = "100"
+
 class DBTestActivity : AppCompatActivity() {
     private lateinit var realm: Realm
-//    private var user: User? = null
     private var TAG: String = "DB_TEST_ACTIVITY"
 
     private lateinit var result : RealmResults<Client>
@@ -25,8 +27,6 @@ class DBTestActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-//        realm = Realm.getDefaultInstance()
-
         // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
         Realm.getInstanceAsync(Realm.getDefaultConfiguration(), object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
@@ -34,36 +34,27 @@ class DBTestActivity : AppCompatActivity() {
                 this@DBTestActivity.realm = realm
             }
         })
-//        buttonVisit.setOnClickListener { insertVisit() }
-//        deleteButton.setOnClickListener { deleteVisits() }
-
     }
 
 
     private fun showServices() {
-//        val realm = Realm.getDefaultInstance()
-        var services : RealmResults<Service> = realm.where<Service>().findAllAsync()
+        val services = DBController.findAllServices()
         if (services != null) {
             textView.text = services.toString()
         } else {
             Log.v(TAG, "Retrieved services list is null $services")
         }
-//        realm.close()
     }
 
 
     private fun showClients() {
-//        val realm = Realm.getDefaultInstance()
-        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
-//        val clients = ArrayList<Client>(realm.where<Client>().findAllAsync())
-
-        if (clients != null) {
-//            textView.text = clients.getOrNull(0).toString()
-            textView.text = clients.toString()
-            Log.v(TAG, "Retrieved client list is $clients")
-        } else {
-            Log.v(TAG, "Retrieved client list is null $clients")
-        }
+        val clients = DBController.findAllClients()
+//        if (clients != null) {
+//            textView.text = clients.toString()
+//            Log.v(TAG, "Retrieved client list is $clients")
+//        } else {
+//            Log.v(TAG, "Retrieved client list is null $clients")
+//        }
     }
 
 //    private fun insertUser() {
@@ -78,33 +69,13 @@ class DBTestActivity : AppCompatActivity() {
 //    }
 
     private fun insertClient() {
-
-        var client = Client("Mostowa 1", "", "Adam", "Zfrajeraminiegadam", "293123123")
-
-//        realm.executeTransactionAsync { realm ->
-//            realm.insert(client)
-//        }
-        val backgroundRealm = Realm.getDefaultInstance()
-        backgroundRealm.executeTransactionAsync {realm ->
-//            realm.copyToRealm(client) //nothing
-//            val c = realm.createObject<Client>(101)
-
-//            client.first_name = "Adam"
-//            client.last_name = "Zfrajeraminiegadam"
-            realm.insert(client)
-        }
-        backgroundRealm.close()
+        var client = Client("Mostowa 1", "", "Adam", "Zfrajeraminiegadam", "293123123", appUserId)
+        DBController.insertClient(client)
     }
 
     private fun insertService() {
-        var service = Service(20, "Mycie okna małego", 15.00)
-
-        val backgroundRealm = Realm.getDefaultInstance()
-        backgroundRealm.executeTransactionAsync {realm ->
-            realm.insert(service)
-//            realm.createObject<Service>(service)
-        }
-        backgroundRealm.close()
+        var service = Service(20, "Mycie okna małego", 15.00, appUserId)
+        DBController.insertService(service)
     }
 
 //    private fun insertVisit() {
@@ -128,9 +99,6 @@ class DBTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_d_b_test)
-
-//        realm = Realm.getDefaultInstance()
-//        showServicesButton.setOnClickListener { showServices() }
 
         buttonService.setOnClickListener { insertService() }
         showServicesButton.setOnClickListener { showServices() }

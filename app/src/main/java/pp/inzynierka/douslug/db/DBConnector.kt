@@ -63,17 +63,10 @@ class DBConnector : Application() {
                 Log.v(TAG, it.error.toString())
             }
         }
-
-
-
     }
 
 //    override fun onDestroy() {
-//        super.onDestroy()
-//        // the ui thread realm uses asynchronous transactions, so we can only safely close the realm
-//        // when the activity ends and we can safely assume that those transactions have completed
-//        uiThreadRealm.close()
-//        realmApp.currentUser()?.logOutAsync() {
+//        realmApp.currentUser()?.logOutAsync {
 //            if (it.isSuccess) {
 //                Log.v("QUICKSTART", "Successfully logged out.")
 //            } else {

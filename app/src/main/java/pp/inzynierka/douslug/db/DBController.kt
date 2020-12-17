@@ -12,29 +12,30 @@ object DBController {
     private val realm = Realm.getDefaultInstance()
     private val TAG: String = "DB CONTROLLER"
 
-//    fun insertVisit() {
-//        val clientId = "10001"
-//        //todo getServiceId
-//        //todo getClientID
-//        val date = Date("2020-12-14T12:30:00.000+00:00")
-//
-////        var visit = Visit(partition, "0001", date, "")
-//
+//    fun insertVisit(visit: Visit) {
 //        val backgroundRealm = Realm.getDefaultInstance()
 //        backgroundRealm.executeTransactionAsync {realm ->
 //            realm.insert(visit)
+//            Log.v(TAG, "Inserted visit $visit into Realm")
 //        }
 //        backgroundRealm.close()
 //    }
 
-    fun showServices() : RealmResults<Service> {
+    fun generateUserId() : String {
+        val maxId = realm.where<Client>().max("user_id") ?: return "100"
+        return (maxId.toInt() + 1).toString()
+    }
+
+    fun findAllServices() : RealmResults<Service> {
         return realm.where<Service>().findAllAsync()
     }
 
 
-    fun showClients() : RealmResults<Client> {
-        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
-//        val clients = ArrayList<Client>(realm.where<Client>().findAllAsync())
+    fun findAllClients() : RealmResults<Client> {
+        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync() //user_id == nasz
+        Log.v(TAG, "Retrieved clients result $clients")
+        val clients2 = ArrayList<Client>(realm.where<Client>().findAllAsync())
+        Log.v(TAG, "Retrieved clients result $clients")
 //        val clientList = clients.toList() ?
         return clients
 //        if (clients != null) {
@@ -44,5 +45,32 @@ object DBController {
 //        } else {
 //            Log.v(TAG, "Retrieved client list is null $clients")
 //        }
+    }
+
+    fun findClientByPhoneNum(phoneNum: String) : RealmResults<Client> {
+        return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync()
+    }
+
+    fun insertService(service: Service) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insert(service)
+            Log.v(TAG, "Inserted service $service into Realm")
+        }
+        backgroundRealm.close()
+    }
+
+    //
+    fun insertClient(client: Client) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insert(client)
+            Log.v(TAG, "Inserted client $client into Realm")
+        }
+        backgroundRealm.close()
+    }
+
+    fun updateClient() {
+        //to musi byc chyba find najpierw a potem poprostu zmieniamy i bedzie synchronizacja
     }
 }
