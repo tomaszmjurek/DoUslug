@@ -5,10 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
 import io.realm.RealmResults
-import io.realm.kotlin.createObject
-import io.realm.kotlin.where
-import io.realm.mongodb.Credentials
-import io.realm.mongodb.User
 import kotlinx.android.synthetic.main.activity_d_b_test.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.model.Client

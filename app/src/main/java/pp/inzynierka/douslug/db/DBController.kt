@@ -6,20 +6,13 @@ import io.realm.RealmResults
 import io.realm.kotlin.where
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
+import pp.inzynierka.douslug.model.Visit
+import pp.inzynierka.douslug.model.appUser
 
 object DBController {
 
     private val realm = Realm.getDefaultInstance()
     private val TAG: String = "DB CONTROLLER"
-
-//    fun insertVisit(visit: Visit) {
-//        val backgroundRealm = Realm.getDefaultInstance()
-//        backgroundRealm.executeTransactionAsync {realm ->
-//            realm.insert(visit)
-//            Log.v(TAG, "Inserted visit $visit into Realm")
-//        }
-//        backgroundRealm.close()
-//    }
 
     fun generateUserId() : String {
         val maxId = realm.where<Client>().max("user_id") ?: return "100"
@@ -66,6 +59,24 @@ object DBController {
         backgroundRealm.executeTransactionAsync { realm ->
             realm.insert(client)
             Log.v(TAG, "Inserted client $client into Realm")
+        }
+        backgroundRealm.close()
+    }
+
+    fun insertVisit(visit: Visit) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync {realm ->
+            realm.insert(visit)
+            Log.v(TAG, "Inserted visit $visit into Realm")
+        }
+        backgroundRealm.close()
+    }
+
+    fun insertUser(user: appUser) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync {realm ->
+            realm.insert(user)
+            Log.v(TAG, "Inserted user $user into Realm")
         }
         backgroundRealm.close()
     }
