@@ -9,6 +9,7 @@ import pp.inzynierka.douslug.model.Service
 import pp.inzynierka.douslug.model.Visit
 import pp.inzynierka.douslug.model.appUser
 
+//todo po zalogowaniu ustawić globalna zmienna appUserId i wykorzystać tutaj przy każdym find()
 object DBController {
 
     private val realm = Realm.getDefaultInstance()
@@ -25,23 +26,14 @@ object DBController {
 
 
     fun findAllClients() : RealmResults<Client> {
-        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync() //user_id == nasz
+        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
-        val clients2 = ArrayList<Client>(realm.where<Client>().findAllAsync())
-        Log.v(TAG, "Retrieved clients result $clients")
-//        val clientList = clients.toList() ?
+//        val clients2 = ArrayList<Client>(realm.where<Client>().findAllAsync())
         return clients
-//        if (clients != null) {
-////            textView.text = clients.getOrNull(0).toString()
-//            textView.text = clients.toString()
-//            Log.v(TAG, "Retrieved client list is $clients")
-//        } else {
-//            Log.v(TAG, "Retrieved client list is null $clients")
-//        }
     }
 
     fun findClientByPhoneNum(phoneNum: String) : RealmResults<Client> {
-        return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync()
+        return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync() //.equalTo("user_id", appUserId)
     }
 
     fun insertService(service: Service) {
@@ -53,7 +45,6 @@ object DBController {
         backgroundRealm.close()
     }
 
-    //
     fun insertClient(client: Client) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync { realm ->
@@ -79,9 +70,5 @@ object DBController {
             Log.v(TAG, "Inserted user $user into Realm")
         }
         backgroundRealm.close()
-    }
-
-    fun updateClient() {
-        //to musi byc chyba find najpierw a potem poprostu zmieniamy i bedzie synchronizacja
     }
 }
