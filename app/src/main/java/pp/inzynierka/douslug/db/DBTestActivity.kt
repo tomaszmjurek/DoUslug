@@ -14,22 +14,22 @@ import pp.inzynierka.douslug.model.Service
 private val appUserId = "100"
 
 class DBTestActivity : AppCompatActivity() {
-    private lateinit var realm: Realm
+//    private lateinit var realm: Realm
     private var TAG: String = "DB_TEST_ACTIVITY"
 
-    private lateinit var result : RealmResults<Client>
-    private lateinit var clientList : ArrayList<Client>
+//    private lateinit var result : RealmResults<Client>
+//    private lateinit var clientList : ArrayList<Client>
 
     override fun onStart() {
         super.onStart()
 
-        // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
-        Realm.getInstanceAsync(Realm.getDefaultConfiguration(), object: Realm.Callback() {
-            override fun onSuccess(realm: Realm) {
-                // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                this@DBTestActivity.realm = realm
-            }
-        })
+//        // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
+//        Realm.getInstanceAsync(Realm.getDefaultConfiguration(), object: Realm.Callback() {
+//            override fun onSuccess(realm: Realm) {
+//                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+//                this@DBTestActivity.realm = realm
+//            }
+//        })
     }
 
 
@@ -45,12 +45,12 @@ class DBTestActivity : AppCompatActivity() {
 
     private fun showClients() {
         val clients = DBController.findAllClients()
-//        if (clients != null) {
-//            textView.text = clients.toString()
-//            Log.v(TAG, "Retrieved client list is $clients")
-//        } else {
-//            Log.v(TAG, "Retrieved client list is null $clients")
-//        }
+        if (clients != null) {
+            textView.text = clients.toString()
+            Log.v(TAG, "Retrieved client list is $clients")
+        } else {
+            Log.v(TAG, "Retrieved client list is null $clients")
+        }
     }
 
 //    private fun insertUser() {
@@ -113,7 +113,7 @@ class DBTestActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        realm.close()
+//        realm.close()
     }
 
 
