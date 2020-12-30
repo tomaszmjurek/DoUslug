@@ -29,7 +29,7 @@ class CalendarWeekActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_week)
 
-        prepareLayout()
+//        prepareLayout()
 
         calendar_type_button.setOnClickListener { showCalendarChange() }
         day_button.setOnClickListener { openCalendarDayActivity() }
