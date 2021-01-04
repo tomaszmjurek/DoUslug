@@ -3,12 +3,10 @@ package pp.inzynierka.douslug
 import android.content.Intent
 import android.view.Window
 import android.os.Bundle
-import android.view.View
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
-
+import pp.inzynierka.douslug.db.DBTestActivity
 
 
 class MainActivity : AppCompatActivity() {

@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 29
@@ -17,11 +19,23 @@ android {
     }
 
     buildTypes {
+        def appId = "douslug-jpukf"  // Replace with proper Application ID
+        def mongodbRealmUrl = "https://realm.mongodb.com"
+        debug {
+            buildConfigField "String", "MONGODB_REALM_URL", "\"${mongodbRealmUrl}\""
+            buildConfigField "String", "MONGODB_REALM_APP_ID", "\"${appId}\""
+        }
         release {
-            minifyEnabled false
+            buildConfigField "String", "MONGODB_REALM_URL", "\"${mongodbRealmUrl}\""
+            buildConfigField "String", "MONGODB_REALM_APP_ID", "\"${appId}\""
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+realm {
+    syncEnabled = true
 }
 
 dependencies {
@@ -33,5 +47,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
 }
