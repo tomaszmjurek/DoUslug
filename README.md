@@ -20,6 +20,7 @@ Jak w takim razie wprowadzić tam zmiany?
     1. $git push origin *nasz-branch* (najnowsza wersja na githubie)
     Jeżeli przy pull pojawi się konflikt to trzeba rozwiązać lokalnie,
     polecam sprawdzać gdzie przez "VCS" jak skończymy to polecenie '$git add .' i $git push
+    [Odkryłem też, że w prawym dolnym rogu w Android Studio pojawia się taki przycisk i tam można dalej continue rebase itd]
 1. Jeśli skończymy działać na branchu i chcemy go scalić do głównego wchodzimy na w w w github kom. 
     1. Zakładka Pull requests -> New pull request
     1. Wybieramy którego do którego scalamy, potem Create pull request
