@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.VisitListView
+import java.text.SimpleDateFormat
+import java.util.*
 
 var titles = arrayOf(
     "John Lennon", "Maryla Rodowicz", "Krzysztof Ibisz"
@@ -21,6 +23,8 @@ var notes = arrayOf(
 )
 
 class CalendarDayActivity : AppCompatActivity() {
+    private lateinit var selectedDate: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_day)
@@ -33,6 +37,19 @@ class CalendarDayActivity : AppCompatActivity() {
         week_button.setOnClickListener { openCalendarWeekActivity() }
         month_button.setOnClickListener { openCalendarMonthActivity() }
         back_button.setOnClickListener { onBackPressed() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        selectedDate = intent.getStringExtra("selectedDate") ?: getCurrentDate()
+        title_text_view.text = selectedDate
+    }
+
+    //todo move to DateConverter
+    private fun getCurrentDate() : String {
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        return sdf.format(calendar.time)
     }
 
     private fun showCalendarChange() {

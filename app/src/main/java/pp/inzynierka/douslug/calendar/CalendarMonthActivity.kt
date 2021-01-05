@@ -9,9 +9,14 @@ import kotlinx.android.synthetic.main.activity_calendar_month.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CalendarMonthActivity : AppCompatActivity() {
+    private lateinit var selectedDate: String
+    private val calendar = Calendar.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_month)
@@ -21,14 +26,32 @@ class CalendarMonthActivity : AppCompatActivity() {
         day_button.setOnClickListener { openCalendarDayActivity() }
         week_button.setOnClickListener { openCalendarWeekActivity() }
         month_button.setOnClickListener { showCalendarChange() }
+        show_visits_button.setOnClickListener { openCalendarDayActivity() }
 
         calendar_view.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            Toast.makeText(
-                this@CalendarMonthActivity,
-                "You have Selected : " + dayOfMonth + " / " + (month + 1) + " / " + year,
-                Toast.LENGTH_LONG
-            ).show()
+            selectedDate = "$year/$month/$dayOfMonth"
+            toast()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        selectedDate = getCurrentDate()
+        toast()
+    }
+
+    private fun toast() {
+        Toast.makeText(
+            this@CalendarMonthActivity,
+            "Selected date: $selectedDate",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    //todo move to date converter
+    private fun getCurrentDate() : String {
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        return sdf.format(calendar.time)
     }
 
     private fun showCalendarChange() {
@@ -41,8 +64,10 @@ class CalendarMonthActivity : AppCompatActivity() {
         }
     }
 
+    //todo wybranie widoku dnia z rozwijanej listy otwiera bieżący dzień a nie wybrany
     private fun openCalendarDayActivity() {
         val intent = Intent(this@CalendarMonthActivity, CalendarDayActivity::class.java)
+        intent.putExtra("selectedDate", selectedDate)
         startActivity(intent)
     }
 
@@ -50,5 +75,7 @@ class CalendarMonthActivity : AppCompatActivity() {
         val intent = Intent(this@CalendarMonthActivity, CalendarWeekActivity::class.java)
         startActivity(intent)
     }
+
+
 
 }
