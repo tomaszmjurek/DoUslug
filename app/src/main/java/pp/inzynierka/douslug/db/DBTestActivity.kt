@@ -3,24 +3,17 @@ package pp.inzynierka.douslug.db
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import io.realm.Realm
-import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_d_b_test.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
 import pp.inzynierka.douslug.model.Visit
-import java.lang.Exception
-import java.security.Timestamp
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 private val appUserId = "100"
 
 class DBTestActivity : AppCompatActivity() {
-//    private lateinit var realm: Realm
     private var TAG: String = "DB_TEST_ACTIVITY"
 
 //    private lateinit var result : RealmResults<Client>
@@ -58,17 +51,6 @@ class DBTestActivity : AppCompatActivity() {
             Log.v(TAG, "Retrieved client list is null $clients")
         }
     }
-
-//    private fun insertUser() {
-////        //todo auto-inc partition https://github.com/realm/realm-java/issues/469
-//        val user = pp.inzynierka.douslug.model.User(30, "windows@test.pl", "Windows - profesjonalne mycie okien", "haslo", "1239123538", partition)
-//
-//        val backgroundRealm = Realm.getDefaultInstance()
-//        backgroundRealm.executeTransactionAsync {realm ->
-//            realm.insert(user)
-//        }
-//        backgroundRealm.close()
-//    }
 
     private fun insertClient() {
         var client = Client("Mostowa 1", "", "Adam", "Zfrajeraminiegadam", "293123123", appUserId)

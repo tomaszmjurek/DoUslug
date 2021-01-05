@@ -1,11 +1,9 @@
 package pp.inzynierka.douslug.calendar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_calendar_day.*
-import kotlinx.android.synthetic.main.activity_calendar_month.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
