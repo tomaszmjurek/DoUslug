@@ -49,6 +49,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/buttonDate"
+            android:text="use date"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/deleteButton"
             android:text="delete"/>
 

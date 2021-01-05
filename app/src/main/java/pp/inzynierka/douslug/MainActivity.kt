@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openCalendarView() {
-        val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
+//        val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
+        val intent = Intent(this@MainActivity, DBTestActivity::class.java)
+
         startActivity(intent)
     }
 }

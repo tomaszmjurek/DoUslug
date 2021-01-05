@@ -24,6 +24,10 @@ object DBController {
         return realm.where<Service>().findAllAsync()
     }
 
+    fun findServiceByName(name: String) : Service? {
+        return realm.where<Service>().equalTo("name", name).findAllAsync().first()
+    }
+
 
     fun findAllClients() : RealmResults<Client> {
         var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
@@ -32,8 +36,8 @@ object DBController {
         return clients
     }
 
-    fun findClientByPhoneNum(phoneNum: String) : RealmResults<Client> {
-        return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync() //.equalTo("user_id", appUserId)
+    fun findClientByPhoneNum(phoneNum: String) : Client? {
+        return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync().first() //.equalTo("user_id", appUserId)
     }
 
     fun insertService(service: Service) {

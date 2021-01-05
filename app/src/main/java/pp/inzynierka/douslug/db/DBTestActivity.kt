@@ -7,8 +7,14 @@ import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_d_b_test.*
 import pp.inzynierka.douslug.R
+import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
+import pp.inzynierka.douslug.model.Visit
+import java.lang.Exception
+import java.security.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 private val appUserId = "100"
@@ -74,23 +80,22 @@ class DBTestActivity : AppCompatActivity() {
         DBController.insertService(service)
     }
 
-//    private fun insertVisit() {
-//        //todo getServiceId
-//        //todo getClientID
-//        val date = Date(2020,12,13,12,30,0)
-//        val dataFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-//        val data = dataFormat.parse("2020-12-13T12:30:00.000+00:00")
-//        val client = realm.where<Client>().findFirst()
-//        val service = realm.where<Service>().findFirst()
-////        var visit = Visit(client, data, service)
-//
-//        val backgroundRealm = Realm.getDefaultInstance()
-//        backgroundRealm.executeTransactionAsync {realm ->
-////            realm.insert(visit)
-//        }
-//        backgroundRealm.close()
-//    }
+    private fun insertVisit() {
+        val dateString = DateConverter.generateProperDate("2021", "01", "14", "14", "30")
+        val date = DateConverter.dateStringToTimestamp(dateString)
+        textView.text = date.toString()
 
+        val client = DBController.findClientByPhoneNum("293123123")
+        val service = DBController.findServiceByName("Mycie okna małego")
+
+        if (client != null && service != null && date != null) {
+            val visit = Visit(client, date, service)
+            DBController.insertVisit(visit)
+            Log.v(TAG, "Successfully added new Visit ($visit)")
+        } else {
+            Log.v(TAG, "Error while inserting Visit: Client ($client) or Service ($service) or Date ($date) is null")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,8 +105,22 @@ class DBTestActivity : AppCompatActivity() {
         showServicesButton.setOnClickListener { showServices() }
         buttonClient.setOnClickListener { insertClient() }
         showClientsButton.setOnClickListener { showClients() }
+        buttonVisit.setOnClickListener {
+            try {
+                insertVisit()
+            } catch (e: Exception) {
+                textView.text = "error"
+                Log.v(TAG, "$e")
+            }
+        }
+        buttonDate.setOnClickListener { useDate() }
     }
 
+    private fun useDate() {
+        val timestamp = 1610634600000//System.currentTimeMillis()
+        val date = DateConverter.timestampToDateString(timestamp)
+        textView.text = date
+    }
 
 //    override fun onStop() {
 //        super.onStop()
