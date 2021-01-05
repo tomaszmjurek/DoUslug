@@ -20,6 +20,7 @@ class CalendarMonthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_month)
+        title_text_view.text = "Kalendarz"
 
         calendar_type_button.setOnClickListener { showCalendarChange() }
         back_button.setOnClickListener { onBackPressed() }
@@ -30,14 +31,12 @@ class CalendarMonthActivity : AppCompatActivity() {
 
         calendar_view.setOnDateChangeListener { view, year, month, dayOfMonth ->
             selectedDate = "$year/$month/$dayOfMonth"
-            toast()
         }
     }
 
     override fun onStart() {
         super.onStart()
         selectedDate = getCurrentDate()
-        toast()
     }
 
     private fun toast() {
@@ -57,10 +56,8 @@ class CalendarMonthActivity : AppCompatActivity() {
     private fun showCalendarChange() {
         if (calendar_type_layout.visibility == View.GONE) {
             calendar_type_layout.visibility = View.VISIBLE
-            calendar_type_text.visibility = View.VISIBLE
         } else {
             calendar_type_layout.visibility = View.GONE
-            calendar_type_text.visibility = View.GONE
         }
     }
 

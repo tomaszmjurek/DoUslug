@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:padding="20dp"
         android:orientation="vertical">
 
         <include layout="@layout/change_calendar_type"/>
@@ -23,6 +22,7 @@
 
             <LinearLayout
                 android:id="@+id/weekDaysLayout"
+                android:layout_marginTop="30dp"
                 android:paddingBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

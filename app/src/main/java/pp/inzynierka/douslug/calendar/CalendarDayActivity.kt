@@ -55,10 +55,8 @@ class CalendarDayActivity : AppCompatActivity() {
     private fun showCalendarChange() {
         if (calendar_type_layout.visibility == View.GONE) {
             calendar_type_layout.visibility = View.VISIBLE
-            calendar_type_text.visibility = View.VISIBLE
         } else {
             calendar_type_layout.visibility = View.GONE
-            calendar_type_text.visibility = View.GONE
         }
     }
 
