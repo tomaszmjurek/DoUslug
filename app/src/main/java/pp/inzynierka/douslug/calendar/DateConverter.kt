@@ -8,15 +8,15 @@ object DateConverter {
     private val TAG: String = "DATE_CONVERTER"
 
     fun timestampToDateString(timestamp: Long): String? {
-        try {
+        return try {
             Log.v(TAG, "Timestamp = $timestamp")
             val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
-            val netDate = Date(timestamp)// * 1000)
+            val netDate = Date(timestamp)
             Log.v(TAG, "Date = ${sdf.format(netDate)}")
-            return sdf.format(netDate)
+            sdf.format(netDate)
         } catch (e: Exception) {
             Log.v(TAG, "Error while converting date to timestamp - $e")
-            return null
+            null
         }
     }
 
