@@ -7,35 +7,29 @@ import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_d_b_test.*
 import pp.inzynierka.douslug.R
-import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
-import pp.inzynierka.douslug.model.Visit
-import java.lang.Exception
-import java.security.Timestamp
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 private val appUserId = "100"
 
 class DBTestActivity : AppCompatActivity() {
-//    private lateinit var realm: Realm
+    private lateinit var realm: Realm
     private var TAG: String = "DB_TEST_ACTIVITY"
 
-//    private lateinit var result : RealmResults<Client>
-//    private lateinit var clientList : ArrayList<Client>
+    private lateinit var result : RealmResults<Client>
+    private lateinit var clientList : ArrayList<Client>
 
     override fun onStart() {
         super.onStart()
 
-//        // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
-//        Realm.getInstanceAsync(Realm.getDefaultConfiguration(), object: Realm.Callback() {
-//            override fun onSuccess(realm: Realm) {
-//                // since this realm should live exactly as long as this activity, assign the realm to a member variable
-//                this@DBTestActivity.realm = realm
-//            }
-//        })
+        // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
+        Realm.getInstanceAsync(Realm.getDefaultConfiguration(), object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@DBTestActivity.realm = realm
+            }
+        })
     }
 
 
@@ -51,12 +45,12 @@ class DBTestActivity : AppCompatActivity() {
 
     private fun showClients() {
         val clients = DBController.findAllClients()
-        if (clients != null) {
-            textView.text = clients.toString()
-            Log.v(TAG, "Retrieved client list is $clients")
-        } else {
-            Log.v(TAG, "Retrieved client list is null $clients")
-        }
+//        if (clients != null) {
+//            textView.text = clients.toString()
+//            Log.v(TAG, "Retrieved client list is $clients")
+//        } else {
+//            Log.v(TAG, "Retrieved client list is null $clients")
+//        }
     }
 
 //    private fun insertUser() {
@@ -80,22 +74,23 @@ class DBTestActivity : AppCompatActivity() {
         DBController.insertService(service)
     }
 
-    private fun insertVisit() {
-        val dateString = DateConverter.generateProperDate("2021", "01", "14", "14", "30")
-        val date = DateConverter.dateStringToTimestamp(dateString)
-        textView.text = date.toString()
+//    private fun insertVisit() {
+//        //todo getServiceId
+//        //todo getClientID
+//        val date = Date(2020,12,13,12,30,0)
+//        val dataFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+//        val data = dataFormat.parse("2020-12-13T12:30:00.000+00:00")
+//        val client = realm.where<Client>().findFirst()
+//        val service = realm.where<Service>().findFirst()
+////        var visit = Visit(client, data, service)
+//
+//        val backgroundRealm = Realm.getDefaultInstance()
+//        backgroundRealm.executeTransactionAsync {realm ->
+////            realm.insert(visit)
+//        }
+//        backgroundRealm.close()
+//    }
 
-        val client = DBController.findClientByPhoneNum("293123123")
-        val service = DBController.findServiceByName("Mycie okna małego")
-
-        if (client != null && service != null && date != null) {
-            val visit = Visit(client, date, service)
-            DBController.insertVisit(visit)
-            Log.v(TAG, "Successfully added new Visit ($visit)")
-        } else {
-            Log.v(TAG, "Error while inserting Visit: Client ($client) or Service ($service) or Date ($date) is null")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,22 +100,8 @@ class DBTestActivity : AppCompatActivity() {
         showServicesButton.setOnClickListener { showServices() }
         buttonClient.setOnClickListener { insertClient() }
         showClientsButton.setOnClickListener { showClients() }
-        buttonVisit.setOnClickListener {
-            try {
-                insertVisit()
-            } catch (e: Exception) {
-                textView.text = "error"
-                Log.v(TAG, "$e")
-            }
-        }
-        buttonDate.setOnClickListener { useDate() }
     }
 
-    private fun useDate() {
-        val timestamp = 1610634600000//System.currentTimeMillis()
-        val date = DateConverter.timestampToDateString(timestamp)
-        textView.text = date
-    }
 
 //    override fun onStop() {
 //        super.onStop()
@@ -132,7 +113,7 @@ class DBTestActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        realm.close()
+        realm.close()
     }
 
 

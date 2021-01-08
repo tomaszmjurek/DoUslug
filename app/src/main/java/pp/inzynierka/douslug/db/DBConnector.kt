@@ -13,7 +13,7 @@ import io.realm.mongodb.sync.SyncConfiguration
 import pp.inzynierka.douslug.BuildConfig
 
 lateinit var realmApp : App
-const val partition : String = "dev"
+lateinit var partition : String
 
 class DBConnector : Application() {
     private lateinit var user: User
@@ -48,6 +48,7 @@ class DBConnector : Application() {
                 }
 
                 if (user != null) {
+                    partition = "dev"
 //                    val sharedPreference = getSharedPreferences("prefs name", Context.MODE_PRIVATE)
 //                    partition = sharedPreference.getString("partition", "10001")!!
                     Log.v(TAG, "Partition set to $partition")
