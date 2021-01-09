@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#CF4C14</color>
     <color name="colorAccent">#E9662F</color>
     <color name="buttonTextColor">#FFFFFF</color>
+    <color name="drawerMenuButtonBg">#E55618</color>
+    <color name="drawerMenuButtonAccent">#CF4C14</color>
 </resources>
