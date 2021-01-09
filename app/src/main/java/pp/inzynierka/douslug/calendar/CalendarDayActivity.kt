@@ -2,12 +2,15 @@ package pp.inzynierka.douslug.calendar
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_calendar_day.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.VisitListView
+import pp.inzynierka.douslug.db.DBController
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +26,8 @@ var notes = arrayOf(
 )
 
 class CalendarDayActivity : AppCompatActivity() {
+    private val TAG: String = "CALENDAR_DAY_ACTIVITY"
+
     private lateinit var selectedDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +48,7 @@ class CalendarDayActivity : AppCompatActivity() {
         super.onStart()
         selectedDate = intent.getStringExtra("selectedDate") ?: getCurrentDate()
         title_text_view.text = selectedDate
+        displayVisits()
     }
 
     //todo move to DateConverter
@@ -68,5 +74,13 @@ class CalendarDayActivity : AppCompatActivity() {
     private fun openCalendarWeekActivity() {
         val intent = Intent(this@CalendarDayActivity, CalendarWeekActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun displayVisits() {
+        val timePair = DateConverter.getTimestampsOfDay(selectedDate)
+        if (timePair != null) {
+            val visits = DBController.findVisitsByDay(timePair)
+            Log.v(TAG, "$visits")
+        }
     }
 }

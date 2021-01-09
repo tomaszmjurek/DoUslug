@@ -34,4 +34,15 @@ object DateConverter {
         return "$year/$month/$day $hour:$min"
     }
 
+    private fun getDateWithoutHours(date: String) : String {
+        Log.v(TAG, date.substring(0, 10))
+        return date.substring(0, 10)
+    }
+
+    fun getTimestampsOfDay(date: String) : Pair<Long?, Long?> {
+        val onlyDate = getDateWithoutHours(date)
+        val timeFrom = dateStringToTimestamp(onlyDate.plus(" 00:00"))
+        val timeTo = timeFrom?.plus(86399000)
+        return Pair(timeFrom, timeTo)
+    }
 }
