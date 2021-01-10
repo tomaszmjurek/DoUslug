@@ -9,6 +9,8 @@ import kotlinx.android.synthetic.main.activity_calendar_month.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,7 +32,16 @@ class CalendarMonthActivity : AppCompatActivity() {
         show_visits_button.setOnClickListener { openCalendarDayActivity() }
 
         calendar_view.setOnDateChangeListener { view, year, month, dayOfMonth ->
+//            val mFormat = DecimalFormat("00")
+//            mFormat.roundingMode = RoundingMode.DOWN
+//            val date = DateConverter.generateProperDateShort(year.toString(), month.toString(), dayOfMonth.toString())
+
+            val dateFormat_month = SimpleDateFormat("MM")
+            val dateFormat_day = SimpleDateFormat("dd")
+//            month = mFormat.format(month)
+//            selectedDate = "$year/${dateFormat_month.format(month)}/${dateFormat_day.format(dayOfMonth)}"
             selectedDate = "$year/$month/$dayOfMonth"
+            toast()
         }
     }
 

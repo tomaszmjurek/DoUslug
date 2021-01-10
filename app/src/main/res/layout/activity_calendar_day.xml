@@ -17,12 +17,25 @@
 
         <include layout="@layout/change_calendar_type"/>
 
-        <ListView
-            android:id="@+id/visits_list_view"
-            android:padding="20dp"
-            android:layout_marginTop="20dp"
+<!--        <ListView-->
+<!--            android:id="@+id/visits_list_view"-->
+<!--            android:padding="20dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:padding="60dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:id="@+id/visit_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/task_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:background="@null" />
+
 
     </LinearLayout>
 
