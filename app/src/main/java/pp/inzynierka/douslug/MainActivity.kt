@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.Window
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -44,8 +45,7 @@ class MainActivity : AppCompatActivity() {
             toggleRightDrawer()
         }
 
-        val adapter = VisitListView(this, titles, dates, notes)
-        upcomingVisitsList.adapter = adapter
+
 
         imageButton.setOnClickListener{ openCalendarView() }
         imageButton2.setOnClickListener { openDbTest() }

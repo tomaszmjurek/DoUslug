@@ -27,4 +27,7 @@
     <string name="prompt_official_name">Oficjalna nazwa</string>
     <string name="register_title">Rejestracja</string>
     <string name="logout">Wyloguj</string>
+    <string name="title_activity_service">ServiceActivity</string>
+    <string name="title_activity_visit">VisitActivity</string>
+    <string name="title_activity_client">ClientActivity</string>
 </resources>

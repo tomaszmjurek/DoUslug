@@ -25,6 +25,18 @@
         <activity android:name=".calendar.CalendarDayActivity" />
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".calendar.CalendarMonthActivity" />
+        <activity
+            android:name=".ClientActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".VisitActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".ServiceActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
