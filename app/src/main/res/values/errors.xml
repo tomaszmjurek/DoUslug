@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_error">Nieprawidłowy adres e-mail</string>
+    <string name="email_duplicate_error">Adres e-mail jest już zajęty</string>
+    <string name="official_name_error">Nieprawidłowa nazwa konta</string>
+    <string name="phone_error">Nieprawidłowy numer telefonu</string>
+    <string name="password_error">Twoje hasło powinno mieć powyżej 8 znaków</string>
+    <string name="password_repeat_error">Podane hasła się nie zgadzają</string>
+</resources>

@@ -17,8 +17,8 @@ object DBController {
     private val TAG: String = "DB CONTROLLER"
 
     fun generateUserId() : String {
-        val maxId = realm.where<Client>().max("user_id") ?: return "100"
-        return (maxId.toInt() + 1).toString()
+//        val maxId = realm.where<Client>().max("user_id") ?: return "100"
+        return java.util.UUID.randomUUID().toString()
     }
 
     fun findAllServices() : RealmResults<Service> {
@@ -84,5 +84,9 @@ object DBController {
     fun findVisitsByDay(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
         Log.v(TAG, "Getting visits with date <${timestamp.first}, ${timestamp.second}>")
         return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).findAllAsync()
+    }
+
+    fun findUserByEmail(email: String) : appUser? {
+        return realm.where<appUser>().equalTo("email", email).findAllAsync().firstOrNull()
     }
 }
