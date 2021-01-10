@@ -87,6 +87,10 @@ object DBController {
     }
 
     fun findUserByEmail(email: String) : appUser? {
-        return realm.where<appUser>().equalTo("email", email).findAllAsync().firstOrNull()
+        return realm.where<appUser>().equalTo("email", email).findFirst()
+    }
+
+    fun findUserByUserId(token: String) : appUser? {
+        return realm.where<appUser>().equalTo("user_id", token).findFirst()
     }
 }

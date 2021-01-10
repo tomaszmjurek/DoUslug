@@ -17,12 +17,6 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        Toast.makeText(
-            applicationContext,
-            "xddddddd",
-            Toast.LENGTH_LONG
-        ).show()
-
         register_username.afterTextChanged { error_email.text = "" }
         register_official_name.afterTextChanged { error_official_name.text = "" }
         register_phone.afterTextChanged { error_phone.text = "" }
@@ -30,11 +24,6 @@ class RegisterActivity : AppCompatActivity() {
         register_password2.afterTextChanged { error_password_repeat.text = "" }
 
         register.setOnClickListener {
-            Toast.makeText(
-                applicationContext,
-                "test rejestracja",
-                Toast.LENGTH_LONG
-            ).show()
             val username = register_username.text.toString()
             val official_name = register_official_name.text.toString()
             val password = register_password.text.toString()

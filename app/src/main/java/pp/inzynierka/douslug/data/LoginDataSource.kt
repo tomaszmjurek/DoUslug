@@ -1,5 +1,6 @@
 package pp.inzynierka.douslug.data
 
+import org.mindrot.jbcrypt.BCrypt
 import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.model.appUser
 import java.io.IOException
@@ -11,9 +12,11 @@ class LoginDataSource {
 
     fun login(username: String, password: String): Result<appUser> {
         try {
-            // TODO: handle loggedInUser authentication
-            val fakeUser = appUser("test@example.com", "Golarz Filip")
-            return Result.Success(fakeUser)
+            val loginUser = DBController.findUserByEmail(username)
+            if (loginUser == null || !BCrypt.checkpw(password, loginUser.password)) {
+                throw Exception("Złe dane logowania")
+            }
+            return Result.Success(loginUser)
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))
         }

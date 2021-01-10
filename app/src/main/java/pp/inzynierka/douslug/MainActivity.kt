@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.right_drawer_menu.*
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
+import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.db.DBTestActivity
 import pp.inzynierka.douslug.ui.login.LoginActivity
 
@@ -36,11 +37,12 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = this.getSharedPreferences("app_shared", Context.MODE_PRIVATE)
         val userToken = sharedPref.getString("user_token", null);
-        Toast.makeText(
-            applicationContext,
-            "TEST: $userToken",
-            Toast.LENGTH_LONG
-        ).show()
+        if (userToken != null) {
+            val loggedUser = DBController.findUserByUserId(userToken)
+            if (loggedUser == null) {
+                logout(false)
+            }
+        }
 
         imageView.setOnClickListener {
             toggleRightDrawer()
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun logout() {
+    private fun logout(toast: Boolean = true) {
         val sharedPref = this.getSharedPreferences("app_shared", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
             remove("user_token")
@@ -72,12 +74,13 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this@MainActivity, LoginActivity::class.java)
         startActivity(intent)
-
-        Toast.makeText(
-            applicationContext,
-            "Pomyślnie wylogowano",
-            Toast.LENGTH_LONG
-        ).show()
+        if (toast) {
+            Toast.makeText(
+                applicationContext,
+                R.string.logout_success,
+                Toast.LENGTH_LONG
+            ).show()
+        }
 
 
         finish()
