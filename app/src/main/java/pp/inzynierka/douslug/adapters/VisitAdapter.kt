@@ -12,10 +12,6 @@ import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Visit
 
 
-/*
- * ListAdapter: extends the Realm-provided RealmRecyclerViewAdapter to provide data for a RecyclerView to display
- * Realm objects on screen to a user.
- */
 internal class VisitAdapter(data: OrderedRealmCollection<Visit>) : RealmRecyclerViewAdapter<Visit, VisitAdapter.TaskViewHolder?>(data, true) {
     lateinit var _parent: ViewGroup
 
@@ -30,13 +26,11 @@ internal class VisitAdapter(data: OrderedRealmCollection<Visit>) : RealmRecycler
         holder.data = obj
         holder.title.text = obj?.service_id?.name + ": " + obj?.client_id?.first_name + " " + obj?.client_id?.last_name
         holder.text1.text = DateConverter.timestampToDateString(obj!!.date)
-//        holder.service_id.text = obj?.service_id?.name
     }
 
     internal inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var data: Visit? = null
         var title: TextView = view.findViewById(R.id.visitListTitle)
         var text1: TextView = view.findViewById(R.id.visitListDate)
-//        var text2: TextView = view.findViewById(R.id.text2)
     }
 }
