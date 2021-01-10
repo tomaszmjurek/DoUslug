@@ -14,7 +14,7 @@ import pp.inzynierka.douslug.calendar.CalendarMonthActivity
 import pp.inzynierka.douslug.db.DBTestActivity
 import pp.inzynierka.douslug.ui.login.LoginActivity
 
-import pp.inzynierka.douslug.calendar.CalendarWeekActivity=
+import pp.inzynierka.douslug.calendar.CalendarWeekActivity
 
 
 class MainActivity : AppCompatActivity() {
