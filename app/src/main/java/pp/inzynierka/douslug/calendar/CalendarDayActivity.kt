@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.kotlin.where
-import kotlinx.android.synthetic.main.activity_calendar_day.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
-import pp.inzynierka.douslug.VisitAdapter
-import pp.inzynierka.douslug.VisitListView
+import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.model.Visit
 import java.text.SimpleDateFormat
@@ -36,7 +34,7 @@ var notes = arrayOf(
 class CalendarDayActivity : AppCompatActivity() {
     private val TAG: String = "CALENDAR_DAY_ACTIVITY"
 
-    private lateinit var realm: Realm
+//    private lateinit var realm: Realm
     private lateinit var selectedDate: String
     private lateinit var realmVisits: RealmResults<Visit>
     private lateinit var recyclerView: RecyclerView
@@ -64,13 +62,13 @@ class CalendarDayActivity : AppCompatActivity() {
 //        }
 
         // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
-        Realm.getInstanceAsync(Realm.getDefaultConfiguration(), object: Realm.Callback() {
-            override fun onSuccess(realm: Realm) {
+//        Realm.getInstanceAsync(Realm.getDefaultConfiguration(), object: Realm.Callback() {
+//            override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                this@CalendarDayActivity.realm = realm
-                setUpRecyclerView(realm)
-            }
-        })
+//                this@CalendarDayActivity.realm = realm
+        setUpRecyclerView()
+//            }
+//        })
 
         calendar_type_button.setOnClickListener { showCalendarChange() }
         day_button.setOnClickListener { showCalendarChange() }
@@ -79,8 +77,11 @@ class CalendarDayActivity : AppCompatActivity() {
         back_button.setOnClickListener { onBackPressed() }
     }
 
-    private fun setUpRecyclerView(realm: Realm) {
-        adapter = VisitAdapter(realm.where<Visit>().findAll())
+    private fun setUpRecyclerView() {
+        recyclerView = findViewById(R.id.task_list)
+        val visits = DBController.findAllVisits()
+//        Log.v(TAG, "list size = ${visits.size}")
+        adapter = VisitAdapter(visits)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
@@ -119,20 +120,20 @@ class CalendarDayActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun displayVisits() {
-//        val timePair = DateConverter.getTimestampsOfDay(selectedDate)
-//        if (timePair != null) {
-//            Log.v(TAG, "Time pair not null")
-//            realmVisits = DBController.findVisitsByDay(timePair)
-            realm = Realm.getDefaultInstance()
-            realmVisits = realm.where<Visit>().findAll()
-//            Log.v(TAG, "Retrieved realm visits = $realmVisits.toS")
-//        }
-    }
+//    private fun displayVisits() {
+////        val timePair = DateConverter.getTimestampsOfDay(selectedDate)
+////        if (timePair != null) {
+////            Log.v(TAG, "Time pair not null")
+////            realmVisits = DBController.findVisitsByDay(timePair)
+//            realm = Realm.getDefaultInstance()
+//            realmVisits = realm.where<Visit>().findAll()
+////            Log.v(TAG, "Retrieved realm visits = $realmVisits.toS")
+////        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
         recyclerView.adapter = null
-        realm.close()
+//        realm.close()
     }
 }

@@ -48,11 +48,8 @@ class DBTestActivity : AppCompatActivity() {
             Log.v(TAG, "Visit: Client: ${c.client_id?.first_name} ${c.date} ${c._partition}")
         }
 
-//        if (visits != null) {
-//            textView.text = visits.toString()
-//        } else {
-//            Log.v(TAG, "Retrieved services list is null $visits")
-//        }
+        Log.v(TAG, visits.toString())
+        textView.text = visits.toString()
     }
 
 
@@ -83,7 +80,7 @@ class DBTestActivity : AppCompatActivity() {
     }
 
     private fun insertVisit() {
-        val dateString = DateConverter.generateProperDate("2021", "01", "14", "14", "30")
+        val dateString = DateConverter.generateProperDate("2021", "01", "13", "12", "00")
         val date = DateConverter.dateStringToTimestamp(dateString)
         textView.text = date.toString()
 
@@ -105,6 +102,7 @@ class DBTestActivity : AppCompatActivity() {
 
         buttonService.setOnClickListener { insertService() }
         showVisitsButton.setOnClickListener { showVisits() }
+        showServicesButton.setOnClickListener { showServices() }
         buttonClient.setOnClickListener { insertClient() }
         showClientsButton.setOnClickListener { showClients() }
         buttonVisit.setOnClickListener {
