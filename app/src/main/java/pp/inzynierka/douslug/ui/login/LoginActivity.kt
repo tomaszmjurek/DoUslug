@@ -21,6 +21,7 @@ import pp.inzynierka.douslug.MainActivity
 
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
+import pp.inzynierka.douslug.db.DBController
 
 class LoginActivity : AppCompatActivity() {
 
@@ -44,17 +45,8 @@ class LoginActivity : AppCompatActivity() {
         val sharedPref = this.getSharedPreferences("app_shared", Context.MODE_PRIVATE)
         val userToken = sharedPref.getString("user_token", null);
         if (userToken != null) {
-            //TODO: Check if token exists
-            if (true) {
-                startApplication()
-                finish()
-            } else {
-                Toast.makeText(
-                    applicationContext,
-                    "Token wygasł",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+            startApplication()
+            finish()
         }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
@@ -82,17 +74,11 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
-
-                with (sharedPref.edit()) {
-                    putString("user_token", "123")
-                    apply()
-                }
                 updateUiWithUser(loginResult.success)
+                setResult(Activity.RESULT_OK)
+                //Complete and destroy login activity once successful
+                finish()
             }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
         })
 
         username.afterTextChanged {
@@ -115,7 +101,8 @@ class LoginActivity : AppCompatActivity() {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
                             username.text.toString(),
-                            password.text.toString()
+                            password.text.toString(),
+                            sharedPref
                         )
                 }
                 false
@@ -123,18 +110,17 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.login(username.text.toString(), password.text.toString(), sharedPref)
             }
         }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
-            "$welcome $displayName",
+            "Zalogowano jako $displayName",
             Toast.LENGTH_LONG
         ).show()
         startApplication()
