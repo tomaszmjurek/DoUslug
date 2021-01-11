@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="10dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
+    android:padding="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Button
@@ -16,15 +15,14 @@
         android:layout_height="42dp"/>
 
     <TextView
-        android:id="@+id/calendar_type_text"
+        android:id="@+id/title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/comfortaa_bold"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:textSize="20dp"
-        android:text="Wyświetl:"
-        android:textColor="@android:color/black"
-        android:visibility="invisible"/>
+        android:text="@string/calendar_view_title"
+        android:textColor="#000000"
+        android:textSize="28sp" />
 
     <Button
         android:id="@+id/calendar_type_button"

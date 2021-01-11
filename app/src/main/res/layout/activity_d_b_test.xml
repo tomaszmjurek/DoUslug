@@ -26,8 +26,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/showServicesButton"
-            android:text="show services"/>
+            android:id="@+id/showVisitsButton"
+            android:text="show visits"/>
         <Button
             android:text="insert client"
             android:layout_width="wrap_content"
@@ -40,6 +40,11 @@
             android:id="@+id/showClientsButton"
             android:text="show clients"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/showServicesButton"
+            android:text="show services"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

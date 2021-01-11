@@ -6,6 +6,8 @@
     <string name="all_visits">Wszystkie Wizyty</string>
     <string name="calendar">Kalendarz</string>
     <string name="clients">Klienci</string>
+    <string name="liczba_wizyt_w_tym_dniu">Liczba wizyt w tym dniu:</string>
+    <string name="calendar_day_view_title">Wybrany dzień:</string>
     <string name="home_screen">Ekran główny</string>
     <string name="services">Usługi</string>
     <string name="finances">Finanse</string>
@@ -27,4 +29,5 @@
     <string name="prompt_official_name">Oficjalna nazwa</string>
     <string name="register_title">Rejestracja</string>
     <string name="logout">Wyloguj</string>
+    <string name="calendar_view_title">Tytuł ekranu</string>
 </resources>

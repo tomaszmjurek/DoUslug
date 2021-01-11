@@ -17,27 +17,31 @@
 
         <include layout="@layout/change_calendar_type"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="40dp"
+            android:padding="20dp"
+            android:id="@+id/task_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp"
+            android:background="@null" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"/>
-
         <Button
             android:id="@+id/add_visit_button"
             android:layout_width="320dp"
             android:layout_height="43dp"
-            android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:textColor="@color/buttonTextColor"
             android:text="@string/dodaj_wizyte"

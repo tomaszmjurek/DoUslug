@@ -2,6 +2,7 @@ package pp.inzynierka.douslug.db
 
 import android.util.Log
 import io.realm.Realm
+import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.kotlin.where
 import pp.inzynierka.douslug.model.Client
@@ -74,5 +75,14 @@ object DBController {
             Log.v(TAG, "Inserted user $user into Realm")
         }
         backgroundRealm.close()
+    }
+
+    fun findAllVisits(): RealmResults<Visit> {
+        return realm.where<Visit>().findAllAsync()
+    }
+
+    fun findVisitsByDay(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
+        Log.v(TAG, "Getting visits with date <${timestamp.first}, ${timestamp.second}>")
+        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).findAllAsync()
     }
 }

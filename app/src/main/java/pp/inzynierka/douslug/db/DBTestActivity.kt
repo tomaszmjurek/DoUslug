@@ -41,9 +41,26 @@ class DBTestActivity : AppCompatActivity() {
         }
     }
 
+    private fun showVisits() {
+        val visits = DBController.findAllVisits()
+
+        for (c in visits) {
+            Log.v(TAG, "Visit: Client: ${c.client_id?.first_name} ${c.date} ${c._partition}")
+        }
+
+        Log.v(TAG, visits.toString())
+        textView.text = visits.toString()
+    }
+
 
     private fun showClients() {
         val clients = DBController.findAllClients()
+        for (c in clients) {
+            Log.v(TAG, "Client: ${c.first_name} ${c.last_name}")
+        }
+
+
+
         if (clients != null) {
             textView.text = clients.toString()
             Log.v(TAG, "Retrieved client list is $clients")
@@ -63,7 +80,7 @@ class DBTestActivity : AppCompatActivity() {
     }
 
     private fun insertVisit() {
-        val dateString = DateConverter.generateProperDate("2021", "01", "14", "14", "30")
+        val dateString = DateConverter.generateProperDate("2021", "01", "13", "12", "00")
         val date = DateConverter.dateStringToTimestamp(dateString)
         textView.text = date.toString()
 
@@ -84,6 +101,7 @@ class DBTestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_d_b_test)
 
         buttonService.setOnClickListener { insertService() }
+        showVisitsButton.setOnClickListener { showVisits() }
         showServicesButton.setOnClickListener { showServices() }
         buttonClient.setOnClickListener { insertClient() }
         showClientsButton.setOnClickListener { showClients() }
