@@ -16,7 +16,7 @@ internal class VisitAdapter(data: OrderedRealmCollection<Visit>) : RealmRecycler
     lateinit var _parent: ViewGroup
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.visit_list, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
         _parent = parent
         return TaskViewHolder(itemView)
     }
@@ -25,12 +25,14 @@ internal class VisitAdapter(data: OrderedRealmCollection<Visit>) : RealmRecycler
         val obj: Visit? = getItem(position)
         holder.data = obj
         holder.title.text = obj?.service_id?.name + ": " + obj?.client_id?.first_name + " " + obj?.client_id?.last_name
-        holder.text1.text = DateConverter.timestampToDateString(obj!!.date)
+        holder.text1.text = DateConverter.combineTimestampWithDuration(obj?.date, obj?.service_id?.duration_min)
+        holder.text2.visibility = View.GONE
     }
 
     internal inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var data: Visit? = null
-        var title: TextView = view.findViewById(R.id.visitListTitle)
-        var text1: TextView = view.findViewById(R.id.visitListDate)
+        var title: TextView = view.findViewById(R.id.itemTitle)
+        var text1: TextView = view.findViewById(R.id.itemText1)
+        var text2: TextView = view.findViewById(R.id.itemText2)
     }
 }
