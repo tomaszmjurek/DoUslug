@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import io.realm.RealmChangeListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.right_drawer_menu.*
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
@@ -17,6 +18,7 @@ import pp.inzynierka.douslug.ui.login.LoginActivity
 
 import pp.inzynierka.douslug.calendar.CalendarWeekActivity
 import pp.inzynierka.douslug.data.LoginHelper
+import pp.inzynierka.douslug.model.appUser
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,17 +52,21 @@ class MainActivity : AppCompatActivity() {
 
         drawer_menu_close.setOnClickListener{ drawerLayout.closeDrawer(rightDrawerMenu) }
         drawer_menu_calendar.setOnClickListener { openCalendarView() }
+        drawer_menu_settings.setOnClickListener { openSettings() }
 
         logout.setOnClickListener {
             LoginHelper.logout(this)
         }
 
-
-
     }
 
     private fun openCalendarView() {
         val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun openSettings() {
+        val intent = Intent(this@MainActivity, SettingsActivity::class.java)
         startActivity(intent)
     }
 

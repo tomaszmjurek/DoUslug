@@ -6,4 +6,6 @@
     <color name="buttonTextColor">#FFFFFF</color>
     <color name="drawerMenuButtonBg">#E55618</color>
     <color name="drawerMenuButtonAccent">#CF4C14</color>
+    <color name="lightGray">#C4C4C4</color>
+    <color name="darkGray">#909090</color>
 </resources>

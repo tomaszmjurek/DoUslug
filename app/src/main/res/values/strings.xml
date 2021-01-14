@@ -31,4 +31,11 @@
     <string name="logout">Wyloguj</string>
     <string name="logout_success">Pomyślnie wylogowano</string>
     <string name="calendar_view_title">Tytuł ekranu</string>
+    <string name="settings_logged_as">Zalogowano jako</string>
+    <string name="settings_calendar">Domyślny widok kalendarza</string>
+    <string name="settings_calendar_day">Dzień</string>
+    <string name="settings_calendar_week">Tydzień</string>
+    <string name="settings_calendar_month">Miesiąc</string>
+    <string name="save">Zapisz</string>
+    <string name="settings_saved">Pomyślnie zapisano zmiany</string>
 </resources>
