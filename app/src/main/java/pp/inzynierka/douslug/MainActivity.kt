@@ -16,6 +16,7 @@ import pp.inzynierka.douslug.db.DBTestActivity
 import pp.inzynierka.douslug.ui.login.LoginActivity
 
 import pp.inzynierka.douslug.calendar.CalendarWeekActivity
+import pp.inzynierka.douslug.data.LoginHelper
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,13 +36,8 @@ class MainActivity : AppCompatActivity() {
         this@MainActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main)
 
-        val sharedPref = this.getSharedPreferences("app_shared", Context.MODE_PRIVATE)
-        val userToken = sharedPref.getString("user_token", null);
-        if (userToken != null) {
-            val loggedUser = DBController.findUserByUserId(userToken)
-            if (loggedUser == null) {
-                logout(false)
-            }
+        if (LoginHelper.getLoggedUserOrNull(this) == null) {
+            LoginHelper.logout(this, toast = false)
         }
 
         imageView.setOnClickListener {
@@ -58,32 +54,11 @@ class MainActivity : AppCompatActivity() {
         drawer_menu_calendar.setOnClickListener { openCalendarView() }
 
         logout.setOnClickListener {
-            logout()
+            LoginHelper.logout(this)
         }
 
 
 
-    }
-
-    private fun logout(toast: Boolean = true) {
-        val sharedPref = this.getSharedPreferences("app_shared", Context.MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            remove("user_token")
-            apply()
-        }
-
-        val intent = Intent(this@MainActivity, LoginActivity::class.java)
-        startActivity(intent)
-        if (toast) {
-            Toast.makeText(
-                applicationContext,
-                R.string.logout_success,
-                Toast.LENGTH_LONG
-            ).show()
-        }
-
-
-        finish()
     }
 
     private fun openCalendarView() {
