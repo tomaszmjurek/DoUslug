@@ -61,18 +61,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openCalendarView() {
-        val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
-        startActivity(intent)
+        open(CalendarMonthActivity::class.java)
     }
 
     private fun openSettings() {
-        val intent = Intent(this@MainActivity, SettingsActivity::class.java)
-        startActivity(intent)
+        open(SettingsActivity::class.java)
     }
 
     private fun openDbTest() {
-        val intent = Intent(this@MainActivity, DBTestActivity::class.java)
+        open(DBTestActivity::class.java)
+    }
+
+    private fun open(activity: Class<out AppCompatActivity>) {
+        val intent = Intent(this@MainActivity, activity)
         startActivity(intent)
+        drawerLayout.closeDrawer(rightDrawerMenu)
     }
 
     private fun toggleRightDrawer() {
