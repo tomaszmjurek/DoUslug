@@ -16,7 +16,20 @@ object LoginHelper {
         val userToken = sharedPref.getString("user_token", null);
         if (userToken != null) {
             val loggedUser = DBController.findUserByUserId(userToken)
+            if (loggedUser != null) {
+                DBController.setUserId(loggedUser.user_id)
+            }
             return loggedUser
+        }
+        return null
+    }
+
+    fun getLoggedUserOrLogout(activity: AppCompatActivity): appUser? {
+        val user = getLoggedUserOrNull(activity)
+        if (user != null) {
+            return user
+        } else {
+            logout(activity, toast = false)
         }
         return null
     }

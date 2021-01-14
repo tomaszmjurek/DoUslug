@@ -36,9 +36,7 @@ class MainActivity : AppCompatActivity() {
         this@MainActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main)
 
-        if (LoginHelper.getLoggedUserOrNull(this) == null) {
-            LoginHelper.logout(this, toast = false)
-        }
+        val loggedUser = LoginHelper.getLoggedUserOrLogout(this)
 
         imageView.setOnClickListener {
             toggleRightDrawer()
