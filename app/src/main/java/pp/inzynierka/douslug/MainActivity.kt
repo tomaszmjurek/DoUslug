@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import io.realm.RealmChangeListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.right_drawer_menu.*
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
@@ -16,6 +17,8 @@ import pp.inzynierka.douslug.db.DBTestActivity
 import pp.inzynierka.douslug.ui.login.LoginActivity
 
 import pp.inzynierka.douslug.calendar.CalendarWeekActivity
+import pp.inzynierka.douslug.data.LoginHelper
+import pp.inzynierka.douslug.model.appUser
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,14 +38,7 @@ class MainActivity : AppCompatActivity() {
         this@MainActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main)
 
-        val sharedPref = this.getSharedPreferences("app_shared", Context.MODE_PRIVATE)
-        val userToken = sharedPref.getString("user_token", null);
-        if (userToken != null) {
-            val loggedUser = DBController.findUserByUserId(userToken)
-            if (loggedUser == null) {
-                logout(false)
-            }
-        }
+        val loggedUser = LoginHelper.getLoggedUserOrLogout(this)
 
         imageView.setOnClickListener {
             toggleRightDrawer()
@@ -56,44 +52,30 @@ class MainActivity : AppCompatActivity() {
 
         drawer_menu_close.setOnClickListener{ drawerLayout.closeDrawer(rightDrawerMenu) }
         drawer_menu_calendar.setOnClickListener { openCalendarView() }
+        drawer_menu_settings.setOnClickListener { openSettings() }
 
         logout.setOnClickListener {
-            logout()
+            LoginHelper.logout(this)
         }
 
-
-
-    }
-
-    private fun logout(toast: Boolean = true) {
-        val sharedPref = this.getSharedPreferences("app_shared", Context.MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            remove("user_token")
-            apply()
-        }
-
-        val intent = Intent(this@MainActivity, LoginActivity::class.java)
-        startActivity(intent)
-        if (toast) {
-            Toast.makeText(
-                applicationContext,
-                R.string.logout_success,
-                Toast.LENGTH_LONG
-            ).show()
-        }
-
-
-        finish()
     }
 
     private fun openCalendarView() {
-        val intent = Intent(this@MainActivity, CalendarMonthActivity::class.java)
-        startActivity(intent)
+        open(CalendarMonthActivity::class.java)
+    }
+
+    private fun openSettings() {
+        open(SettingsActivity::class.java)
     }
 
     private fun openDbTest() {
-        val intent = Intent(this@MainActivity, DBTestActivity::class.java)
+        open(DBTestActivity::class.java)
+    }
+
+    private fun open(activity: Class<out AppCompatActivity>) {
+        val intent = Intent(this@MainActivity, activity)
         startActivity(intent)
+        drawerLayout.closeDrawer(rightDrawerMenu)
     }
 
     private fun toggleRightDrawer() {

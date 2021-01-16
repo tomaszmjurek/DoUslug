@@ -16,6 +16,15 @@ object DBController {
     private val realm = Realm.getDefaultInstance()
     private val TAG: String = "DB CONTROLLER"
 
+    private lateinit var userId: String
+
+    fun setUserId(id: String) {
+        userId = id
+    }
+    fun getUserId() : String {
+        return userId
+    }
+
     fun generateUserId() : String {
 //        val maxId = realm.where<Client>().max("user_id") ?: return "100"
         return java.util.UUID.randomUUID().toString()
