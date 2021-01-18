@@ -49,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/monthly_revenue"
+            android:layout_gravity="center"
             android:fontFamily="@font/comfortaa_bold"
             android:textColor="@android:color/black"
             android:textSize="20sp"/>
@@ -57,9 +58,10 @@
             android:id="@+id/to_settle_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/to_settle"
             android:fontFamily="@font/comfortaa_bold"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/holo_red_dark"
             android:textSize="20sp"/>
 
         <View
@@ -82,7 +84,7 @@
         <View
             android:id="@+id/divider1"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="4dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
