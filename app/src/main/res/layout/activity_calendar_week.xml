@@ -16,38 +16,14 @@
 
         <include layout="@layout/change_calendar_type"/>
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="40dp"
+            android:padding="20dp"
+            android:id="@+id/visits_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/weekDaysLayout"
-                android:layout_marginTop="30dp"
-                android:paddingBottom="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-<!--                <include layout="@layout/calendar_week_element"-->
-<!--                    android:id="@+id/mondayLayout"/>-->
-
-<!--                <ListView-->
-<!--                    android:id="@+id/mondayListView"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="20dp"/>-->
-
-<!--                <include layout="@layout/calendar_week_element"-->
-<!--                    android:id="@+id/tuesdayLayout"/>-->
-
-<!--                <ListView-->
-<!--                    android:id="@+id/tuesdayListView"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="20dp"/>-->
-            </LinearLayout>
-
-        </ScrollView>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp"
+            android:background="@null" />
 
     </LinearLayout>
 
