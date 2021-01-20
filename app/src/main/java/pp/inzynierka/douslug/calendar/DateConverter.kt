@@ -7,6 +7,12 @@ import java.util.*
 object DateConverter {
     private val TAG: String = "DATE_CONVERTER"
 
+    fun getCurrentDate() : String {
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        return sdf.format(calendar.time)
+    }
+
     fun timestampToDateString(timestamp: Long): String? {
         return try {
             Log.v(TAG, "Timestamp = $timestamp")
@@ -60,5 +66,23 @@ object DateConverter {
 
     fun getCurrentTimestamp() : Long {
         return Calendar.getInstance().timeInMillis
+    }
+
+    private fun durationToHoursMinutes(duration: Long) : String {
+        val h = duration / 60
+        val m = duration % 60
+        val min = "%.2f".format(m)
+        return "$h:$min"
+    }
+
+    fun combineTimestampWithDuration(timestamp: Long?, duration: Long?) : String {
+        if (timestamp != null && duration != null) {
+            val dateStart = timestampToDateString(timestamp)
+            val durationMillis = duration * 60 * 1000
+            val dateEnd = timestampToDateString(timestamp + durationMillis)
+            val dateEndHours = dateEnd?.substring(11)
+            return "$dateStart - $dateEndHours"
+        }
+        return ""
     }
 }

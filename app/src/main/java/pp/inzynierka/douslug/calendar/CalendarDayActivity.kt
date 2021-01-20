@@ -26,7 +26,7 @@ class CalendarDayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_day)
 
-        selectedDate = intent.getStringExtra("selectedDate") ?: getCurrentDate()
+        selectedDate = intent.getStringExtra("selectedDate") ?: DateConverter.getCurrentDate()
         title_text_view.text = selectedDate
 
         setUpRecyclerView()

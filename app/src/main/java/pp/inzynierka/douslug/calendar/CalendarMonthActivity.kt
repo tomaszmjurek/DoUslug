@@ -47,7 +47,7 @@ class CalendarMonthActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        selectedDate = getCurrentDate()
+        selectedDate = DateConverter.getCurrentDate()
     }
 
     private fun toast() {
@@ -56,12 +56,6 @@ class CalendarMonthActivity : AppCompatActivity() {
             "Selected date: $selectedDate",
             Toast.LENGTH_SHORT
         ).show()
-    }
-
-    //todo move to date converter
-    private fun getCurrentDate() : String {
-        val sdf = SimpleDateFormat("yyyy/MM/dd")
-        return sdf.format(calendar.time)
     }
 
     private fun showCalendarChange() {
