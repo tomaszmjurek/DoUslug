@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         drawer_menu_close.setOnClickListener{ drawerLayout.closeDrawer(rightDrawerMenu) }
         drawer_menu_calendar.setOnClickListener { openCalendarView() }
         drawer_menu_settings.setOnClickListener { openSettings() }
+        drawer_menu_finances.setOnClickListener { openFinances() }
 
         logout.setOnClickListener {
             LoginHelper.logout(this)
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun openDbTest() {
         open(DBTestActivity::class.java)
+    }
+
+    private fun openFinances() {
+        open(FinanceActivity::class.java)
     }
 
     private fun open(activity: Class<out AppCompatActivity>) {

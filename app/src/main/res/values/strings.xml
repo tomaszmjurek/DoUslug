@@ -38,4 +38,8 @@
     <string name="settings_calendar_month">Miesiąc</string>
     <string name="save">Zapisz</string>
     <string name="settings_saved">Pomyślnie zapisano zmiany</string>
+    <string name="to_settle">Do rozliczenia:</string>
+    <string name="monthly_revenue">Zysk miesięczny:</string>
+    <string name="not_settled_visits">Nie rozliczone wizyty:</string>
+    <string name="remind">PRZYPOMNIJ</string>
 </resources>

@@ -49,4 +49,16 @@ object DateConverter {
         val timeTo = timeFrom?.plus(86399000)
         return Pair(timeFrom, timeTo)
     }
+
+    fun getTimestampsOfMonth(year: String, month: String) : Pair<Long?, Long?> {
+        val lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)
+        val timeFrom = dateStringToTimestamp("$year/$month/01".plus(" 00:00"))
+        val timeTo = dateStringToTimestamp("$year/$month/$lastDayOfMonth".plus(" 23:59"))
+        Log.v(TAG, "Timestamps of month $year/$month: $timeFrom - $timeTo")
+        return Pair(timeFrom, timeTo)
+    }
+
+    fun getCurrentTimestamp() : Long {
+        return Calendar.getInstance().timeInMillis
+    }
 }

@@ -5,6 +5,7 @@ import io.realm.Realm
 import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.kotlin.where
+import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
 import pp.inzynierka.douslug.model.Visit
@@ -90,7 +91,7 @@ object DBController {
         return realm.where<Visit>().findAllAsync()
     }
 
-    fun findVisitsByDay(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
+    fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
         Log.v(TAG, "Getting visits with date <${timestamp.first}, ${timestamp.second}>")
         return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).findAllAsync()
     }
@@ -101,5 +102,19 @@ object DBController {
 
     fun findUserByUserId(token: String) : appUser? {
         return realm.where<appUser>().equalTo("user_id", token).findFirst()
+    }
+
+    fun findPaidVisitsByDate(timestamp: Pair<Long?, Long?>) : RealmResults<Visit> {
+        return realm.where<Visit>().equalTo("user_id", userId)
+            .equalTo("wasPaid", true)
+            .between("date", timestamp.first!!, timestamp.second!!)
+            .findAllAsync()
+    }
+
+    fun findNotPaidVisits() : RealmResults<Visit> {
+        return realm.where<Visit>().equalTo("user_id", userId)
+            .equalTo("wasPaid", false)
+            .lessThan("date", DateConverter.getCurrentTimestamp())
+            .findAllAsync()
     }
 }
