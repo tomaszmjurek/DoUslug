@@ -17,12 +17,13 @@ import java.util.*
 
 class CalendarMonthActivity : AppCompatActivity() {
     private lateinit var selectedDate: String
-    private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar_month)
         title_text_view.text = "Kalendarz"
+
+        calendar_view.date
 
         calendar_type_button.setOnClickListener { showCalendarChange() }
         back_button.setOnClickListener { onBackPressed() }
@@ -33,7 +34,6 @@ class CalendarMonthActivity : AppCompatActivity() {
 
         calendar_view.setOnDateChangeListener { view, year, month, dayOfMonth ->
             selectedDate = "$year/${makeTwoDigitsIfOne((month+1).toString())}/${makeTwoDigitsIfOne(dayOfMonth.toString())}"
-            toast()
         }
     }
 

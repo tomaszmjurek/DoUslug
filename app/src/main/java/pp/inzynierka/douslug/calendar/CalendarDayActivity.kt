@@ -48,14 +48,6 @@ class CalendarDayActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
-
-    //todo move to DateConverter
-    private fun getCurrentDate() : String {
-        val calendar = Calendar.getInstance()
-        val sdf = SimpleDateFormat("yyyy/MM/dd")
-        return sdf.format(calendar.time)
-    }
-
     private fun showCalendarChange() {
         if (calendar_type_layout.visibility == View.GONE) {
             calendar_type_layout.visibility = View.VISIBLE

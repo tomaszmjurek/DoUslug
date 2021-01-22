@@ -4,21 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.view.Window
 import android.os.Bundle
-import android.view.View
-import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import io.realm.RealmChangeListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.right_drawer_menu.*
+import pp.inzynierka.douslug.calendar.CalendarDayActivity
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
-import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.db.DBTestActivity
-import pp.inzynierka.douslug.ui.login.LoginActivity
 
 import pp.inzynierka.douslug.calendar.CalendarWeekActivity
 import pp.inzynierka.douslug.data.LoginHelper
-import pp.inzynierka.douslug.model.appUser
 
 
 class MainActivity : AppCompatActivity() {
@@ -62,7 +56,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openCalendarView() {
-        open(CalendarMonthActivity::class.java)
+        val sharedPref = getSharedPreferences("app_shared", Context.MODE_PRIVATE)
+        val calendarMode = sharedPref.getString("calendar_mode", "month")
+        when (calendarMode) {
+            "month" -> open(CalendarMonthActivity::class.java)
+            "week" -> open(CalendarWeekActivity::class.java)
+            "day" -> open(CalendarDayActivity::class.java)
+        }
     }
 
     private fun openSettings() {
