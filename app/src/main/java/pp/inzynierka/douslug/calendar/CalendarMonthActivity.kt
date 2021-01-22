@@ -36,15 +36,13 @@ class CalendarMonthActivity : AppCompatActivity() {
 //            mFormat.roundingMode = RoundingMode.DOWN
 //            val date = DateConverter.generateProperDateShort(year.toString(), month.toString(), dayOfMonth.toString())
 
-            val dateFormat_month = SimpleDateFormat("MM")
-            val dateFormat_day = SimpleDateFormat("dd")
-//            month = mFormat.format(month)
+
 //            selectedDate = "$year/${dateFormat_month.format(month)}/${dateFormat_day.format(dayOfMonth)}"
             selectedDate = "$year/$month/$dayOfMonth"
             toast()
         }
     }
-
+    
     override fun onStart() {
         super.onStart()
         selectedDate = DateConverter.getCurrentDate()
