@@ -32,17 +32,16 @@ class CalendarMonthActivity : AppCompatActivity() {
         show_visits_button.setOnClickListener { openCalendarDayActivity() }
 
         calendar_view.setOnDateChangeListener { view, year, month, dayOfMonth ->
-//            val mFormat = DecimalFormat("00")
-//            mFormat.roundingMode = RoundingMode.DOWN
-//            val date = DateConverter.generateProperDateShort(year.toString(), month.toString(), dayOfMonth.toString())
-
-
-//            selectedDate = "$year/${dateFormat_month.format(month)}/${dateFormat_day.format(dayOfMonth)}"
-            selectedDate = "$year/$month/$dayOfMonth"
+            selectedDate = "$year/${makeTwoDigitsIfOne((month+1).toString())}/${makeTwoDigitsIfOne(dayOfMonth.toString())}"
             toast()
         }
     }
-    
+
+    private fun makeTwoDigitsIfOne(text: String) : String {
+        if (text.length == 1) return "0$text"
+        return text
+    }
+
     override fun onStart() {
         super.onStart()
         selectedDate = DateConverter.getCurrentDate()
