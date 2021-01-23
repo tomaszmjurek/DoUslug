@@ -41,9 +41,8 @@ object DBController {
 
 
     fun findAllClients() : RealmResults<Client> {
-        var clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
+        val clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
-//        val clients2 = ArrayList<Client>(realm.where<Client>().findAllAsync())
         return clients
     }
 
@@ -93,10 +92,14 @@ object DBController {
 
     fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
         Log.v(TAG, "Getting visits with date <${timestamp.first}, ${timestamp.second}>")
-        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).findAllAsync()
+        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).sort("date").findAllAsync()
     }
 
-    fun findUserByEmail(email: String) : appUser? {
+    fun findNumberOfVisitsByDates(timestamp: Pair<Long?, Long?>): Int {
+        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).findAllAsync().size
+    }
+
+        fun findUserByEmail(email: String) : appUser? {
         return realm.where<appUser>().equalTo("email", email).findFirst()
     }
 

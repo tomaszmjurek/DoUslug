@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.db.DBController
+import pp.inzynierka.douslug.model.Visit
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,12 +42,17 @@ class CalendarDayActivity : AppCompatActivity() {
 
     private fun setUpRecyclerView() {
         recyclerView = findViewById(R.id.task_list)
-        val visits = DBController.findAllVisits()
+        val visits = getDayVisits()
         adapter = VisitAdapter(visits)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+    }
+
+    private fun getDayVisits() : RealmResults<Visit> {
+        val dayTimestamps = DateConverter.getTimestampsOfDay(selectedDate)
+        return DBController.findVisitsByDates(dayTimestamps)
     }
 
     private fun showCalendarChange() {
