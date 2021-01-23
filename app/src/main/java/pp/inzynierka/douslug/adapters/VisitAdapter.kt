@@ -12,11 +12,14 @@ import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Visit
 
 
-internal class VisitAdapter(data: OrderedRealmCollection<Visit>) : RealmRecyclerViewAdapter<Visit, VisitAdapter.TaskViewHolder?>(data, true) {
+internal class VisitAdapter(
+    data: OrderedRealmCollection<Visit>,
+    private val listener: OnItemClickListener
+) : RealmRecyclerViewAdapter<Visit, VisitAdapter.TaskViewHolder?>(data, true) {
     lateinit var _parent: ViewGroup
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.visit_list, parent, false)
         _parent = parent
         return TaskViewHolder(itemView)
     }
@@ -26,13 +29,26 @@ internal class VisitAdapter(data: OrderedRealmCollection<Visit>) : RealmRecycler
         holder.data = obj
         holder.title.text = obj?.service_id?.name + ": " + obj?.client_id?.first_name + " " + obj?.client_id?.last_name
         holder.text1.text = DateConverter.combineTimestampWithDuration(obj?.date, obj?.service_id?.duration_min)
-        holder.text2.visibility = View.GONE
     }
 
-    internal inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+    View.OnClickListener{
         var data: Visit? = null
-        var title: TextView = view.findViewById(R.id.itemTitle)
-        var text1: TextView = view.findViewById(R.id.itemText1)
-        var text2: TextView = view.findViewById(R.id.itemText2)
+        var title: TextView = itemView.findViewById(R.id.visitListTitle)
+        var text1: TextView = itemView.findViewById(R.id.visitListDate)
+
+        init{
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if(position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(position)
+            }
+        }
+    }
+    interface  OnItemClickListener{
+        fun onItemClick(position: Int)
     }
 }

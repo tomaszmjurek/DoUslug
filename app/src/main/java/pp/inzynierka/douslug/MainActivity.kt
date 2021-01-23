@@ -49,10 +49,17 @@ class MainActivity : AppCompatActivity() {
         drawer_menu_settings.setOnClickListener { openSettings() }
         drawer_menu_finances.setOnClickListener { openFinances() }
 
+        all_visits.setOnClickListener{ openAllVisitsView() }
+
         logout.setOnClickListener {
             LoginHelper.logout(this)
         }
 
+    }
+
+    private fun openAllVisitsView() {
+        val intent = Intent(this@MainActivity, AllVisitsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun openCalendarView() {
