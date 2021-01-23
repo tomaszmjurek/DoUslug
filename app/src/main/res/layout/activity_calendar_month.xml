@@ -62,7 +62,35 @@
         android:orientation="vertical"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
-        
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/show_visits_day"
+                android:layout_width="155dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/show_day"
+                android:background="@drawable/white_button_background"/>
+
+            <Button
+                android:id="@+id/show_visits_week"
+                android:layout_width="155dp"
+                android:layout_height="43dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/show_week"
+                android:background="@drawable/white_button_background"/>
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/add_visit_button"
             android:layout_width="320dp"
@@ -70,15 +98,6 @@
             android:textColor="@color/buttonTextColor"
             android:text="@string/dodaj_wizyte"
             android:background="@drawable/orange_button_background"/>
-
-        <Button
-            android:id="@+id/show_visits_button"
-            android:layout_width="320dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/wyswietl_wizyty"
-            android:background="@drawable/white_button_background"/>
 
     </LinearLayout>
 

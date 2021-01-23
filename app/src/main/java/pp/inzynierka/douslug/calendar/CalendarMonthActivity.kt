@@ -39,17 +39,14 @@ class CalendarMonthActivity : AppCompatActivity() {
         day_button.setOnClickListener { openCalendarDayActivity() }
         week_button.setOnClickListener { openCalendarWeekActivity() }
         month_button.setOnClickListener { showCalendarChange() }
-        show_visits_button.setOnClickListener { openCalendarDayActivity() }
+        show_visits_day.setOnClickListener { openCalendarDayActivity(true) }
+        show_visits_week.setOnClickListener { openCalendarWeekActivity(true) }
 
         calendar_view.setOnDateChangeListener { view, year, month, dayOfMonth ->
             selectedDate = "$year/${makeTwoDigitsIfOne((month+1).toString())}/${makeTwoDigitsIfOne(dayOfMonth.toString())}"
-            //getINstance
-//            calendar.set(year, month, dayOfMonth)
             selectedYear = year
             selectedMonth = month
             selectedDay = dayOfMonth
-//            date = Date(year, month, dayOfMonth)
-//            selectedVisitsNumber.text = getNumberOfVisits()
         }
     }
 
@@ -84,21 +81,21 @@ class CalendarMonthActivity : AppCompatActivity() {
         }
     }
 
-    //todo wybranie widoku dnia z rozwijanej listy otwiera bieżący dzień a nie wybrany
-    private fun openCalendarDayActivity() {
+    private fun openCalendarDayActivity(withExtras: Boolean = false) {
         val intent = Intent(this@CalendarMonthActivity, CalendarDayActivity::class.java)
-        intent.putExtra("selectedDate", selectedDate)
+        if (withExtras) {
+            intent.putExtra("selectedDate", selectedDate)
+        }
         startActivity(intent)
     }
 
-    private fun openCalendarWeekActivity() {
+    private fun openCalendarWeekActivity(withExtras: Boolean = false) {
         val intent = Intent(this@CalendarMonthActivity, CalendarWeekActivity::class.java)
-        intent.putExtra("selectedDay", selectedDay)
-        intent.putExtra("selectedMonth", selectedMonth)
-        intent.putExtra("selectedYear", selectedYear)
+        if (withExtras) {
+            intent.putExtra("selectedDay", selectedDay)
+            intent.putExtra("selectedMonth", selectedMonth)
+            intent.putExtra("selectedYear", selectedYear)
+        }
         startActivity(intent)
     }
-
-
-
 }
