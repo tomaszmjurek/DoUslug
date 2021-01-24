@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_all_visits.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
+import kotlinx.android.synthetic.main.calendar_top_layout.back_button
 import pp.inzynierka.douslug.adapters.ServiceAdapter
 import pp.inzynierka.douslug.db.DBController
 
@@ -19,7 +21,7 @@ class AllServicesActivity  : AppCompatActivity(), ServiceAdapter.OnItemClickList
 
             setUpRecyclerView()
             back_button.setOnClickListener { onBackPressed() }
-
+            add_button.setOnClickListener {addVisit()}
 
         }
         private fun setUpRecyclerView() {
@@ -40,4 +42,9 @@ class AllServicesActivity  : AppCompatActivity(), ServiceAdapter.OnItemClickList
             intent.putExtra("ServiceID", ServiceID)
             startActivity(intent)
         }
+
+    private fun addVisit(){
+        val intent = Intent(this@AllServicesActivity, ServiceActivity::class.java)
+        startActivity(intent)
+    }
     }

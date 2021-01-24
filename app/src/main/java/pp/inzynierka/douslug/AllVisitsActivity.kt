@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_all_visits.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
+import kotlinx.android.synthetic.main.calendar_top_layout.back_button
 import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.db.DBController
 
@@ -19,7 +21,7 @@ class AllVisitsActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener 
 
         setUpRecyclerView()
         back_button.setOnClickListener { onBackPressed() }
-
+        add_button.setOnClickListener {addVisit()}
 
     }
     private fun setUpRecyclerView() {
@@ -38,6 +40,11 @@ class AllVisitsActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener 
     private fun openVisitView(VisitID: String) {
         val intent = Intent(this@AllVisitsActivity, VisitActivity::class.java)
         intent.putExtra("VisitID", VisitID)
+        startActivity(intent)
+    }
+
+    private fun addVisit(){
+        val intent = Intent(this@AllVisitsActivity, ClientActivity::class.java)
         startActivity(intent)
     }
 }
