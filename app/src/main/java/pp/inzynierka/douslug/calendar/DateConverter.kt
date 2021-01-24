@@ -15,10 +15,9 @@ object DateConverter {
 
     fun timestampToDateString(timestamp: Long): String? {
         return try {
-            Log.v(TAG, "Timestamp = $timestamp")
             val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
             val netDate = Date(timestamp)
-            Log.v(TAG, "Date = ${sdf.format(netDate)}")
+            Log.v(TAG, "Timestamp $timestamp -> Date = ${sdf.format(netDate)}")
             sdf.format(netDate)
         } catch (e: Exception) {
             Log.v(TAG, "Error while converting date to timestamp - $e")
@@ -63,6 +62,30 @@ object DateConverter {
         Log.v(TAG, "Timestamps of month $year/$month: $timeFrom - $timeTo")
         return Pair(timeFrom, timeTo)
     }
+
+    fun getTimestampsOfWeek(year: Int, month: Int, day: Int) : Pair<Long?, Long?> {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek+2) // find last Monday
+        val timeFrom = dateStringToTimestamp(makeStringFromCalendar(calendar, " 00:00"))
+        calendar.add(Calendar.DAY_OF_MONTH, 6) // find next Sunday
+        val timeTo = dateStringToTimestamp(makeStringFromCalendar(calendar, " 23:59"))
+        return Pair(timeFrom, timeTo)
+    }
+
+    private fun makeStringFromCalendar(c: Calendar, hours: String) : String {
+        return "${c.get(Calendar.YEAR)}" +
+                "/${makeTwoDigitsIfOne((c.get(Calendar.MONTH)+1).toString())}" +
+                "/${makeTwoDigitsIfOne(c.get(Calendar.DAY_OF_MONTH).toString())}" +
+                hours
+    }
+
+    private fun makeTwoDigitsIfOne(text: String) : String {
+        if (text.length == 1) return "0$text"
+        return text
+    }
+
 
     fun getCurrentTimestamp() : Long {
         return Calendar.getInstance().timeInMillis

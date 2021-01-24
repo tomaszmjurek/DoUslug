@@ -96,12 +96,13 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="320dp"
+                android:layout_height="43dp"
                 android:layout_marginBottom="32dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/buttonTextColor"
+                android:layout_gravity="center"
                 android:text="@string/all_visits"
-                android:textColor="#FFFFFF" />
+                android:background="@drawable/orange_button_background"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

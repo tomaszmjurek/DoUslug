@@ -42,4 +42,6 @@
     <string name="monthly_revenue">Zysk miesięczny:</string>
     <string name="not_settled_visits">Nie rozliczone wizyty:</string>
     <string name="remind">PRZYPOMNIJ</string>
+    <string name="show_week">wyświetl tydzień</string>
+    <string name="show_day">wyświetl dzień</string>
 </resources>
