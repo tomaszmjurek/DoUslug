@@ -14,8 +14,6 @@ import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.model.Visit
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class CalendarDayActivity : AppCompatActivity() {

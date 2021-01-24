@@ -1,7 +1,6 @@
 package pp.inzynierka.douslug.calendar
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,10 +10,6 @@ import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.db.DBController
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 
@@ -33,6 +28,7 @@ class CalendarMonthActivity : AppCompatActivity() {
         title_text_view.text = "Kalendarz"
 
         selectedVisitsNumber.visibility = View.GONE
+        selectedDate = DateConverter.getCurrentDate()
 
         calendar_type_button.setOnClickListener { showCalendarChange() }
         back_button.setOnClickListener { onBackPressed() }
@@ -48,11 +44,6 @@ class CalendarMonthActivity : AppCompatActivity() {
             selectedMonth = month
             selectedDay = dayOfMonth
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        selectedDate = DateConverter.getCurrentDate()
     }
 
     private fun makeTwoDigitsIfOne(text: String) : String {

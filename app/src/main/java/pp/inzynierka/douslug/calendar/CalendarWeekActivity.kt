@@ -2,8 +2,6 @@ package pp.inzynierka.douslug.calendar
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.format.DateUtils
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,11 +14,6 @@ import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.model.Visit
-import java.text.SimpleDateFormat
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.format.TextStyle
-import java.time.temporal.WeekFields
 import java.util.*
 
 
@@ -82,7 +75,6 @@ class CalendarWeekActivity : AppCompatActivity() {
 
     private fun getWeekVisits() : RealmResults<Visit> {
         weekTimestamps = DateConverter.getTimestampsOfWeek(selectedYear, selectedMonth, selectedDay)
-        setUpTitle()
         return DBController.findVisitsByDates(weekTimestamps)
     }
 
