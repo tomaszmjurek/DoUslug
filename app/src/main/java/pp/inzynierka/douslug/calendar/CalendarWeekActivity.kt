@@ -11,13 +11,15 @@ import io.realm.RealmResults
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
+import pp.inzynierka.douslug.VisitActivity
 import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.model.Visit
 import java.util.*
 
 
-class CalendarWeekActivity : AppCompatActivity() {
+class CalendarWeekActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener {
+
     private val TAG: String = "CALENDAR_WEEK_ACTIVITY"
     private lateinit var recyclerView : RecyclerView
     private lateinit var adapter: VisitAdapter
@@ -66,11 +68,22 @@ class CalendarWeekActivity : AppCompatActivity() {
     private fun setUpRecycleView() {
         recyclerView = findViewById(R.id.visits_list)
         val weekVisits = getWeekVisits()
-        adapter = VisitAdapter(weekVisits)
+        adapter = VisitAdapter(weekVisits, this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+    }
+
+    override fun onItemClick(position: Int) {
+        val id = adapter.getItem(position)?._id
+        openVisitView(id.toString())
+    }
+
+    private fun openVisitView(VisitID: String) {
+        val intent = Intent(this@CalendarWeekActivity, VisitActivity::class.java)// Tu Ada wstawiasz activity obsługujące wizytę
+        intent.putExtra("VisitID", VisitID)
+        startActivity(intent)
     }
 
     private fun getWeekVisits() : RealmResults<Visit> {

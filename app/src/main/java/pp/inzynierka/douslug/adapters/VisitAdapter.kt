@@ -12,14 +12,12 @@ import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Visit
 
 
-internal class VisitAdapter(
-    data: OrderedRealmCollection<Visit>,
-    private val listener: OnItemClickListener
-) : RealmRecyclerViewAdapter<Visit, VisitAdapter.TaskViewHolder?>(data, true) {
+internal class VisitAdapter (data: OrderedRealmCollection<Visit>, private val listener: OnItemClickListener)
+    : RealmRecyclerViewAdapter<Visit, VisitAdapter.TaskViewHolder?>(data, true) {
     lateinit var _parent: ViewGroup
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.visit_list, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
         _parent = parent
         return TaskViewHolder(itemView)
     }
@@ -31,11 +29,10 @@ internal class VisitAdapter(
         holder.text1.text = DateConverter.combineTimestampWithDuration(obj?.date, obj?.service_id?.duration_min)
     }
 
-    inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-    View.OnClickListener{
+    inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var data: Visit? = null
-        var title: TextView = itemView.findViewById(R.id.visitListTitle)
-        var text1: TextView = itemView.findViewById(R.id.visitListDate)
+        var title: TextView = itemView.findViewById(R.id.itemTitle)
+        var text1: TextView = itemView.findViewById(R.id.itemText1)
 
         init{
             itemView.setOnClickListener(this)
@@ -48,6 +45,7 @@ internal class VisitAdapter(
             }
         }
     }
+
     interface  OnItemClickListener{
         fun onItemClick(position: Int)
     }

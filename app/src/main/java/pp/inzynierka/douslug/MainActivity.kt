@@ -41,15 +41,17 @@ class MainActivity : AppCompatActivity() {
         val adapter = VisitListView(this, titles, dates, notes)
         upcomingVisitsList.adapter = adapter
 
-        imageButton.setOnClickListener{ openCalendarView() }
-        imageButton2.setOnClickListener { openDbTest() }
+        imageButton.setOnClickListener{ openCalendar() }
+        imageButton2.setOnClickListener { openAllClients() }
 
         drawer_menu_close.setOnClickListener{ drawerLayout.closeDrawer(rightDrawerMenu) }
-        drawer_menu_calendar.setOnClickListener { openCalendarView() }
+        drawer_menu_calendar.setOnClickListener { openCalendar() }
+        drawer_menu_clients.setOnClickListener { openAllClients() }
+        drawer_menu_services.setOnClickListener { openAllServices() }
         drawer_menu_settings.setOnClickListener { openSettings() }
         drawer_menu_finances.setOnClickListener { openFinances() }
 
-        all_visits.setOnClickListener{ openAllVisitsView() }
+        all_visits.setOnClickListener{ openAllVisits() }
 
         logout.setOnClickListener {
             LoginHelper.logout(this)
@@ -57,12 +59,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun openAllVisitsView() {
+    private fun openAllVisits() {
         val intent = Intent(this@MainActivity, AllVisitsActivity::class.java)
         startActivity(intent)
     }
 
-    private fun openCalendarView() {
+    private fun openCalendar() {
         val sharedPref = getSharedPreferences("app_shared", Context.MODE_PRIVATE)
         val calendarMode = sharedPref.getString("calendar_mode", "month")
         when (calendarMode) {
@@ -82,6 +84,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun openFinances() {
         open(FinanceActivity::class.java)
+    }
+
+    private fun openAllClients() {
+        open(AllClientsActivity::class.java)
+    }
+
+    private fun openAllServices() {
+        open(AllServicesActivity::class.java)
     }
 
     private fun open(activity: Class<out AppCompatActivity>) {

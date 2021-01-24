@@ -19,7 +19,7 @@ class ClientAdapter(
     lateinit var _parent: ViewGroup
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.visit_list, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
         _parent = parent
         return TaskViewHolder(itemView)
     }
@@ -34,8 +34,8 @@ class ClientAdapter(
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener{
         var data: Client? = null
-        var title: TextView = itemView.findViewById(R.id.visitListTitle)
-        var text1: TextView = itemView.findViewById(R.id.visitListDate)
+        var title: TextView = itemView.findViewById(R.id.itemTitle)
+        var text1: TextView = itemView.findViewById(R.id.itemText1)
 
         init{
             itemView.setOnClickListener(this)

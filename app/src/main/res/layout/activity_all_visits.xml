@@ -31,11 +31,11 @@
                 android:gravity="bottom" />
 
             <TextView
-                android:id="@+id/Title"
+                android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/comfortaa_bold"
-                android:text="Wszyscy klienci:"
+                android:text="@string/all_visits"
                 android:textColor="#000000"
                 android:textSize="28sp" />
             <View

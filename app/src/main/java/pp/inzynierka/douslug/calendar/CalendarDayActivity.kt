@@ -82,9 +82,10 @@ class CalendarDayActivity : AppCompatActivity(), VisitAdapter.OnItemClickListene
         super.onDestroy()
         recyclerView.adapter = null
     }
-    private fun openVisitView(VisitID: String) {
+
+    private fun openVisitView(visitID: String) {
         val intent = Intent(this@CalendarDayActivity, VisitActivity::class.java)// Tu Ada wstawiasz activity obsługujące wizytę
-        intent.putExtra("VisitID", VisitID)
+        intent.putExtra("visitID", visitID)
         startActivity(intent)
     }
 }
