@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         drawer_menu_settings.setOnClickListener { openSettings() }
         drawer_menu_finances.setOnClickListener { openFinances() }
 
-        all_visits.setOnClickListener{ openAllVisits() }
+        all_visits_button.setOnClickListener{ openAllVisits() }
 
         logout.setOnClickListener {
             LoginHelper.logout(this)
