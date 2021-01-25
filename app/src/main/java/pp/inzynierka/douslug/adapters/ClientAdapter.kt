@@ -1,19 +1,21 @@
 package pp.inzynierka.douslug.adapters
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.calendar.DateConverter
-import pp.inzynierka.douslug.model.Visit
+import pp.inzynierka.douslug.model.Client
 
 
-internal class VisitAdapter (data: OrderedRealmCollection<Visit>, private val listener: OnItemClickListener)
-    : RealmRecyclerViewAdapter<Visit, VisitAdapter.TaskViewHolder?>(data, true) {
+class ClientAdapter(
+    data: OrderedRealmCollection<Client>,
+    private val listener: OnItemClickListener
+) : RealmRecyclerViewAdapter<Client, ClientAdapter.TaskViewHolder?>(data, true) {
     lateinit var _parent: ViewGroup
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -23,14 +25,15 @@ internal class VisitAdapter (data: OrderedRealmCollection<Visit>, private val li
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val obj: Visit? = getItem(position)
+        val obj: Client? = getItem(position)
         holder.data = obj
-        holder.title.text = obj?.service_id?.name + ": " + obj?.client_id?.first_name + " " + obj?.client_id?.last_name
-        holder.text1.text = DateConverter.combineTimestampWithDuration(obj?.date, obj?.service_id?.duration_min)
+        holder.title.text = obj?.first_name + " " + obj?.last_name
+        holder.text1.text = obj?.comment
     }
 
-    inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var data: Visit? = null
+    inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener{
+        var data: Client? = null
         var title: TextView = itemView.findViewById(R.id.itemTitle)
         var text1: TextView = itemView.findViewById(R.id.itemText1)
 
@@ -45,8 +48,8 @@ internal class VisitAdapter (data: OrderedRealmCollection<Visit>, private val li
             }
         }
     }
-
     interface  OnItemClickListener{
         fun onItemClick(position: Int)
     }
 }
+

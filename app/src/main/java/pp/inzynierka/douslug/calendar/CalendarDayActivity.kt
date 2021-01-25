@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
+import pp.inzynierka.douslug.AllVisitsActivity
 import pp.inzynierka.douslug.R
+import pp.inzynierka.douslug.VisitActivity
 import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.model.Visit
 
 
-class CalendarDayActivity : AppCompatActivity() {
+class CalendarDayActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener {
     private val TAG: String = "CALENDAR_DAY_ACTIVITY"
     private lateinit var selectedDate: String
     private lateinit var recyclerView: RecyclerView
@@ -41,7 +43,7 @@ class CalendarDayActivity : AppCompatActivity() {
     private fun setUpRecyclerView() {
         recyclerView = findViewById(R.id.task_list)
         val visits = getDayVisits()
-        adapter = VisitAdapter(visits)
+        adapter = VisitAdapter(visits, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
@@ -51,6 +53,11 @@ class CalendarDayActivity : AppCompatActivity() {
     private fun getDayVisits() : RealmResults<Visit> {
         val dayTimestamps = DateConverter.getTimestampsOfDay(selectedDate)
         return DBController.findVisitsByDates(dayTimestamps)
+    }
+
+    override fun onItemClick(position: Int) {
+        val id = adapter.getItem(position)?._id
+        openVisitView(id.toString())
     }
 
     private fun showCalendarChange() {
@@ -74,5 +81,11 @@ class CalendarDayActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         recyclerView.adapter = null
+    }
+
+    private fun openVisitView(visitID: String) {
+        val intent = Intent(this@CalendarDayActivity, VisitActivity::class.java)// Tu Ada wstawiasz activity obsługujące wizytę
+        intent.putExtra("visitID", visitID)
+        startActivity(intent)
     }
 }
