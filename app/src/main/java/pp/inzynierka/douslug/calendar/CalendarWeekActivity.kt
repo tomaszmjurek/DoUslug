@@ -80,9 +80,9 @@ class CalendarWeekActivity : AppCompatActivity(), VisitAdapter.OnItemClickListen
         openVisitView(id.toString())
     }
 
-    private fun openVisitView(VisitID: String) {
+    private fun openVisitView(visitID: String) {
         val intent = Intent(this@CalendarWeekActivity, VisitActivity::class.java)// Tu Ada wstawiasz activity obsługujące wizytę
-        intent.putExtra("VisitID", VisitID)
+        intent.putExtra("visitID", visitID)
         startActivity(intent)
     }
 
