@@ -25,6 +25,10 @@ object DateConverter {
         }
     }
 
+    fun timestampToDateStringShort(timestamp: Long): String? {
+        return timestampToDateString(timestamp)?.substring(0, 10)
+    }
+
     fun dateStringToTimestamp(date: String) : Long? {
         return try {
             val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm").parse(date)
