@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
+import kotlinx.android.synthetic.main.not_paid_item_view.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.VisitActivity
 import pp.inzynierka.douslug.adapters.SectionedVisitAdapter
+import pp.inzynierka.douslug.calendar.RecyclerItem.Section
 import pp.inzynierka.douslug.db.DBController
 import pp.inzynierka.douslug.model.Visit
 import java.util.*
@@ -73,14 +75,9 @@ class CalendarWeekActivity : AppCompatActivity(), SectionedVisitAdapter.OnItemCl
         recyclerView = findViewById(R.id.visits_list)
         val weekVisits = getWeekVisits()
 
-        val sectionedVisitsWithDay = weekVisits
-            .groupBy { DateConverter.timestampToDateStringShort(it.date)!! }
-            .flatMap { (title, visits) ->
-                listOf<RecyclerItem>(
-                    RecyclerItem.Section(title)) + visits.map { RecyclerItem.WeekVisit(it) }
-            }
+        val sectionedVisitsWithDays = getSectionedVisitsWithDays(weekVisits)
 
-        adapter = SectionedVisitAdapter(sectionedVisitsWithDay,this)
+        adapter = SectionedVisitAdapter(sectionedVisitsWithDays,this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -91,6 +88,24 @@ class CalendarWeekActivity : AppCompatActivity(), SectionedVisitAdapter.OnItemCl
     private fun getWeekVisits() : RealmResults<Visit> {
         weekTimestamps = DateConverter.getTimestampsOfWeek(selectedYear, selectedMonth, selectedDay)
         return DBController.findVisitsByDates(weekTimestamps)
+    }
+
+    private fun getSectionedVisitsWithDays(weekVisits: RealmResults<Visit>): List<RecyclerItem> {
+
+        val dates = DateConverter.getDatesOfWeek(selectedYear, selectedMonth, selectedDay)
+
+        val datesMap = dates.flatMap { d -> listOf<RecyclerItem>(Section(d)) }
+
+        val sectionedVisitsWithDays = weekVisits
+            .groupBy { DateConverter.timestampToDateStringShort(it.date)!! }
+            .flatMap { (title, visits) ->
+                listOf<RecyclerItem>(
+                    Section(title)) + visits.map { RecyclerItem.WeekVisit(it) }
+            }
+            .plus(datesMap)
+            .distinct()
+
+        return sectionedVisitsWithDays
     }
 
     private fun setUpTitle() {

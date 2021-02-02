@@ -68,14 +68,19 @@ object DateConverter {
     }
 
     fun getTimestampsOfWeek(year: Int, month: Int, day: Int) : Pair<Long?, Long?> {
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, day)
-        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
-        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek+2) // find last Monday
+        val calendar = setCalendarToFirstDayOfWeek(year, month, day)
         val timeFrom = dateStringToTimestamp(makeStringFromCalendar(calendar, " 00:00"))
         calendar.add(Calendar.DAY_OF_MONTH, 6) // find next Sunday
         val timeTo = dateStringToTimestamp(makeStringFromCalendar(calendar, " 23:59"))
         return Pair(timeFrom, timeTo)
+    }
+
+    private fun setCalendarToFirstDayOfWeek(year: Int, month: Int, day: Int) : Calendar {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+        calendar.add(Calendar.DAY_OF_MONTH, -dayOfWeek+2) // find last Monday
+        return calendar
     }
 
     private fun makeStringFromCalendar(c: Calendar, hours: String) : String {
@@ -130,5 +135,16 @@ object DateConverter {
         7 -> "Sobota"
         1 -> "Niedziela"
         else -> "Błędny dzień tygodnia"
+    }
+
+    fun getDatesOfWeek(year: Int, month: Int, day: Int) : List<String> {
+        val calendar = setCalendarToFirstDayOfWeek(year, month, day)
+
+        var dates = mutableListOf<String>()
+        for (i in (1..7)) {
+            dates.add(makeStringFromCalendar(calendar, ""))
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+        return dates
     }
 }
