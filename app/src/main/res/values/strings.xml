@@ -40,9 +40,10 @@
     <string name="settings_saved">Pomyślnie zapisano zmiany</string>
     <string name="to_settle">Do rozliczenia:</string>
     <string name="monthly_revenue">Zysk miesięczny:</string>
-    <string name="not_settled_visits">Nie rozliczone wizyty:</string>
+    <string name="not_settled_visits">Nierozliczone wizyty:</string>
     <string name="remind">PRZYPOMNIJ</string>
     <string name="title_activity_all_visits">AllVisitsActivity</string>
     <string name="show_week">wyświetl tydzień</string>
     <string name="show_day">wyświetl dzień</string>
+    <string name="all_visits_button">Wszystkie wizyty</string>
 </resources>

@@ -78,10 +78,6 @@ class MainActivity : AppCompatActivity() {
         open(SettingsActivity::class.java)
     }
 
-    private fun openDbTest() {
-        open(DBTestActivity::class.java)
-    }
-
     private fun openFinances() {
         open(FinanceActivity::class.java)
     }
