@@ -112,4 +112,23 @@ object DateConverter {
         }
         return ""
     }
+
+    fun convertDateToDayName(date: String) : String {
+        val calendar = Calendar.getInstance()
+        calendar.set(date.substring(0,4).toInt(), date.substring(5,7).toInt()-1, date.substring(8,10).toInt())
+        val dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
+        Log.v(TAG, "$date day of week is: $dayOfWeekNumber")
+        return dayNumberToName(dayOfWeekNumber)
+    }
+
+    private fun dayNumberToName(num: Int) = when(num) {
+        2 -> "Poniedziałek"
+        3 -> "Wtorek"
+        4 -> "Środa"
+        5 -> "Czwartek"
+        6 -> "Piątek"
+        7 -> "Sobota"
+        1 -> "Niedziela"
+        else -> "Błędny dzień tygodnia"
+    }
 }

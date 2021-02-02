@@ -37,7 +37,7 @@ internal class SectionRecycle (private val sectionedVisits: List<RecyclerItem>, 
                         holder.text1.text = DateConverter.combineTimestampWithDuration(item.visit.date, item.visit.service_id?.duration_min)
             }
             is RecyclerItem.Section -> {
-                (holder as WeekNameViewHolder).weekName.text = item.title
+                (holder as WeekNameViewHolder).weekName.text = DateConverter.convertDateToDayName(item.title)
             }
         }
 //        val obj: Visit? = getItem(position)
