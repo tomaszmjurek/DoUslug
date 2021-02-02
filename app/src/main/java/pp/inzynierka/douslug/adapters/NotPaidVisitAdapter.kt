@@ -16,6 +16,8 @@ import pp.inzynierka.douslug.model.Visit
 internal class NotPaidVisitAdapter(data: OrderedRealmCollection<Visit>, private val listener: OnItemClickListener)
     : RealmRecyclerViewAdapter<Visit, NotPaidVisitAdapter.TaskViewHolder?>(data, true) {
     lateinit var _parent: ViewGroup
+    private val CLICKED_BUTTON = 0
+    private val CLICKED_LIST = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val itemView =
@@ -31,25 +33,26 @@ internal class NotPaidVisitAdapter(data: OrderedRealmCollection<Visit>, private 
         holder.text1.text = DateConverter.combineTimestampWithDuration(obj?.date, obj?.service_id?.duration_min)
     }
 
-    internal inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    internal inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var data: Visit? = null
         var title: TextView = view.findViewById(R.id.itemTitle)
         var text1: TextView = view.findViewById(R.id.itemText1)
         var button: Button = view.findViewById(R.id.itemButton)
 
         init{
-            button.setOnClickListener(this)
+            button.setOnClickListener { onClick(CLICKED_BUTTON) }
+            view.setOnClickListener { onClick(CLICKED_LIST)}
         }
 
-        override fun onClick(v: View?) {
+        private fun onClick(mode: Int) {
             val position = adapterPosition
             if(position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position)
+                listener.onItemClick(position, mode)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(position: Int, mode: Int)
     }
 }

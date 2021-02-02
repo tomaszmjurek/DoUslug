@@ -101,7 +101,7 @@
                 android:layout_marginBottom="32dp"
                 android:textColor="@color/buttonTextColor"
                 android:layout_gravity="center"
-                android:text="@string/all_visits"
+                android:text="@string/all_visits_button"
                 android:background="@drawable/orange_button_background"/>
 
             <LinearLayout

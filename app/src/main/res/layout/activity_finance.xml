@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayoutF"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FinanceActivity">
+    android:layout_height="fill_parent"
+    tools:context=".FinanceActivity"
+    tools:openDrawer="start">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".FinanceActivity">
 
     <RelativeLayout
         android:id="@+id/finance_top_layout"
@@ -31,6 +38,13 @@
             android:text="@string/finances"
             android:textColor="#000000"
             android:textSize="28sp" />
+
+        <ImageView
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/hamburger" />
 
     </RelativeLayout>
 
@@ -98,4 +112,12 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/right_drawer_menu"
+    android:layout_width="250dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:id="@+id/rightDrawerMenuF"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
