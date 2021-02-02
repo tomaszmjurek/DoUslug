@@ -15,7 +15,6 @@ import java.util.*
 
 class CalendarMonthActivity : AppCompatActivity() {
     private lateinit var selectedDate: String
-    private lateinit var date : Date
     private val calendar = Calendar.getInstance()
     private var selectedDay : Int = calendar.get(Calendar.DAY_OF_MONTH)
     private var selectedMonth : Int = calendar.get(Calendar.MONTH)
