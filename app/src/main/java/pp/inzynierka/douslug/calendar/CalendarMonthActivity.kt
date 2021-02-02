@@ -10,13 +10,11 @@ import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
 import pp.inzynierka.douslug.db.DBController
-import pp.inzynierka.douslug.test.SectionedWeek
 import java.util.*
 
 
 class CalendarMonthActivity : AppCompatActivity() {
     private lateinit var selectedDate: String
-    private lateinit var date : Date
     private val calendar = Calendar.getInstance()
     private var selectedDay : Int = calendar.get(Calendar.DAY_OF_MONTH)
     private var selectedMonth : Int = calendar.get(Calendar.MONTH)
@@ -82,7 +80,7 @@ class CalendarMonthActivity : AppCompatActivity() {
     }
 
     private fun openCalendarWeekActivity(withExtras: Boolean = false) {
-        val intent = Intent(this@CalendarMonthActivity, SectionedWeek::class.java)
+        val intent = Intent(this@CalendarMonthActivity, CalendarWeekActivity::class.java)
         if (withExtras) {
             intent.putExtra("selectedDay", selectedDay)
             intent.putExtra("selectedMonth", selectedMonth)

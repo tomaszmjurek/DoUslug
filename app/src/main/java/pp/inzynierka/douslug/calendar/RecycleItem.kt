@@ -1,4 +1,4 @@
-package pp.inzynierka.douslug.test
+package pp.inzynierka.douslug.calendar
 
 import pp.inzynierka.douslug.model.Visit
 
