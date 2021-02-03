@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_calendar_month.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.R
+import pp.inzynierka.douslug.VisitActivity
 import pp.inzynierka.douslug.db.DBController
 import java.util.*
 
@@ -34,6 +35,7 @@ class CalendarMonthActivity : AppCompatActivity() {
         day_button.setOnClickListener { openCalendarDayActivity() }
         week_button.setOnClickListener { openCalendarWeekActivity() }
         month_button.setOnClickListener { showCalendarChange() }
+        add_visit_button.setOnClickListener { openVisitActivity() }
         show_visits_day.setOnClickListener { openCalendarDayActivity(true) }
         show_visits_week.setOnClickListener { openCalendarWeekActivity(true) }
 
@@ -86,6 +88,12 @@ class CalendarMonthActivity : AppCompatActivity() {
             intent.putExtra("selectedMonth", selectedMonth)
             intent.putExtra("selectedYear", selectedYear)
         }
+        startActivity(intent)
+    }
+
+    private fun openVisitActivity() {
+        val intent = Intent(this@CalendarMonthActivity, VisitActivity::class.java)
+        intent.putExtra("selectedDate", selectedDate)
         startActivity(intent)
     }
 }

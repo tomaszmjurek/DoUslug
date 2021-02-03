@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
+import kotlinx.android.synthetic.main.activity_calendar_day.*
 import kotlinx.android.synthetic.main.calendar_top_layout.*
 import kotlinx.android.synthetic.main.change_calendar_type.*
 import pp.inzynierka.douslug.AllVisitsActivity
@@ -38,6 +39,7 @@ class CalendarDayActivity : AppCompatActivity(), VisitAdapter.OnItemClickListene
         week_button.setOnClickListener { openCalendarWeekActivity() }
         month_button.setOnClickListener { openCalendarMonthActivity() }
         back_button.setOnClickListener { onBackPressed() }
+        add_visit_button.setOnClickListener { openVisitActivity() }
     }
 
     private fun setUpRecyclerView() {
@@ -57,7 +59,7 @@ class CalendarDayActivity : AppCompatActivity(), VisitAdapter.OnItemClickListene
 
     override fun onItemClick(position: Int) {
         val id = adapter.getItem(position)?._id
-        openVisitView(id.toString())
+        openVisitActivity(id.toString())
     }
 
     private fun showCalendarChange() {
@@ -83,9 +85,13 @@ class CalendarDayActivity : AppCompatActivity(), VisitAdapter.OnItemClickListene
         recyclerView.adapter = null
     }
 
-    private fun openVisitView(visitID: String) {
-        val intent = Intent(this@CalendarDayActivity, VisitActivity::class.java)// Tu Ada wstawiasz activity obsługujące wizytę
-        intent.putExtra("visitID", visitID)
+    private fun openVisitActivity(visitID : String = "") {
+        val intent = Intent(this@CalendarDayActivity, VisitActivity::class.java)
+        if (visitID != "") {
+            intent.putExtra("visitID", visitID)
+        } else {
+            intent.putExtra("selectedDate", selectedDate)
+        }
         startActivity(intent)
     }
 }
