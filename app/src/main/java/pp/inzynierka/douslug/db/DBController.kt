@@ -46,6 +46,10 @@ object DBController {
         return realm.where<Service>().equalTo("_id", ObjectId(serviceID)).findAllAsync().first()
     }
 
+    fun findServiceByName(name: String) : Service? {
+        return realm.where<Service>().equalTo("name", name).findAllAsync().first()
+    }
+
     fun findAllClients() : RealmResults<Client> {
         val clients : RealmResults<Client> = realm.where<Client>().equalTo("user_id", userId).findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
