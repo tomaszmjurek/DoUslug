@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import pp.inzynierka.douslug.db.DBController
 
 class ClientActivity : AppCompatActivity() {
 
@@ -13,19 +14,28 @@ class ClientActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client)
-        val ClientID: String? = intent.getStringExtra("ClientID")
         val fields = arrayOf(
             findViewById<EditText>(R.id.clientNameEdit),
             findViewById<EditText>(R.id.phoneNumberEdit),
             findViewById<EditText>(R.id.addressEdit),
             findViewById<EditText>(R.id.commentsEdit)
         )
-        fields[1].setText(ClientID)
 
         val editButton = findViewById<Button>(R.id.edit_button)
         val deleteButton = findViewById<Button>(R.id.delete_button)
         val hamburgerButton = findViewById<Button>(R.id.hamburger)
         val showVisitsButton = findViewById<Button>(R.id.show_visits_button)
+
+        val clientID: String? = intent.getStringExtra("clientID")
+        if (clientID != null) {
+            var client = DBController.findClientById(clientID)
+            if (client != null){
+                fields[0].setText(client.first_name + " " + client.last_name)
+                fields[1].setText(client.phone_num)
+                fields[2].setText(client.address)
+                fields[3].setText(client.comment)
+            }
+        }
 
         setEditable(false, fields)
         editButton.setOnClickListener { editClicked(fields, editButton, deleteButton, hamburgerButton, showVisitsButton) }

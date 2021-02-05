@@ -42,6 +42,10 @@ object DBController {
             .contains("name",text, Case.INSENSITIVE).findAllAsync()
     }
 
+    fun findServiceById(serviceID: String?) : Service? {
+        return realm.where<Service>().equalTo("_id", ObjectId(serviceID)).findAllAsync().first()
+    }
+
     fun findAllClients() : RealmResults<Client> {
         val clients : RealmResults<Client> = realm.where<Client>().equalTo("user_id", userId).findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
@@ -56,6 +60,10 @@ object DBController {
 
     fun findClientByPhoneNum(phoneNum: String) : Client? {
         return realm.where<Client>().equalTo("user_id", userId).equalTo("phone_num", phoneNum).findAllAsync().first()
+    }
+
+    fun findClientById(userID: String?) : Client? {
+        return realm.where<Client>().equalTo("_id", ObjectId(userID)).findAllAsync().first()
     }
 
     fun insertService(service: Service) {
@@ -99,9 +107,14 @@ object DBController {
     }
 
     fun findAllVisitsWhere(text: String): RealmResults<Visit> {
-        return realm.where<Visit>().equalTo("user_id", userId).contains("service_id.name",text, Case.INSENSITIVE)
-            .or().contains("client_id.first_name",text, Case.INSENSITIVE)
-            .or().contains("client_id.last_name",text, Case.INSENSITIVE).findAllAsync()
+        return realm.where<Visit>().equalTo("user_id", userId)
+            .contains("service_id.name", text, Case.INSENSITIVE)
+            .or().contains("client_id.first_name", text, Case.INSENSITIVE)
+            .or().contains("client_id.last_name", text, Case.INSENSITIVE).findAllAsync()
+    }
+
+    fun findVisitById(visitID: String?) :  Visit? {
+        return realm.where<Visit>().equalTo("_id", ObjectId(visitID)).findAllAsync().first()
     }
 
     fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
