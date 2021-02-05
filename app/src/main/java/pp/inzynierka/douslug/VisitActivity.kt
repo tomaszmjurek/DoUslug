@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import pp.inzynierka.douslug.model.Visit
+import pp.inzynierka.douslug.calendar.DateConverter
+import pp.inzynierka.douslug.db.DBController
 
 class VisitActivity : AppCompatActivity() {
 
     private var editMode: Boolean = false
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visit)
-        val VisitID: String? = intent.getStringExtra("VisitID")
         val fields = arrayOf(
             findViewById<EditText>(R.id.clientEdit),
             findViewById<EditText>(R.id.servicesEdit),
@@ -31,8 +29,21 @@ class VisitActivity : AppCompatActivity() {
         val editButton = findViewById<Button>(R.id.edit_button)
         val deleteButton = findViewById<Button>(R.id.delete_button)
         val hamburgerButton = findViewById<Button>(R.id.hamburger)
-        Toast.makeText(this,VisitID,Toast.LENGTH_SHORT).show()
-        fields[3].setText(VisitID)
+
+        val visitID: String? = intent.getStringExtra("visitID")
+        if (visitID != null) {
+            var visit = DBController.findVisitById(visitID)
+            if (visit != null) {
+                fields[0].setText(visit.client_id?.first_name + " " +  visit.client_id?.last_name)
+                fields[1].setText(visit.service_id?.name)
+                fields[2].setText(DateConverter.timestampToDateString(visit.date!!))
+                fields[3].setText(visit.service_id?.duration_min.toString())
+                fields[4].setText(visit.client_id?.address)
+                fields[5].setText(visit.service_id?.price.toString())
+                fields[6].setText(visit.client_id?.comment)
+            }
+        }
+
 
         setEditable(false, fields)
         editButton.setOnClickListener { editClicked(fields, editButton, deleteButton, hamburgerButton) }

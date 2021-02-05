@@ -5,6 +5,7 @@ import io.realm.Realm
 import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.kotlin.where
+import org.bson.types.ObjectId
 import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
@@ -39,6 +40,9 @@ object DBController {
         return realm.where<Service>().equalTo("name", name).findAllAsync().first()
     }
 
+    fun findServiceById(serviceID: String?) : Service? {
+        return realm.where<Service>().equalTo("_id", ObjectId(serviceID)).findAllAsync().first()
+    }
 
     fun findAllClients() : RealmResults<Client> {
         val clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
@@ -48,6 +52,10 @@ object DBController {
 
     fun findClientByPhoneNum(phoneNum: String) : Client? {
         return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync().first() //.equalTo("user_id", appUserId)
+    }
+
+    fun findClientById(userID: String?) : Client? {
+        return realm.where<Client>().equalTo("_id", ObjectId(userID)).findAllAsync().first()
     }
 
     fun insertService(service: Service) {
@@ -88,6 +96,10 @@ object DBController {
 
     fun findAllVisits(): RealmResults<Visit> {
         return realm.where<Visit>().findAllAsync()
+    }
+
+    fun findVisitById(visitID: String?) :  Visit? {
+        return realm.where<Visit>().equalTo("_id", ObjectId(visitID)).findAllAsync().first()
     }
 
     fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {

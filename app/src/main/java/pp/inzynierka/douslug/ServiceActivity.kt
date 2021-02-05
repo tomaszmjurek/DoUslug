@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import pp.inzynierka.douslug.db.DBController
+
 //import kotlinx.android.synthetic.main.activity_service.*
 
 class ServiceActivity : AppCompatActivity() {
@@ -14,18 +16,26 @@ class ServiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service)
-        val ServiceID: String? = intent.getStringExtra("ServiceID")
 
         val fields = arrayOf(
             findViewById<EditText>(R.id.nameEdit),
             findViewById<EditText>(R.id.timeEdit),
             findViewById<EditText>(R.id.priceEdit)
         )
-        fields[0].setText(ServiceID)
 
         val editButton = findViewById<Button>(R.id.edit_button)
         val deleteButton = findViewById<Button>(R.id.delete_button)
         val hamburgerButton = findViewById<Button>(R.id.hamburger)
+
+        val serviceID: String? = intent.getStringExtra("serviceID")
+        if (serviceID != null) {
+            var service = DBController.findServiceById(serviceID)
+            if (service != null) {
+                fields[0].setText(service.name)
+                fields[1].setText(service.duration_min.toString())
+                fields[2].setText(service.price.toString())
+            }
+        }
 
         setEditable(false, fields)
         editButton.setOnClickListener { editClicked(fields, editButton, deleteButton, hamburgerButton) }
