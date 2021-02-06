@@ -9,7 +9,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.right_drawer_menu.*
 import pp.inzynierka.douslug.calendar.CalendarDayActivity
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
-import pp.inzynierka.douslug.db.DBTestActivity
 
 import pp.inzynierka.douslug.calendar.CalendarWeekActivity
 import pp.inzynierka.douslug.data.LoginHelper
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this@MainActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this@MainActivity.requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_main)
 
         val loggedUser = LoginHelper.getLoggedUserOrLogout(this)
@@ -76,10 +75,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun openSettings() {
         open(SettingsActivity::class.java)
-    }
-
-    private fun openDbTest() {
-        open(DBTestActivity::class.java)
     }
 
     private fun openFinances() {
