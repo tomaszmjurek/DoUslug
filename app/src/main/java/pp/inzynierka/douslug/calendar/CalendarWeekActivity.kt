@@ -91,9 +91,7 @@ class CalendarWeekActivity : AppCompatActivity(), SectionedVisitAdapter.OnItemCl
     }
 
     private fun getSectionedVisitsWithDays(weekVisits: RealmResults<Visit>): List<RecyclerItem> {
-
         val dates = DateConverter.getDatesOfWeek(selectedYear, selectedMonth, selectedDay)
-
         val datesMap = dates.flatMap { d -> listOf<RecyclerItem>(Section(d)) }
 
         val sectionedVisitsWithDays = weekVisits

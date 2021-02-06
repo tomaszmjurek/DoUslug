@@ -43,8 +43,8 @@ object DateConverter {
         return "$year/$month/$day $hour:$min"
     }
 
-    fun generateProperDateShort(year: String, month: String, day: String) : String {
-        return "$year/$month/$day"
+    fun generateProperDateFromInts(year: Int, month: Int, day: Int) : String {
+        return "$year/${makeTwoDigitsIfOne((month+1).toString())}/${makeTwoDigitsIfOne(day.toString())}"
     }
 
     private fun getDateWithoutHours(date: String) : String {
@@ -59,8 +59,10 @@ object DateConverter {
         return Pair(timeFrom, timeTo)
     }
 
-    fun getTimestampsOfMonth(year: String, month: String) : Pair<Long?, Long?> {
-        val lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)
+    fun getTimestampsOfMonth(year: String, month: String, day: String) : Pair<Long?, Long?> {
+        val calendar = Calendar.getInstance()
+        calendar.set(year.toInt(), month.toInt()-1, day.toInt())
+        val lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
         val timeFrom = dateStringToTimestamp("$year/$month/01".plus(" 00:00"))
         val timeTo = dateStringToTimestamp("$year/$month/$lastDayOfMonth".plus(" 23:59"))
         Log.v(TAG, "Timestamps of month $year/$month: $timeFrom - $timeTo")

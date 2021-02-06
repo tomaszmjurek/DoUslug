@@ -5,6 +5,7 @@ import io.realm.Realm
 import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.kotlin.where
+import org.bson.types.ObjectId
 import pp.inzynierka.douslug.calendar.DateConverter
 import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.Service
@@ -22,6 +23,7 @@ object DBController {
     fun setUserId(id: String) {
         userId = id
     }
+
     fun getUserId() : String {
         return userId
     }
@@ -32,22 +34,17 @@ object DBController {
     }
 
     fun findAllServices() : RealmResults<Service> {
-        return realm.where<Service>().findAllAsync()
+        return realm.where<Service>().equalTo("user_id", userId).findAllAsync()
     }
-
-    fun findServiceByName(name: String) : Service? {
-        return realm.where<Service>().equalTo("name", name).findAllAsync().first()
-    }
-
 
     fun findAllClients() : RealmResults<Client> {
-        val clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
+        val clients : RealmResults<Client> = realm.where<Client>().equalTo("user_id", userId).findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
         return clients
     }
 
     fun findClientByPhoneNum(phoneNum: String) : Client? {
-        return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync().first() //.equalTo("user_id", appUserId)
+        return realm.where<Client>().equalTo("user_id", userId).equalTo("phone_num", phoneNum).findAllAsync().first()
     }
 
     fun insertService(service: Service) {
@@ -87,19 +84,18 @@ object DBController {
     }
 
     fun findAllVisits(): RealmResults<Visit> {
-        return realm.where<Visit>().findAllAsync()
+        return realm.where<Visit>().equalTo("user_id", userId).findAllAsync()
     }
 
     fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
         Log.v(TAG, "Getting visits with date <${timestamp.first}, ${timestamp.second}>")
-        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).sort("date").findAllAsync()
+        return realm.where<Visit>().equalTo("user_id", userId)
+            .between("date", timestamp.first!!, timestamp.second!!)
+            .sort("date")
+            .findAllAsync()
     }
 
-    fun findNumberOfVisitsByDates(timestamp: Pair<Long?, Long?>): Int {
-        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).findAllAsync().size
-    }
-
-        fun findUserByEmail(email: String) : appUser? {
+    fun findUserByEmail(email: String) : appUser? {
         return realm.where<appUser>().equalTo("email", email).findFirst()
     }
 
