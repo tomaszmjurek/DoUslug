@@ -4,12 +4,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import pp.inzynierka.douslug.db.DBController
+import pp.inzynierka.douslug.model.Client
+import pp.inzynierka.douslug.model.appUser
 
 class ClientActivity : AppCompatActivity() {
 
     private var editMode: Boolean = false
+    private var addMode: Boolean = false
+    private lateinit var client: Client
+    private lateinit var phoneIcon: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,19 +31,24 @@ class ClientActivity : AppCompatActivity() {
         val deleteButton = findViewById<Button>(R.id.delete_button)
         val hamburgerButton = findViewById<Button>(R.id.hamburger)
         val showVisitsButton = findViewById<Button>(R.id.show_visits_button)
+        phoneIcon = findViewById<Button>(R.id.phoneButton)
+
+        setEditable(false, fields)
 
         val clientID: String? = intent.getStringExtra("clientID")
         if (clientID != null) {
-            var client = DBController.findClientById(clientID)
+            client = DBController.findClientById(clientID)!!
             if (client != null){
-                fields[0].setText(client.first_name + " " + client.last_name)
-                fields[1].setText(client.phone_num)
-                fields[2].setText(client.address)
-                fields[3].setText(client.comment)
+                displayClient(fields)
             }
         }
+        else {
+            addMode = true
+            emptyFields(fields)
+            enableEditMode(fields, editButton, deleteButton, hamburgerButton, showVisitsButton)
+        }
 
-        setEditable(false, fields)
+
         editButton.setOnClickListener { editClicked(fields, editButton, deleteButton, hamburgerButton, showVisitsButton) }
         deleteButton.setOnClickListener { deleteClicked(fields, editButton, deleteButton, hamburgerButton, showVisitsButton) }
 
@@ -53,7 +64,16 @@ class ClientActivity : AppCompatActivity() {
     private fun editClicked(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button, allVisits: Button) {
         if (this.editMode) { // button "Zatwierdź" clicked
             disableEditMode(fields, edit, delete, hamburger, allVisits)
-            // TODO: save changes to database
+            if (addMode){
+                addNewClient(fields)
+                addMode = false
+            }
+            else {
+                //client.comment = fields[3].getText().toString() //it doesn't work, app crashes
+                editClient(fields)
+                // TODO:
+                // save changes to the existing record
+            }
         }
         else { //button "Edytuj" clicked
             enableEditMode(fields, edit, delete, hamburger, allVisits)
@@ -63,12 +83,19 @@ class ClientActivity : AppCompatActivity() {
     private fun deleteClicked(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button, allVisits: Button) {
         if (this.editMode) { // button "Anuluj" clicked
             disableEditMode(fields, edit, delete, hamburger, allVisits)
-            // TODO: discard changes
+            if (addMode) {
+                addMode = false
+                // TODO
+                // come back to the previous view
+            }
+            else {
+                displayClient(fields)
+            }
         }
         else { // button "Usuń" clicked
             // TODO
             // delete record from database
-            // return to the list of all services
+            // return to the list of all services or to the previous view
         }
     }
 
@@ -78,6 +105,7 @@ class ClientActivity : AppCompatActivity() {
         delete.text = "Anuluj"
         hamburger.visibility = View.INVISIBLE
         allVisits.visibility = View.INVISIBLE
+        //phoneIcon.visibility = View.INVISIBLE
     }
 
     private fun disableEditMode(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button, allVisits: Button) {
@@ -86,6 +114,41 @@ class ClientActivity : AppCompatActivity() {
         delete.text = "Usuń"
         hamburger.visibility = View.VISIBLE
         allVisits.visibility = View.VISIBLE
+        //phoneIcon.visibility = View.VISIBLE
+    }
+
+    private fun displayClient(fields: Array<EditText>) {
+        fields[0].setText(client.first_name + " " + client.last_name)
+        fields[1].setText(client.phone_num)
+        fields[2].setText(client.address)
+        fields[3].setText(client.comment)
+    }
+
+    private fun emptyFields(fields: Array<EditText>) {
+        for (field in fields) {
+            field.setText("")
+        }
+    }
+
+    private fun addNewClient(fields: Array<EditText>) {
+        var lastName = fields[0].getText().toString().split(" ").last()
+        var firstName = fields[0].getText().toString().split(" ").first()
+        var address = fields[2].getText().toString()
+        var comment = fields[3].getText().toString()
+        var phoneNumber = fields[1].getText().toString()
+        var newClient = Client(address, comment, firstName, lastName, phoneNumber, DBController.getUserId())
+        DBController.insertClient(newClient)
+
+    }
+
+    private fun editClient(fields: Array<EditText>) {
+        var newData: MutableList<String> = mutableListOf(fields[0].getText().toString().split(" ").first())
+        newData.add(fields[0].getText().toString().split(" ").last())
+        newData.add(fields[1].getText().toString())
+        newData.add(fields[2].getText().toString())
+        newData.add(fields[3].getText().toString())
+        //Toast.makeText(this, newData.toString(), Toast.LENGTH_SHORT).show()
+        DBController.updateClient(newData, client)
     }
 
 }
