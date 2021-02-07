@@ -23,6 +23,7 @@ object DBController {
     fun setUserId(id: String) {
         userId = id
     }
+
     fun getUserId() : String {
         return userId
     }
@@ -33,7 +34,7 @@ object DBController {
     }
 
     fun findAllServices() : RealmResults<Service> {
-        return realm.where<Service>().findAllAsync()
+        return realm.where<Service>().equalTo("user_id", userId).findAllAsync()
     }
 
     fun findServiceByName(name: String) : Service? {
@@ -45,13 +46,13 @@ object DBController {
     }
 
     fun findAllClients() : RealmResults<Client> {
-        val clients : RealmResults<Client> = realm.where<Client>().findAllAsync()
+        val clients : RealmResults<Client> = realm.where<Client>().equalTo("user_id", userId).findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
         return clients
     }
 
     fun findClientByPhoneNum(phoneNum: String) : Client? {
-        return realm.where<Client>().equalTo("phone_num", phoneNum).findAllAsync().first() //.equalTo("user_id", appUserId)
+        return realm.where<Client>().equalTo("user_id", userId).equalTo("phone_num", phoneNum).findAllAsync().first()
     }
 
     fun findClientById(userID: String?) : Client? {
@@ -76,27 +77,32 @@ object DBController {
         backgroundRealm.close()
     }
 
-    fun updateClient(newData: List<String>, client: Client) {
+    fun updateClient(client: Client) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync { realm ->
-            client.first_name = newData[0]
-            client.last_name = newData[1]
-            client.phone_num = newData[2]
-            client.address = newData[3]
-            client.comment = newData[4]
+            realm.insertOrUpdate(client)
             Log.v(TAG, "Updated client $client")
         }
         backgroundRealm.close()
     }
-/*
-    fun deleteClient(clientID: String) {
+
+    fun safeDeleteClient(clientID : ObjectId) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync { realm ->
-            val client = realm.where<Client>().equalTo("_id", ObjectId(clientID)).findAllAsync().first()
-            client.deleteAllFromRealm()
+            val client = realm.where<Client>().equalTo("_id", clientID).findFirst()
+//            if (!visitWithClientExists(client)) {
+                client?.deleteFromRealm()
+//            }
         }
         backgroundRealm.close()
-    }*/
+    }
+
+//    private fun visitWithClientExists(client: Client?) : Boolean {
+//        val visitsNum = realm.where<Visit>().equalTo("user_id", userId).equalTo("client_id", client._id).findAllAsync().size
+//        if (visitsNum > 0) return true
+//        return false
+//    }
+
 
     fun insertVisit(visit: Visit) {
         val backgroundRealm = Realm.getDefaultInstance()
@@ -117,7 +123,7 @@ object DBController {
     }
 
     fun findAllVisits(): RealmResults<Visit> {
-        return realm.where<Visit>().findAllAsync()
+        return realm.where<Visit>().equalTo("user_id", userId).findAllAsync()
     }
 
     fun findVisitById(visitID: String?) :  Visit? {
@@ -126,14 +132,13 @@ object DBController {
 
     fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
         Log.v(TAG, "Getting visits with date <${timestamp.first}, ${timestamp.second}>")
-        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).sort("date").findAllAsync()
+        return realm.where<Visit>().equalTo("user_id", userId)
+            .between("date", timestamp.first!!, timestamp.second!!)
+            .sort("date")
+            .findAllAsync()
     }
 
-    fun findNumberOfVisitsByDates(timestamp: Pair<Long?, Long?>): Int {
-        return realm.where<Visit>().between("date", timestamp.first!!, timestamp.second!!).findAllAsync().size
-    }
-
-        fun findUserByEmail(email: String) : appUser? {
+    fun findUserByEmail(email: String) : appUser? {
         return realm.where<appUser>().equalTo("email", email).findFirst()
     }
 

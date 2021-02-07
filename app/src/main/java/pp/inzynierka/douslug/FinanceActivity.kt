@@ -78,9 +78,12 @@ class FinanceActivity : AppCompatActivity(), NotPaidVisitAdapter.OnItemClickList
     }
 
     private fun getMonthlyVisits() : RealmResults<Visit> {
-        val year = Calendar.getInstance().get(Calendar.YEAR).toString()
-        val month = SimpleDateFormat("MM").format(Calendar.getInstance().get(Calendar.MONTH)).toString()
-        val timestamps = DateConverter.getTimestampsOfMonth(year, month)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR).toString()
+        val month = makeTwoDigitsIfOne((calendar.get(Calendar.MONTH)+1).toString())
+        val day =makeTwoDigitsIfOne(calendar.get(Calendar.DAY_OF_MONTH).toString())
+
+        val timestamps = DateConverter.getTimestampsOfMonth(year, month, day)
         return DBController.findPaidVisitsByDate(timestamps)
     }
 
@@ -164,5 +167,10 @@ class FinanceActivity : AppCompatActivity(), NotPaidVisitAdapter.OnItemClickList
         } else {
             drawerLayoutF.openDrawer(rightDrawerMenuF)
         }
+    }
+
+    private fun makeTwoDigitsIfOne(text: String) : String {
+        if (text.length == 1) return "0$text"
+        return text
     }
 }

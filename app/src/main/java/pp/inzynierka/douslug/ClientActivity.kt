@@ -1,6 +1,7 @@
 package pp.inzynierka.douslug
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -11,6 +12,7 @@ import pp.inzynierka.douslug.model.Client
 import pp.inzynierka.douslug.model.appUser
 
 class ClientActivity : AppCompatActivity() {
+    private val TAG = "CLIENT_ACTIVITY"
 
     private var editMode: Boolean = false
     private var addMode: Boolean = false
@@ -93,9 +95,8 @@ class ClientActivity : AppCompatActivity() {
             }
         }
         else { // button "Usuń" clicked
-            // TODO
-            // delete record from database
-            // return to the list of all services or to the previous view
+            DBController.safeDeleteClient(client._id)
+            onBackPressed() // to cofa do poprzedniego ekranu
         }
     }
 
@@ -131,24 +132,24 @@ class ClientActivity : AppCompatActivity() {
     }
 
     private fun addNewClient(fields: Array<EditText>) {
-        var lastName = fields[0].getText().toString().split(" ").last()
-        var firstName = fields[0].getText().toString().split(" ").first()
-        var address = fields[2].getText().toString()
-        var comment = fields[3].getText().toString()
-        var phoneNumber = fields[1].getText().toString()
-        var newClient = Client(address, comment, firstName, lastName, phoneNumber, DBController.getUserId())
+        val newClient = createNewClient(fields)
         DBController.insertClient(newClient)
+    }
 
+    private fun createNewClient(fields: Array<EditText>) : Client {
+        val lastName = fields[0].text.toString().split(" ").last()
+        val firstName = fields[0].text.toString().split(" ").first()
+        val address = fields[2].text.toString()
+        val comment = fields[3].text.toString()
+        val phoneNumber = fields[1].text.toString()
+        return Client(address, comment, firstName, lastName, phoneNumber, DBController.getUserId())
     }
 
     private fun editClient(fields: Array<EditText>) {
-        var newData: MutableList<String> = mutableListOf(fields[0].getText().toString().split(" ").first())
-        newData.add(fields[0].getText().toString().split(" ").last())
-        newData.add(fields[1].getText().toString())
-        newData.add(fields[2].getText().toString())
-        newData.add(fields[3].getText().toString())
-        //Toast.makeText(this, newData.toString(), Toast.LENGTH_SHORT).show()
-        DBController.updateClient(newData, client)
+        val updatedClient = createNewClient(fields)
+        updatedClient._id = client._id
+        DBController.updateClient(updatedClient)
+        Log.v(TAG, "Client updated from ${client.toString()} to ${updatedClient.toString()}")
     }
 
 }
