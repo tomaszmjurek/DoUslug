@@ -111,6 +111,7 @@ class CalendarMonthActivity : AppCompatActivity() {
 
     private fun openVisitActivity() {
         val intent = Intent(this@CalendarMonthActivity, VisitActivity::class.java)
+        val selectedDate = DateConverter.generateProperDateFromInts(selectedYear, selectedMonth, selectedDay)
         intent.putExtra("selectedDate", selectedDate)
         startActivity(intent)
     }
