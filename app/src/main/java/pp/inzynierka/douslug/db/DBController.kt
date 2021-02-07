@@ -76,6 +76,28 @@ object DBController {
         backgroundRealm.close()
     }
 
+    fun updateClient(newData: List<String>, client: Client) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            client.first_name = newData[0]
+            client.last_name = newData[1]
+            client.phone_num = newData[2]
+            client.address = newData[3]
+            client.comment = newData[4]
+            Log.v(TAG, "Updated client $client")
+        }
+        backgroundRealm.close()
+    }
+/*
+    fun deleteClient(clientID: String) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            val client = realm.where<Client>().equalTo("_id", ObjectId(clientID)).findAllAsync().first()
+            client.deleteAllFromRealm()
+        }
+        backgroundRealm.close()
+    }*/
+
     fun insertVisit(visit: Visit) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync {realm ->

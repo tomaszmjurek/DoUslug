@@ -47,7 +47,7 @@ class AllVisitsActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener 
     }
 
     private fun addVisit(){
-        val intent = Intent(this@AllVisitsActivity, ClientActivity::class.java)
+        val intent = Intent(this@AllVisitsActivity, VisitActivity::class.java)
         startActivity(intent)
     }
 }
