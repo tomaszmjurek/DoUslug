@@ -95,7 +95,7 @@ class ClientActivity : AppCompatActivity() {
             }
         }
         else { // button "Usuń" clicked
-            DBController.deleteClient(client._id)
+            DBController.safeDeleteClient(client._id)
             onBackPressed() // to cofa do poprzedniego ekranu
         }
     }
