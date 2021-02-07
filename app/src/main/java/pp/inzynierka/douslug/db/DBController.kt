@@ -97,15 +97,14 @@ object DBController {
         backgroundRealm.close()
     }
 
-/*
-    fun deleteClient(clientID: String) {
+    fun deleteClient(clientID : ObjectId) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync { realm ->
-            val client = realm.where<Client>().equalTo("_id", ObjectId(clientID)).findAllAsync().first()
-            client.deleteAllFromRealm()
+            val client = realm.where<Client>().equalTo("_id", clientID).findFirst()
+            client?.deleteFromRealm()
         }
         backgroundRealm.close()
-    }*/
+    }
 
     fun insertVisit(visit: Visit) {
         val backgroundRealm = Realm.getDefaultInstance()

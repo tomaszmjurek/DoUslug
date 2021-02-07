@@ -95,9 +95,8 @@ class ClientActivity : AppCompatActivity() {
             }
         }
         else { // button "Usuń" clicked
-            // TODO
-            // delete record from database
-            // return to the list of all services or to the previous view
+            DBController.deleteClient(client._id)
+            onBackPressed() // to cofa do poprzedniego ekranu
         }
     }
 
