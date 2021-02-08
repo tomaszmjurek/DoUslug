@@ -134,6 +134,7 @@ class ClientActivity : AppCompatActivity() {
     private fun addNewClient(fields: Array<EditText>) {
         val newClient = createNewClient(fields)
         DBController.insertClient(newClient)
+        //todo naprawic: po cofnieciu na ekran klientów nie pokazuje się na liscie od razu, dopiero po ponownym wlaczeniu ekranu
     }
 
     private fun createNewClient(fields: Array<EditText>) : Client {
