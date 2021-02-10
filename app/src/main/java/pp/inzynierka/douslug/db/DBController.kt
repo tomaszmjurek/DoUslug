@@ -1,6 +1,7 @@
 package pp.inzynierka.douslug.db
 
 import android.util.Log
+import io.realm.Case
 import io.realm.Realm
 import io.realm.RealmQuery
 import io.realm.RealmResults
@@ -36,11 +37,21 @@ object DBController {
     fun findAllServices() : RealmResults<Service> {
         return realm.where<Service>().equalTo("user_id", userId).findAllAsync()
     }
+    fun findAllServicesWhere(text: String): RealmResults<Service> {
+        return realm.where<Service>().equalTo("user_id", userId)
+            .contains("name",text, Case.INSENSITIVE).findAllAsync()
+    }
 
     fun findAllClients() : RealmResults<Client> {
         val clients : RealmResults<Client> = realm.where<Client>().equalTo("user_id", userId).findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
         return clients
+    }
+
+    fun findAllClientsWhere(text: String): RealmResults<Client> {
+        return realm.where<Client>().equalTo("user_id", userId).contains("first_name",text, Case.INSENSITIVE)
+            .or().contains("last_name",text, Case.INSENSITIVE)
+            .or().contains("comment",text, Case.INSENSITIVE).findAllAsync()
     }
 
     fun findClientByPhoneNum(phoneNum: String) : Client? {
@@ -85,6 +96,12 @@ object DBController {
 
     fun findAllVisits(): RealmResults<Visit> {
         return realm.where<Visit>().equalTo("user_id", userId).findAllAsync()
+    }
+
+    fun findAllVisitsWhere(text: String): RealmResults<Visit> {
+        return realm.where<Visit>().equalTo("user_id", userId).contains("service_id.name",text, Case.INSENSITIVE)
+            .or().contains("client_id.first_name",text, Case.INSENSITIVE)
+            .or().contains("client_id.last_name",text, Case.INSENSITIVE).findAllAsync()
     }
 
     fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {

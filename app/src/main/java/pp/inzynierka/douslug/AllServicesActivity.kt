@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_all_visits.*
 import kotlinx.android.synthetic.main.calendar_top_layout.back_button
 import kotlinx.android.synthetic.main.right_drawer_menu.*
 import pp.inzynierka.douslug.adapters.ServiceAdapter
+import pp.inzynierka.douslug.adapters.VisitAdapter
 import pp.inzynierka.douslug.calendar.CalendarDayActivity
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
 import pp.inzynierka.douslug.calendar.CalendarWeekActivity
@@ -41,11 +42,23 @@ class AllServicesActivity  : AppCompatActivity(), ServiceAdapter.OnItemClickList
             back_button.setOnClickListener { onBackPressed() }
             add_button.setOnClickListener { addService() }
 
+            search_button.setOnClickListener{searchString()}
+
         }
 
         private fun setUpRecyclerView() {
             recyclerView = findViewById(R.id.task_list)
             val services = DBController.findAllServices()
+            adapter = ServiceAdapter(services,this)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = adapter
+            recyclerView.setHasFixedSize(true)
+            recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        }
+
+        private fun searchString(){
+            recyclerView = findViewById(R.id.task_list)
+            val services = DBController.findAllServicesWhere(search_text.text.toString())
             adapter = ServiceAdapter(services,this)
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = adapter

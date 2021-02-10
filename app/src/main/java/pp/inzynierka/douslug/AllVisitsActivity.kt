@@ -3,6 +3,7 @@ package pp.inzynierka.douslug
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +41,18 @@ class AllVisitsActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener 
         drawer_menu_settings.setOnClickListener { openSettings() }
         drawer_menu_finances.setOnClickListener { openFinances() }
         drawer_menu_home_screen.setOnClickListener{ openMain() }
+
+        search_button.setOnClickListener{searchString()}
+    }
+
+    private fun searchString(){
+        recyclerView = findViewById(R.id.task_list)
+        val visits = DBController.findAllVisitsWhere(search_text.text.toString())
+        adapter = VisitAdapter(visits,this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
     private fun setUpRecyclerView() {

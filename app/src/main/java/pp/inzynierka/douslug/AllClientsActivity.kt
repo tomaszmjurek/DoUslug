@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_all_visits.*
 import kotlinx.android.synthetic.main.calendar_top_layout.back_button
 import kotlinx.android.synthetic.main.right_drawer_menu.*
 import pp.inzynierka.douslug.adapters.ClientAdapter
+import pp.inzynierka.douslug.adapters.ServiceAdapter
 import pp.inzynierka.douslug.calendar.CalendarDayActivity
 import pp.inzynierka.douslug.calendar.CalendarMonthActivity
 import pp.inzynierka.douslug.calendar.CalendarWeekActivity
@@ -41,12 +42,23 @@ class AllClientsActivity : AppCompatActivity(), ClientAdapter.OnItemClickListene
         drawer_menu_settings.setOnClickListener { openSettings() }
         drawer_menu_finances.setOnClickListener { openFinances() }
         drawer_menu_home_screen.setOnClickListener{openMain()}
+
+        search_button.setOnClickListener{searchString()}
     }
 
     private fun setUpRecyclerView() {
         recyclerView = findViewById(R.id.task_list)
         val clients = DBController.findAllClients()
         adapter = ClientAdapter(clients, this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+    }
+    private fun searchString(){
+        recyclerView = findViewById(R.id.task_list)
+        val clients = DBController.findAllClientsWhere(search_text.text.toString())
+        adapter = ClientAdapter(clients,this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
