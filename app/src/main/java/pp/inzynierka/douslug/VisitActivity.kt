@@ -38,13 +38,14 @@ class VisitActivity : AppCompatActivity() {
         if (visitID != null) {
             var visit = DBController.findVisitById(visitID)
             if (visit != null) {
-                fields[0].setText(visit.client_id?.first_name + " " +  visit.client_id?.last_name)
-                fields[1].setText(visit.service_id?.name)
-                fields[2].setText(DateConverter.timestampToDateString(visit.date!!))
-                fields[3].setText(visit.service_id?.duration_min.toString())
-                fields[4].setText(visit.client_id?.address)
-                fields[5].setText(visit.service_id?.price.toString())
-                fields[6].setText(visit.client_id?.comment)
+                //fields[0].setText(visit.client_id?.first_name + " " +  visit.client_id?.last_name)
+                //fields[1].setText(visit.service_id?.name)
+                // TODO: wyświetl klienta i usługę zgodnie z otrzymanymi danymi
+                fields[0].setText(DateConverter.timestampToDateString(visit.date!!))
+                fields[1].setText(visit.service_id?.duration_min.toString())
+                fields[2].setText(visit.client_id?.address)
+                fields[3].setText(visit.service_id?.price.toString())
+                fields[4].setText(visit.client_id?.comment)
             }
         }
 
@@ -61,6 +62,7 @@ class VisitActivity : AppCompatActivity() {
         this.editMode = editable
         for (field in fields) {
             field.isEnabled = editable
+            // TODO: enable / disable clicking on spinners (according to value of editable)
         }
     }
 
