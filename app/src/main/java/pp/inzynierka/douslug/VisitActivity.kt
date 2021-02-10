@@ -10,7 +10,10 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_visit.*
 import pp.inzynierka.douslug.calendar.DateConverter
+import pp.inzynierka.douslug.data.LoginHelper
 import pp.inzynierka.douslug.db.DBController
+import pp.inzynierka.douslug.model.Client
+import pp.inzynierka.douslug.model.Service
 import pp.inzynierka.douslug.model.Visit
 
 class VisitActivity : AppCompatActivity() {
@@ -18,6 +21,8 @@ class VisitActivity : AppCompatActivity() {
     private var editMode: Boolean = false
     private var addMode: Boolean = false
     private var visit: Visit = Visit()
+    private var serviceListClick : String = ""
+    private var clientListClick : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,13 +77,13 @@ class VisitActivity : AppCompatActivity() {
         if (this.editMode) { // button "Zatwierdź" clicked
             disableEditMode(fields, edit, delete, hamburger)
             if (addMode) {
-                // TODO: get text from EditTexts (fields) and from the spinners
-                // TODO: and save it to database as a new record
+               // createNewVisit(visit)
                 addMode = false
+                onBackPressed()
             }
             else {
-                // TODO: get text from EditTexts (fields) and from the spinners
-                // TODO: and save it to the existing record in DB
+                editVisit(visit,fields)
+                onBackPressed()
             }
         }
         else { // button "Edytuj" clicked
@@ -162,7 +167,7 @@ class VisitActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val selectedService = services[position]
                 Log.v(TAG, "Selected Service = ${selectedService.toString()}")
-                DBController.updateVisitsService(visit, selectedService?._id.toString())
+                serviceListClick = selectedService?._id.toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -186,5 +191,22 @@ class VisitActivity : AppCompatActivity() {
             field.setText("")
         }
         // TODO: if possible, set spinners to display empty value
+    }
+    private fun createNewVisit(visit: Visit) : Visit {
+        val clientID = visit.client_id
+        val date = visit.date
+        val serviceID = visit.service_id
+        val wasPaid = visit.wasPaid
+        return Visit(clientID, date, serviceID, LoginHelper.getLoggedUserOrNull(this)?.user_id.toString(), wasPaid)
+    }
+
+    private fun editVisit(visit: Visit, fields: Array<EditText>) {
+        val updatedVisit = createNewVisit(visit)
+        updatedVisit.date =  fields[0].toString().toLong()
+        updatedVisit.service_id = DBController.findServiceById(serviceListClick)
+        updatedVisit.client_id = DBController.findClientById(clientListClick)
+        updatedVisit.user_id = visit.user_id
+        DBController.updateVisit(updatedVisit)
+        Log.v(TAG, "Client updated from ${visit} to ${updatedVisit}")
     }
 }

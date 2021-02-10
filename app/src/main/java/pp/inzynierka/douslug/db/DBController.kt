@@ -85,7 +85,7 @@ object DBController {
         backgroundRealm.close()
     }
 
-    fun updateVisitsService(visit: Visit, service: String?) {
+    fun updateVisit(visit: Visit) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync { realm ->
             realm.insertOrUpdate(visit)
