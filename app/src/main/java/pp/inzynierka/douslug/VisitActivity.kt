@@ -141,6 +141,7 @@ class VisitActivity : AppCompatActivity() {
                 val selectedClient = clients[position]
                 Log.v(TAG, "Selected Client = ${selectedClient.toString()}")
                 // todo dodać przypisanie do wizyty
+                clientListClick = selectedClient?._id.toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -202,7 +203,7 @@ class VisitActivity : AppCompatActivity() {
 
     private fun editVisit(visit: Visit, fields: Array<EditText>) {
         val updatedVisit = createNewVisit(visit)
-        updatedVisit.date =  fields[0].toString().toLong()
+        updatedVisit.date =  DateConverter.dateStringToTimestamp(fields[0].text.toString())!!
         updatedVisit.service_id = DBController.findServiceById(serviceListClick)
         updatedVisit.client_id = DBController.findClientById(clientListClick)
         updatedVisit.user_id = visit.user_id

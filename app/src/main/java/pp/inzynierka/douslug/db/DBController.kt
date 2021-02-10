@@ -54,8 +54,8 @@ object DBController {
         return realm.where<Client>().equalTo("user_id", userId).equalTo("phone_num", phoneNum).findAllAsync().first()
     }
 
-    fun findClientById(userID: String) : Client? {
-        return realm.where<Client>().equalTo("_id", ObjectId(userID)).findAllAsync().first()
+    fun findClientById(clientID: String) : Client? {
+        return realm.where<Client>().equalTo("_id", ObjectId(clientID)).findAllAsync().first()
     }
 
     fun insertService(service: Service) {
