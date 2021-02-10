@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent">
 
@@ -85,21 +83,31 @@
                     android:id="@+id/clientField"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/clientEdit"
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/clients_spinner"
+                        android:layout_width="290dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@android:color/transparent"
                         android:fontFamily="@font/roboto"
-                        android:text="Jonas Kahnwald"
-                        android:inputType="text"
-                        android:maxLength="25"
-                        android:textColor="#000000"
-                        android:textSize="20sp" />
+                        android:layout_marginBottom="8dp"
+                        android:textSize="20sp"
+                        />
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/clientEdit"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:layout_marginBottom="8dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:text="Jonas Kahnwald"-->
+<!--                        android:inputType="text"-->
+<!--                        android:maxLength="25"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textSize="20sp" />-->
 
                     <View
                         android:layout_width="0dp"
@@ -123,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="Usługi" />
+                    android:text="Usługa" />
 
                 <View
                     android:id="@+id/divider2"
@@ -131,19 +139,28 @@
                     android:layout_height="1dp"
                     android:background="?android:attr/listDivider" />
 
-                <EditText
-                    android:id="@+id/servicesEdit"
+                <Spinner
+                    android:id="@+id/services_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="Inne :3"
-                    android:inputType="text"
-                    android:maxLength="30"
-                    android:textColor="#000000"
                     android:textSize="20sp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@android:color/transparent" />
+                    android:layout_marginBottom="8dp" />
+
+<!--                <EditText-->
+<!--                    android:id="@+id/servicesEdit"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="Inne :3"-->
+<!--                    android:inputType="text"-->
+<!--                    android:maxLength="30"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:background="@android:color/transparent" />-->
 
                 <TextView
                     android:id="@+id/label3"
@@ -303,7 +320,7 @@
             android:layout_height="47dp"
             android:background="@drawable/orange_button_background"
             android:text="edytuj"
-            android:textColor="@android:color/background_light"></Button>
+            android:textColor="@android:color/background_light" />
 
         <View
             android:layout_width="0dp"
@@ -316,7 +333,7 @@
             android:layout_height="47dp"
             android:background="@drawable/white_button_background"
             android:text="usuń"
-            android:textColor="@color/colorPrimary"></Button>
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 
