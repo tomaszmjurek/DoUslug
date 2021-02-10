@@ -2,7 +2,6 @@ package pp.inzynierka.douslug.db
 
 import android.util.Log
 import io.realm.Realm
-import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.kotlin.where
 import org.bson.types.ObjectId
@@ -82,6 +81,15 @@ object DBController {
         backgroundRealm.executeTransactionAsync { realm ->
             realm.insertOrUpdate(client)
             Log.v(TAG, "Updated client $client")
+        }
+        backgroundRealm.close()
+    }
+
+    fun updateVisitsService(visit: Visit, service: String?) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insertOrUpdate(visit)
+            Log.v(TAG, "Updated visit $visit")
         }
         backgroundRealm.close()
     }
