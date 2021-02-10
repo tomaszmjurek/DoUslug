@@ -16,40 +16,43 @@ import pp.inzynierka.douslug.model.Visit
 class VisitActivity : AppCompatActivity() {
     private val TAG = "VISITS_ACTIVITY"
     private var editMode: Boolean = false
-    private lateinit var visit : Visit
+    private var addMode: Boolean = false
+    private var visit: Visit = Visit()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visit)
         val fields = arrayOf(
-//            findViewById<EditText>(R.id.clientEdit),
-//            findViewById<EditText>(R.id.servicesEdit), //todo to sa inne komponenty, wiec nie moga byc w tej liście, reszta się przesuneła o 2 indeksy, to trzeba poprawic
             findViewById<EditText>(R.id.timeEdit),
             findViewById<EditText>(R.id.durationEdit),
             findViewById<EditText>(R.id.placeEdit),
             findViewById<EditText>(R.id.amountEdit),
             findViewById<EditText>(R.id.commentsEdit)
         )
-
+        setEditable(false, fields)
 
         val editButton = findViewById<Button>(R.id.edit_button)
         val deleteButton = findViewById<Button>(R.id.delete_button)
         val hamburgerButton = findViewById<Button>(R.id.hamburger)
 
         val visitID: String? = intent.getStringExtra("visitID")
+        val selectedDate: String? = intent.getStringExtra("selectedDate")
+
         if (visitID != null) {
             visit = DBController.findVisitById(visitID)!!
-            //fields[0].setText(visit.client_id?.first_name + " " +  visit.client_id?.last_name)
-            //fields[1].setText(visit.service_id?.name)
-            fields[0].setText(DateConverter.timestampToDateString(visit.date!!))
-            fields[1].setText(visit.service_id?.duration_min.toString())
-            fields[2].setText(visit.client_id?.address)
-            fields[3].setText(visit.service_id?.price.toString())
-            fields[4].setText(visit.client_id?.comment)
+            if (visit != null) {
+                displayVisit(fields)
+            }
+        }
+        else { // add new record
+            addMode = true
+            emptyFields(fields)
+            if (selectedDate != null) { // got the date from calendar view
+                fields[0].setText(selectedDate)
+            }
+            enableEditMode(fields, editButton, deleteButton, hamburgerButton)
         }
 
-
-        setEditable(false, fields)
         editButton.setOnClickListener { editClicked(fields, editButton, deleteButton, hamburgerButton) }
         deleteButton.setOnClickListener { deleteClicked(fields, editButton, deleteButton, hamburgerButton) }
 
@@ -68,7 +71,15 @@ class VisitActivity : AppCompatActivity() {
     private fun editClicked(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button) {
         if (this.editMode) { // button "Zatwierdź" clicked
             disableEditMode(fields, edit, delete, hamburger)
-            // TODO: save changes to database
+            if (addMode) {
+                // TODO: get text from EditTexts (fields) and from the spinners
+                // TODO: and save it to database as a new record
+                addMode = false
+            }
+            else {
+                // TODO: get text from EditTexts (fields) and from the spinners
+                // TODO: and save it to the existing record in DB
+            }
         }
         else { // button "Edytuj" clicked
             enableEditMode(fields, edit, delete, hamburger)
@@ -78,12 +89,17 @@ class VisitActivity : AppCompatActivity() {
     private fun deleteClicked(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button) {
         if (this.editMode) { // button "Anuluj" clicked
             disableEditMode(fields, edit, delete, hamburger)
-            // TODO: discard changes
+            if (addMode) {
+                addMode = false
+                onBackPressed()
+            }
+            else {
+                displayVisit(fields)
+            }
         }
         else { // button "Usuń" clicked
-            // TODO
-            // delete record from database
-            // return to the list of all services
+            // TODO: delete record from database
+            onBackPressed()
         }
     }
 
@@ -153,5 +169,22 @@ class VisitActivity : AppCompatActivity() {
                 // do nothing
             }
         }
+    }
+
+    private fun displayVisit(fields: Array<EditText>) {
+        // TODO: wyświetl klienta i usługę (pola ze spinnerami)
+        //  zgodnie z otrzymanymi danymi o wizycie
+        fields[0].setText(DateConverter.timestampToDateString(visit.date!!))
+        fields[1].setText(visit.service_id?.duration_min.toString())
+        fields[2].setText(visit.client_id?.address)
+        fields[3].setText(visit.service_id?.price.toString())
+        fields[4].setText(visit.client_id?.comment)
+    }
+
+    private fun emptyFields(fields: Array<EditText>) {
+        for (field in fields) {
+            field.setText("")
+        }
+        // TODO: if possible, set spinners to display empty value
     }
 }
