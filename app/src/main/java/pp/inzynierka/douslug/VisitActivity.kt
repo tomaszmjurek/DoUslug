@@ -162,7 +162,7 @@ class VisitActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val selectedService = services[position]
                 Log.v(TAG, "Selected Service = ${selectedService.toString()}")
-                // todo dodać przypisanie do wizyty
+                DBController.updateVisitsService(visit, selectedService?._id.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
