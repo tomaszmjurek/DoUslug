@@ -2,7 +2,6 @@ package pp.inzynierka.douslug.db
 
 import android.util.Log
 import io.realm.Realm
-import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.kotlin.where
 import org.bson.types.ObjectId
@@ -55,8 +54,8 @@ object DBController {
         return realm.where<Client>().equalTo("user_id", userId).equalTo("phone_num", phoneNum).findAllAsync().first()
     }
 
-    fun findClientById(userID: String) : Client? {
-        return realm.where<Client>().equalTo("_id", ObjectId(userID)).findAllAsync().first()
+    fun findClientById(clientID: String) : Client? {
+        return realm.where<Client>().equalTo("_id", ObjectId(clientID)).findAllAsync().first()
     }
 
     fun insertService(service: Service) {
@@ -91,6 +90,15 @@ object DBController {
         backgroundRealm.executeTransactionAsync { realm ->
             realm.insertOrUpdate(client)
             Log.v(TAG, "Updated client $client")
+        }
+        backgroundRealm.close()
+    }
+
+    fun updateVisit(visit: Visit) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insertOrUpdate(visit)
+            Log.v(TAG, "Updated visit $visit")
         }
         backgroundRealm.close()
     }

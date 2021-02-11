@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".db.DBTestActivity" />
         <activity android:name=".calendar.CalendarWeekActivity" />
         <activity android:name=".calendar.CalendarDayActivity" />
         <activity android:name=".MainActivity" />

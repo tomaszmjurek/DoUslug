@@ -27,7 +27,7 @@ class AllVisitsActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener 
 
     private fun setUpRecyclerView() {
         recyclerView = findViewById(R.id.task_list)
-        val visits = DBController.findAllVisits()
+        var visits = DBController.findAllVisits()
         adapter = VisitAdapter(visits,this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -49,6 +49,11 @@ class AllVisitsActivity : AppCompatActivity(), VisitAdapter.OnItemClickListener 
     private fun addVisit(){
         val intent = Intent(this@AllVisitsActivity, VisitActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        recyclerView.adapter = null
     }
 }
 
