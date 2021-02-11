@@ -211,7 +211,8 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto"
                     android:text="30"
-                    android:inputType="number"
+                    android:inputType= "none"
+                    android:enabled="false"
                     android:maxLength="8"
                     android:textColor="#000000"
                     android:textSize="20sp" />
@@ -238,7 +239,8 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto"
                     android:text="ul. Zeitstraße 12A, Winden"
-                    android:inputType="text"
+                    android:inputType= "none"
+                    android:enabled="false"
                     android:maxLength="30"
                     android:textColor="#000000"
                     android:textSize="20sp" />
@@ -265,7 +267,8 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto"
                     android:text="50"
-                    android:inputType="number"
+                    android:enabled="false"
+                    android:inputType= "none"
                     android:maxLength="10"
                     android:textColor="#000000"
                     android:textSize="20sp" />
@@ -292,7 +295,8 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto"
                     android:text="Przetłuszczające się włosy"
-                    android:inputType="text"
+                    android:enabled="false"
+                    android:inputType= "none"
                     android:maxLength="30"
                     android:textColor="#000000"
                     android:textSize="20sp" />

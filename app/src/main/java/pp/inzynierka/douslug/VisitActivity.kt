@@ -3,10 +3,7 @@ package pp.inzynierka.douslug
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_visit.*
 import pp.inzynierka.douslug.calendar.DateConverter
@@ -34,11 +31,13 @@ class VisitActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.amountEdit),
             findViewById<EditText>(R.id.commentsEdit)
         )
-        setEditable(false, fields)
+        setEditable(false)
+
 
         val editButton = findViewById<Button>(R.id.edit_button)
         val deleteButton = findViewById<Button>(R.id.delete_button)
         val hamburgerButton = findViewById<Button>(R.id.hamburger)
+        val backButton = findViewById<Button>(R.id.back_button)
 
         val visitID: String? = intent.getStringExtra("visitID")
         val selectedDate: String? = intent.getStringExtra("selectedDate")
@@ -60,18 +59,31 @@ class VisitActivity : AppCompatActivity() {
 
         editButton.setOnClickListener { editClicked(fields, editButton, deleteButton, hamburgerButton) }
         deleteButton.setOnClickListener { deleteClicked(fields, editButton, deleteButton, hamburgerButton) }
+        backButton.setOnClickListener { onBackPressed() }
 
         setUpClientSpinner()
         setUpServiceSpinner()
     }
 
-    private fun setEditable(editable: Boolean, fields: Array<EditText>) {
+    private fun setEditable(editable: Boolean) {
         this.editMode = editable
-        for (field in fields) {
-            field.isEnabled = editable
-            // TODO: enable / disable clicking on spinners (according to value of editable)
+        if (editable == false){
+            val mEdit = findViewById<EditText>(R.id.timeEdit)
+            mEdit.setEnabled(false)
+            val cSpinner = findViewById<Spinner>(R.id.clients_spinner)
+            cSpinner.setEnabled(false)
+            val sSpinner = findViewById<Spinner>(R.id.services_spinner)
+            sSpinner.setEnabled(false)
+        }else{
+            val mEdit = findViewById<EditText>(R.id.timeEdit)
+            mEdit.setEnabled(true)
+            val cSpinner = findViewById<Spinner>(R.id.clients_spinner)
+            cSpinner.setEnabled(true)
+            val sSpinner = findViewById<Spinner>(R.id.services_spinner)
+            sSpinner.setEnabled(true)
         }
     }
+
 
     private fun editClicked(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button) {
         if (this.editMode) { // button "Zatwierdź" clicked
@@ -109,14 +121,14 @@ class VisitActivity : AppCompatActivity() {
     }
 
     private fun enableEditMode(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button) {
-        setEditable(true, fields)
+        setEditable(true)
         edit.text = "Zatwierdź"
         delete.text = "Anuluj"
         hamburger.visibility = View.INVISIBLE
     }
 
     private fun disableEditMode(fields: Array<EditText>, edit: Button, delete: Button, hamburger: Button) {
-        setEditable(false, fields)
+        setEditable(false)
         edit.text = "Edytuj"
         delete.text = "Usuń"
         hamburger.visibility = View.VISIBLE
@@ -140,7 +152,6 @@ class VisitActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val selectedClient = clients[position]
                 Log.v(TAG, "Selected Client = ${selectedClient.toString()}")
-                // todo dodać przypisanie do wizyty
                 clientListClick = selectedClient?._id.toString()
             }
 
