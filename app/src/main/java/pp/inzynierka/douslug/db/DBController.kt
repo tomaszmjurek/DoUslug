@@ -79,6 +79,15 @@ object DBController {
         backgroundRealm.close()
     }
 
+    fun updateService(service: Service) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insertOrUpdate(service)
+            Log.v(TAG, "Updated service $service")
+        }
+        backgroundRealm.close()
+    }
+
     fun insertClient(client: Client) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync { realm ->
@@ -103,6 +112,17 @@ object DBController {
             val client = realm.where<Client>().equalTo("_id", clientID).findFirst()
 //            if (!visitWithClientExists(client)) {
                 client?.deleteFromRealm()
+//            }
+        }
+        backgroundRealm.close()
+    }
+
+    fun safeDeleteService(serviceID : ObjectId) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            val service = realm.where<Service>().equalTo("_id", serviceID).findFirst()
+//            if (!visitWithServiceExists(service)) {
+            service?.deleteFromRealm()
 //            }
         }
         backgroundRealm.close()

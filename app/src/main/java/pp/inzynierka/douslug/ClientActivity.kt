@@ -33,6 +33,7 @@ class ClientActivity : AppCompatActivity() {
         val deleteButton = findViewById<Button>(R.id.delete_button)
         val hamburgerButton = findViewById<Button>(R.id.hamburger)
         val showVisitsButton = findViewById<Button>(R.id.show_visits_button)
+        val backButton = findViewById<Button>(R.id.back_button)
         phoneIcon = findViewById<Button>(R.id.phoneButton)
 
         setEditable(false, fields)
@@ -53,6 +54,7 @@ class ClientActivity : AppCompatActivity() {
 
         editButton.setOnClickListener { editClicked(fields, editButton, deleteButton, hamburgerButton, showVisitsButton) }
         deleteButton.setOnClickListener { deleteClicked(fields, editButton, deleteButton, hamburgerButton, showVisitsButton) }
+        backButton.setOnClickListener { onBackPressed() }
 
     }
 
