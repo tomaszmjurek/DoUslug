@@ -3,7 +3,6 @@ package pp.inzynierka.douslug.db
 import android.util.Log
 import io.realm.Case
 import io.realm.Realm
-import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.kotlin.where
 import org.bson.types.ObjectId
@@ -42,6 +41,14 @@ object DBController {
             .contains("name",text, Case.INSENSITIVE).findAllAsync()
     }
 
+    fun findServiceById(serviceID: String?) : Service? {
+        return realm.where<Service>().equalTo("_id", ObjectId(serviceID)).findAllAsync().first()
+    }
+
+    fun findServiceByName(name: String) : Service? {
+        return realm.where<Service>().equalTo("name", name).findAllAsync().first()
+    }
+
     fun findAllClients() : RealmResults<Client> {
         val clients : RealmResults<Client> = realm.where<Client>().equalTo("user_id", userId).findAllAsync()
         Log.v(TAG, "Retrieved clients result $clients")
@@ -58,11 +65,24 @@ object DBController {
         return realm.where<Client>().equalTo("user_id", userId).equalTo("phone_num", phoneNum).findAllAsync().first()
     }
 
+    fun findClientById(clientID: String) : Client? {
+        return realm.where<Client>().equalTo("_id", ObjectId(clientID)).findAllAsync().first()
+    }
+
     fun insertService(service: Service) {
         val backgroundRealm = Realm.getDefaultInstance()
         backgroundRealm.executeTransactionAsync { realm ->
             realm.insert(service)
             Log.v(TAG, "Inserted service $service into Realm")
+        }
+        backgroundRealm.close()
+    }
+
+    fun updateService(service: Service) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insertOrUpdate(service)
+            Log.v(TAG, "Updated service $service")
         }
         backgroundRealm.close()
     }
@@ -75,6 +95,53 @@ object DBController {
         }
         backgroundRealm.close()
     }
+
+    fun updateClient(client: Client) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insertOrUpdate(client)
+            Log.v(TAG, "Updated client $client")
+        }
+        backgroundRealm.close()
+    }
+
+    fun updateVisit(visit: Visit) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            realm.insertOrUpdate(visit)
+            Log.v(TAG, "Updated visit $visit")
+        }
+        backgroundRealm.close()
+    }
+
+    fun safeDeleteClient(clientID : ObjectId) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            val client = realm.where<Client>().equalTo("_id", clientID).findFirst()
+//            if (!visitWithClientExists(client)) {
+                client?.deleteFromRealm()
+//            }
+        }
+        backgroundRealm.close()
+    }
+
+    fun safeDeleteService(serviceID : ObjectId) {
+        val backgroundRealm = Realm.getDefaultInstance()
+        backgroundRealm.executeTransactionAsync { realm ->
+            val service = realm.where<Service>().equalTo("_id", serviceID).findFirst()
+//            if (!visitWithServiceExists(service)) {
+            service?.deleteFromRealm()
+//            }
+        }
+        backgroundRealm.close()
+    }
+
+//    private fun visitWithClientExists(client: Client?) : Boolean {
+//        val visitsNum = realm.where<Visit>().equalTo("user_id", userId).equalTo("client_id", client._id).findAllAsync().size
+//        if (visitsNum > 0) return true
+//        return false
+//    }
+
 
     fun insertVisit(visit: Visit) {
         val backgroundRealm = Realm.getDefaultInstance()
@@ -99,9 +166,14 @@ object DBController {
     }
 
     fun findAllVisitsWhere(text: String): RealmResults<Visit> {
-        return realm.where<Visit>().equalTo("user_id", userId).contains("service_id.name",text, Case.INSENSITIVE)
-            .or().contains("client_id.first_name",text, Case.INSENSITIVE)
-            .or().contains("client_id.last_name",text, Case.INSENSITIVE).findAllAsync()
+        return realm.where<Visit>().equalTo("user_id", userId)
+            .contains("service_id.name", text, Case.INSENSITIVE)
+            .or().contains("client_id.first_name", text, Case.INSENSITIVE)
+            .or().contains("client_id.last_name", text, Case.INSENSITIVE).findAllAsync()
+    }
+
+    fun findVisitById(visitID: String?) :  Visit? {
+        return realm.where<Visit>().equalTo("_id", ObjectId(visitID)).findAllAsync().first()
     }
 
     fun findVisitsByDates(timestamp: Pair<Long?, Long?>): RealmResults<Visit> {
