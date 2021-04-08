@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#E9662F</color>
+    <color name="colorPrimaryDark">#CF4C14</color>
+    <color name="colorAccent">#E9662F</color>
+    <color name="buttonTextColor">#FFFFFF</color>
+    <color name="drawerMenuButtonBg">#E55618</color>
+    <color name="drawerMenuButtonAccent">#CF4C14</color>
+    <color name="lightGray">#C4C4C4</color>
+    <color name="darkGray">#909090</color>
 </resources>

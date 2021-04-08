@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/calendar_type_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:id="@+id/day_button"
+        android:layout_width="100dp"
+        android:layout_height="43dp"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/buttonTextColor"
+        android:text="dzień"
+        android:background="@drawable/orange_button_background"/>
+
+    <Button
+        android:id="@+id/week_button"
+        android:layout_centerHorizontal="true"
+        android:layout_width="100dp"
+        android:layout_height="43dp"
+        android:textColor="@color/buttonTextColor"
+        android:text="TYDZIEń"
+        android:background="@drawable/orange_button_background"/>
+
+    <Button
+        android:id="@+id/month_button"
+        android:layout_alignParentRight="true"
+        android:layout_width="100dp"
+        android:layout_height="43dp"
+        android:textColor="@color/buttonTextColor"
+        android:text="MIESIĄC"
+        android:background="@drawable/orange_button_background"/>
+
+</RelativeLayout>
