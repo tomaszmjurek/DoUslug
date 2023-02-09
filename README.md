@@ -30,13 +30,14 @@
 - [Table of contents](#table-of-contents)
 - [Motivation](#motivation)
 - [Software build](#software-build)
+- [Architecture](#architecture)
+- [Prototype](#prototype)
 - [Examples](#examples)
-- [Licensing](#licensing)
 
 ---
 
 ## Motivation[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#motivation)
-todo
+The market of services with access to the customer is developing faster and faster nowadays, especially during the period of forced social isolation. Ordering a hairdresser, beautician or tutor services is becoming more and more popular among customers. Already the tutoring market itself, according to the data from 2019, is worth at least PLN 4 billion in Poland. Unfortunately, there is currently none an easily accessible, mobile solution that would facilitate this type of business. The aim of the work is to provide small service providers, such as a hairdresser, physiotherapist, tutor, with tools that will allow them to efficiently manage their work from any places.
 
 <div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
 
@@ -48,9 +49,11 @@ The app is not released to any public platform so the only way to install it on 
 
 > 💡 Check the [Android documentation](https://developer.android.com/codelabs/basic-android-kotlin-compose-connect-device#0) of how to connect you mobile device to IDE.
 
+<div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
+
 ---
 
-## Database[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#architecture)
+## Architecture[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#architecture)
 
 
 ### Atlas MongoDB with Realm schema
@@ -75,7 +78,7 @@ Prototype was designed using [Figma](https://www.figma.com) and contains 23 diff
 
 ## Examples[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#examples)
 
-## Login and Registration views
+### Login and Registration views
 <img align="center" src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/dU_registration_view.png" alt="DB Schema" style="width:50%;height:50%"/></a>
 
 ### Main view prototype vs. product
@@ -88,14 +91,6 @@ Prototype was designed using [Figma](https://www.figma.com) and contains 23 diff
   <img src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/visit.gif" width="200" />
 </p>
 
-
-<div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
-
----
-
-## Licensing[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#licensing)
- 
-todo
 
 <div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
 
