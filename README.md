@@ -50,9 +50,44 @@ The app is not released to any public platform so the only way to install it on 
 
 ---
 
+## Database[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#architecture)
+
+
+### Atlas MongoDB with Realm schema
+<img align="center" src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/dU_db_schemaUntitled.png" alt="DB Schema" style="width:75%;height:75%"/></a>
+
+### UML diagram
+<img align="center" src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/dU_uml.png" alt="UML diagram" style="width:75%;height:75%"/></a>
+
+
+<div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
+
+---
+
+## Prototype[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#prototype)
+
+Prototype was designed using [Figma](https://www.figma.com) and contains 23 different views.
+<img align="center" src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/dU_prototype.png" alt="Prototype" style="width:75%;height:75%"/></a>
+
+<div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
+
+---
+
 ## Examples[![](https://raw.githubusercontent.com/aregtech/areg-sdk/master/docs/img/pin.svg)](#examples)
 
-Screenshots not available yet. Sorry for the inconvenience.
+## Login and Registration views
+<img align="center" src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/dU_registration_view.png" alt="DB Schema" style="width:50%;height:50%"/></a>
+
+### Main view prototype vs. product
+<img align="center" src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/dU_main_view.png" alt="DB Schema" style="width:50%;height:50%"/></a>
+
+### Some other views
+<p float="left">
+  <img src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/calendar.gif" width="200" />
+  <img src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/client.gif" width="200" /> 
+  <img src="https://github.com/tomaszmjurek/readme-images/blob/master/do-uslug/visit.gif" width="200" />
+</p>
+
 
 <div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
 
@@ -65,7 +100,6 @@ todo
 <div align="right">[ <a href="#table-of-contents">↑ to top ↑</a> ]</div>
 
 ---
-
 
 
 <!-- markdownlint-enable -->
